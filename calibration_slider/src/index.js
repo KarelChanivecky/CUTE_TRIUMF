@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
 import Slider from '@material-ui/core/Slider';
+import Button from '@material-ui/core/Button'
+import { makeStyles, TextField } from '@material-ui/core';
 
-function getMarks() {
+const marks = ()=>{
    let marks = []
    for (let i = 0, m = -10; i < 17; ++i, m += 10) {
       marks[i] = {
@@ -14,60 +16,94 @@ function getMarks() {
    return marks;
 }
 
-function getOrientation() {
-   let orient = "horizontal";
-   if (window.innerWidth < window.innerHeight) {
-      orient = "vertical";
-   }
-   return orient;
-}
-
 function getCalibDivClass() {
    return (window.innerWidth < window.innerHeight) ? "calib_control_vertical" : "calib_control_horizontal";
 }
 
 function CalibrationSlider(props) {
+   // First value represents current position, Second Value represents desired position
+   const [values, setValues] = React.useState([-10,80])
+   
+   const handleChange = (_event, newValue) => {
+      setValues([values[0],  newValue]);
+   }
+   
+   const handleInputChange = (event) => {
+      setValues( [values[0], event.target.value === '' ? '' : Number(event.target.value)]);
+   };
+   
+   const orientation = () => {return(props.screenwidth < props.screenheight)?"vertical":"horizontal";}
+  
+
    return (      
-      <div className={getCalibDivClass()} id="calibration_widget">
-      <div id="calibration_Slider"/>
-         <Slider
-         defaultValue={80}
-         orientation={getOrientation()}
-         // getAriaValueText={valuetext}
-         aria-labelledby="discrete-slider-always"
-         step={1}
-         marks={getMarks()}
-         min={-10}
-         max={150}
-         valueLabelDisplay="on"
+      <div  
+         className="calibration_widget">
+         <div  
+            className={getCalibDivClass()}
+            id="calibration_slider">
+            <Slider
+               value={values[1]}
+               orientation={orientation()}
+               aria-labelledby="range-slider"
+               onChange={handleChange}
+               marks={marks()}
+               step={1}
+               min={-10}
+               max={150}
+               valueLabelDisplay="on"
+            />
+            <Slider
+               orientation={orientation()}
+               value={values[0]}
+               min={-10}
+               max={150}
+            />
+         </div>
+         <TextField 
+            id="calibration_input"
+            value={values[1]} 
+            type="number"
+            size='small'
+            onChange={handleInputChange}
          />
+         <Button 
+            variant="contained" 
+            color="primary"
+            onClick={()=>{setValues([values[1],values[1]])}}>
+            Move
+         </Button>
       </div>
    );
 }
 
+
+
 //testing resizing rerender
-function CalibrationControl() {
+function CalibrationControl(props) {
    const [dimensions, setDimensions] = React.useState({ 
       height: window.innerHeight,
-      width: window.innerWidth
+      width: window.innerWidth,
    })
    
    React.useEffect(() => {
-   function handleResize() {
-      setDimensions({
-         height: window.innerHeight,
-         width: window.innerWidth
-      })
-   }
+      function handleResize() {
+         setDimensions({
+            height: window.innerHeight,
+            width: window.innerWidth,
+         })
+      }
 
-   window.addEventListener('resize', handleResize)
+      window.addEventListener('resize', handleResize)
 
-   return _ => {
-      window.removeEventListener('resize', handleResize)
-   }
+      return _ => {
+         window.removeEventListener('resize', handleResize)
+      }
    })
    return (
-         <CalibrationSlider />
+         <CalibrationSlider 
+            screenwidth={dimensions.width}
+            screenheight={dimensions.height}
+            />
    );
 }
 
