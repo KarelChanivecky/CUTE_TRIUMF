@@ -1,5 +1,9 @@
-import React from 'react'
+import React from 'react';
 import "./ToggleHeader.css";
+import  IconButton  from "@material-ui/core/IconButton";
+import ChangeHistoryRounded from "@material-ui/icons/ChangeHistoryRounded";
+import HelpRounded from "@material-ui/icons/HelpRounded";
+import Grid from '@material-ui/core/Grid';
 
 /**
  * Renders a transparent header bar with a toggle and help buttons
@@ -9,13 +13,18 @@ import "./ToggleHeader.css";
 function ToggleHeader(props) {
 
     return (
-        <div className="th_btn_container">
-            <button className={"toggle_btn th_btn"} onClick={props.onToggle} >toggle</button>
-            <button className={"help_btn th_btn"} onClick={props.onHelp}>help</button>
-        </div>
+        <Grid container justify='space-around' xs={12} lg={10} >
+            <IconButton className={"toggle_btn th_btn"} onClick={props.onToggle} >
+                <ChangeHistoryRounded/>
+            </IconButton>
+            <IconButton className={"help_btn th_btn"} onClick={props.onHelp}>
+                <HelpRounded/>
+            </IconButton>
+        </Grid>
+        
     )
 }
 
 
-export default ToggleHeader
+export default ToggleHeader;
 
