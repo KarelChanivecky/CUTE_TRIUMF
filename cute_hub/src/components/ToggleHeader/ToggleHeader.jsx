@@ -1,5 +1,9 @@
-import React from 'react'
+import React from 'react';
 import "./ToggleHeader.css";
+import IconButton from "@material-ui/core/IconButton";
+import ChangeHistoryRounded from "@material-ui/icons/ChangeHistoryRounded";
+import HelpRounded from "@material-ui/icons/HelpRounded";
+import Grid from '@material-ui/core/Grid';
 
 /**
  * Renders a transparent header bar with a toggle and help buttons
@@ -7,15 +11,26 @@ import "./ToggleHeader.css";
  * @param {Function} props.onToggle A toggle button click handler
  */
 function ToggleHeader(props) {
+    const MinimizeButton = !props.minimizable ? <></> :
+        <IconButton className={"toggle_btn th_btn"} onClick={props.onToggle}>
+            <ChangeHistoryRounded/>
+        </IconButton>;
 
+    const HelpButton = !props.helpable ? <></> :
+        <IconButton className={"help_btn th_btn"} onClick={props.onHelp}>
+            <HelpRounded/>
+        </IconButton>;
+
+    const justify = props.minimizable ? 'space-between' : 'flex-end';
     return (
-        <div className="th_btn_container">
-            <button className={"toggle_btn th_btn"} onClick={props.onToggle} >toggle</button>
-            <button className={"help_btn th_btn"} onClick={props.onHelp}>help</button>
-        </div>
+        <Grid container justify={justify} xs={12} lg={10}>
+            {MinimizeButton}
+            {HelpButton}
+        </Grid>
+
     )
 }
 
 
-export default ToggleHeader
+export default ToggleHeader;
 

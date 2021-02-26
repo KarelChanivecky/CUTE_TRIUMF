@@ -9,9 +9,3 @@
 .th_btn {
     margin: 1em;
 }
-
-.th_btn_container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}

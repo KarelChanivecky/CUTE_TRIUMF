@@ -1,6 +1,6 @@
 import React from 'react';
 import "./ToggleHeader.css";
-import  IconButton  from "@material-ui/core/IconButton";
+import IconButton from "@material-ui/core/IconButton";
 import ChangeHistoryRounded from "@material-ui/icons/ChangeHistoryRounded";
 import HelpRounded from "@material-ui/icons/HelpRounded";
 import Grid from '@material-ui/core/Grid';
@@ -11,17 +11,23 @@ import Grid from '@material-ui/core/Grid';
  * @param {Function} props.onToggle A toggle button click handler
  */
 function ToggleHeader(props) {
+    const MinimizeButton = !props.minimizable ? <></> :
+        <IconButton className={"toggle_btn th_btn"} onClick={props.onToggle}>
+            <ChangeHistoryRounded/>
+        </IconButton>;
 
+    const HelpButton = !props.helpable ? <></> :
+        <IconButton className={"help_btn th_btn"} onClick={props.onHelp}>
+            <HelpRounded/>
+        </IconButton>;
+
+    const justify = props.minimizable? 'space-between' : 'flex-end';
     return (
-        <Grid container justify='space-around' xs={12} lg={10} >
-            <IconButton className={"toggle_btn th_btn"} onClick={props.onToggle} >
-                <ChangeHistoryRounded/>
-            </IconButton>
-            <IconButton className={"help_btn th_btn"} onClick={props.onHelp}>
-                <HelpRounded/>
-            </IconButton>
+        <Grid container justify={justify} xs={12} lg={10}>
+            {MinimizeButton}
+            {HelpButton}
         </Grid>
-        
+
     )
 }
 
