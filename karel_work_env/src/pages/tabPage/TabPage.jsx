@@ -3,6 +3,7 @@ import {Box, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
 import CalibratorInProgressIndicator from "../../components/WarningHeader/WarningHeader";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
+import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 
 
 function TabPage(props) {
@@ -15,7 +16,7 @@ function TabPage(props) {
     };
 
 
-    const tabs = [<CalibCryoFridgeWideTab/>, <></>];
+    const tabs = [<CalibCryoFridgeWideTab/>, <PlottingTab/>];
 
     const ActiveTab = tabs[value];
     return (
