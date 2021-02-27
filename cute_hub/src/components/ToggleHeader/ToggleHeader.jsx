@@ -23,11 +23,12 @@ function ToggleHeader(props) {
 
     const justify = props.minimizable ? 'space-between' : 'flex-end';
     return (
-        <Grid container justify={justify} xs={12} lg={10}>
-            {MinimizeButton}
-            {HelpButton}
+        <Grid container>
+            <Grid item container justify={justify} xs={12} lg={10}>
+                {MinimizeButton}
+                {HelpButton}
+            </Grid>
         </Grid>
-
     )
 }
 

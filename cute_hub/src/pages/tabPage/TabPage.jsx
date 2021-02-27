@@ -1,17 +1,13 @@
 import React from 'react';
-import {Grid, makeStyles, Paper, Tab, Tabs} from "@material-ui/core";
+import {Box, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
-import WarningHeader from "../../../../cute_hub/src/components/WarningHeader/WarningHeader";
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        backgroundColor: "darkcyan"
-    },
-
-}));
+import CalibratorInProgressIndicator from "../../components/WarningHeader/WarningHeader";
+import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 
 
 function TabPage(props) {
+    const theme = useTheme();
+
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -19,30 +15,34 @@ function TabPage(props) {
     };
 
 
-    const classes = useStyles();
-
     const tabs = [<CalibCryoFridgeWideTab/>, <></>];
 
     const ActiveTab = tabs[value];
     return (
-        <Grid container lg={12} xs={12}>
-            <Grid container direction='row'>
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered>
-                    <Tab label="Calibration/Cryostat/Fridge"/>
-                    <Tab label="Plotting"/>
-                </Tabs>
-                <WarningHeader/>
+        <Grid container>
+
+            <Grid item container lg={12} xs={12}>
+                <Box width={1}>
+                    <ColoredPaper color={theme.palette.primary} square elevation={0}>
+                        <Grid item container direction='row' justify="space-between" wrap="wrap-reverse">
+                            <Tabs
+                                value={value}
+                                onChange={handleChange}
+                                indicatorColor="secondary"
+                                textColor="inherit"
+                                centered>
+                                <Tab label="Calibration/Cryostat/Fridge"/>
+                                <Tab label="Plotting"/>
+                            </Tabs>
+                            <CalibratorInProgressIndicator/>
+                        </Grid>
+                    </ColoredPaper>
+                </Box>
+
+                <ColoredPaper elevation={0} color={theme.palette.backgroundLight} square>
+                    {ActiveTab}
+                </ColoredPaper>
             </Grid>
-
-            <Paper className={classes.root}>
-                {ActiveTab}
-
-            </Paper>
         </Grid>
 
     );

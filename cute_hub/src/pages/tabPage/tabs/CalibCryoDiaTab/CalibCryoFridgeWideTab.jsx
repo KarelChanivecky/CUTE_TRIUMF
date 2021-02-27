@@ -48,9 +48,9 @@ function CalibCryoFridgeWideTab(props) {
 
 
     return (
-        <div>
-            <Grid container lg={12} direction='column'>
-                <Grid container lg={12} justify='space-between'>
+        <Grid container>
+            <Grid item container lg={12} direction='column'>
+                <Grid item container lg={12} justify='space-between'>
                     <PlaceholderWidget displayState={fridgeModuleState}
                                        minimizable
                                        onDisplayChange={handleExpandedChange(expandedModules.FRIDGE)}/>
@@ -62,7 +62,7 @@ function CalibCryoFridgeWideTab(props) {
                 </Grid>
             </Grid>
             <PlaceholderWidget height={20} width={85}/>
-        </div>
+        </Grid>
     )
 }
 
