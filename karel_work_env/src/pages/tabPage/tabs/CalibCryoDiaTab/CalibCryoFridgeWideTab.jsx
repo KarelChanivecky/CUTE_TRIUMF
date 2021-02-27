@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import PlaceholderWidget from "../../../../widgets/placeholder/placeholderWidget";
-import {ModuleDisplayStates} from "../../../../../../cute_hub/src/constants/moduleDisplayStates";
-import {Grid } from "@material-ui/core";
-
+import {ModuleDisplayStates} from "../../../../constants/moduleDisplayStates";
+import {Grid} from "@material-ui/core";
 
 
 function CalibCryoFridgeWideTab(props) {
@@ -49,9 +48,9 @@ function CalibCryoFridgeWideTab(props) {
 
 
     return (
-        <div>
-            <Grid container lg={12} direction='column'>
-                <Grid container lg={12} justify='space-between'>
+        <Grid container>
+            <Grid item container lg={12} direction='column'>
+                <Grid item container lg={12} justify='space-between'>
                     <PlaceholderWidget displayState={fridgeModuleState}
                                        minimizable
                                        onDisplayChange={handleExpandedChange(expandedModules.FRIDGE)}/>
@@ -63,7 +62,7 @@ function CalibCryoFridgeWideTab(props) {
                 </Grid>
             </Grid>
             <PlaceholderWidget height={20} width={85}/>
-        </div>
+        </Grid>
     )
 }
 

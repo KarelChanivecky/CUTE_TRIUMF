@@ -7,8 +7,8 @@ function CalibCryoDiagWideTab(props) {
         <div>
             <Grid container lg={12} direction='column'>
                 <Grid container justify='space-between'>
-                    <PlaceholderWidget height={40} width={40} />
-                    <PlaceholderWidget height={40} width={40} />
+                    <PlaceholderWidget height={40} width={40}/>
+                    <PlaceholderWidget height={40} width={40}/>
                 </Grid>
             </Grid>
             <PlaceholderWidget height={20} width={85}/>

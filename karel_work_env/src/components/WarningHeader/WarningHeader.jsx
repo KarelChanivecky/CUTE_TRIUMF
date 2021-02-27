@@ -1,24 +1,12 @@
 import React from 'react';
-import { makeStyles} from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-
-    color: {
-        borderRadius: "5px",
-        backgroundColor: "lightgreen",
-        margin: "0.5em",
-        padding: "0.7em"
-    }
-
-}));
+import {Alert} from "@material-ui/lab";
 
 
 function WarningHeader(props) {
-
-    const classes = useStyles();
-
+    const alertText = "System available";
+    const alertSeverity = "success";
     return (
-                <h6 className={classes.color}>System available</h6>
+        <Alert variant="filled" severity={alertSeverity}>{alertText}</Alert>
     );
 }
 
