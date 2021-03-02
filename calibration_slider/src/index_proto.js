@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css'
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button'
-import { makeStyles, TextField, withStyles } from '@material-ui/core';
+import { makeStyles, TextField } from '@material-ui/core';
 
 const marks = ()=>{
    let marks = []
@@ -20,36 +20,6 @@ function getCalibDivClass() {
    return (window.innerWidth < window.innerHeight) ? "calib_control_vertical" : "calib_control_horizontal";
 }
 
-const PrettoSlider = withStyles({
-   root: {
-     color: '#52af77',
-     height: 8,
-   },
-   thumb: {
-     height: 24,
-     width: 24,
-     backgroundColor: '#fff',
-     border: '2px solid currentColor',
-     marginTop: -8,
-     marginLeft: -12,
-     '&:focus, &:hover, &$active': {
-       boxShadow: 'inherit',
-     },
-   },
-   active: {},
-   valueLabel: {
-     left: 'calc(-50% + 4px)',
-   },
-   track: {
-     height: 8,
-     borderRadius: 4,
-   },
-   rail: {
-     height: 8,
-     borderRadius: 4,
-   },
- })(Slider);
-
 function CalibrationSlider(props) {
    // First value represents current position, Second Value represents desired position
    const [values, setValues] = React.useState([-10,80])
@@ -63,15 +33,24 @@ function CalibrationSlider(props) {
    };
    
    const orientation = () => {return(props.screenwidth < props.screenheight)?"vertical":"horizontal";}
+  
 
+   const calib_widg_styles = makeStyles({
+      root : {backgroundColor: 'rgb(214, 214, 214)',}
+      // margin : '30px',
+      // padding: 20px;
+      // border: solid 1px black;
+      // border-radius: 5px;
+      // width: fit-content;
+   });
 
    return (      
       <div  
-         className="calibration_widget">
+         className={calib_widg_styles.root}>
          <div  
             className={getCalibDivClass()}
             id="calibration_slider">
-            <PrettoSlider
+            <Slider
                value={values[1]}
                orientation={orientation()}
                aria-labelledby="range-slider"
@@ -82,7 +61,7 @@ function CalibrationSlider(props) {
                max={150}
                valueLabelDisplay="on"
             />
-            <PrettoSlider
+            <Slider
                orientation={orientation()}
                value={values[0]}
                min={-10}
@@ -105,6 +84,8 @@ function CalibrationSlider(props) {
       </div>
    );
 }
+
+
 
 //testing resizing rerender
 function CalibrationControl(props) {
