@@ -15,9 +15,7 @@ const theme = createMuiTheme({
 });
 
 theme.props = {
-  MuiIconButton: {
-    disableElevation: true,
-  },
+  MuiIconButton: {},
 
   MuiFormControl: {
     size: "small",

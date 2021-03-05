@@ -11,6 +11,8 @@ import ActiveControl from "./Components/ActiveControl/ActiveControl";
 import CryostatComp from "./Components/cryoskeleton2";
 import Test from "./test3";
 import Gauge from "./Components/Gauges/CryoGauge";
+import Closed from "./Components/CryostatAlts/ClosedSec";
+import Expand from "./Components/CryostatAlts/ExpandSec";
 
 ReactDOM.render(<CryostatComp></CryostatComp>, document.getElementById("root"));
 
