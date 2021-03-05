@@ -48,7 +48,7 @@ function CalibCryoFridgeWideTab(props) {
 
 
     return (
-        <Grid container>
+        <Grid container >
             <Grid item container lg={12} direction='column'>
                 <Grid item container lg={12} justify='space-between'>
                     <PlaceholderWidget displayState={fridgeModuleState}

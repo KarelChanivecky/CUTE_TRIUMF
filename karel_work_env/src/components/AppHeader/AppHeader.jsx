@@ -5,9 +5,10 @@ import  "./AppHeader.css"
 
 function AppHeader(props) {
     const theme = useTheme();
+    const height = props.height ? props.height : "auto";
     return (
-        <Box width={1}>
-            <ColoredPaper color={theme.palette.primary} square elevation={0}>
+        <Box width={1} height={height}>
+            <ColoredPaper color={theme.palette.primary} square parentSize elevation={0}>
                 <Grid container direction="row">
                     <img id="triumf-logo" src={"https://www.triumf.ca/sites/all/themes/custom/triumf2016/logo.png"}
                          alt="TRIUMF logo"/>

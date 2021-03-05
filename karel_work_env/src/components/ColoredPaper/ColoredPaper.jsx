@@ -8,7 +8,9 @@ function ColoredPaper(props) {
     const useStyles = makeStyles((theme) => ({
         root: {
             backgroundColor: color ? color.main : '#FFF',
-            color: color ? color.contrastText : '#000'
+            color: color ? color.contrastText : '#000',
+            height: props.parentSize? "100%" :  "auto",
+            width: props.parentSize? "100%" :  "auto",
         }
     }));
 
