@@ -9,11 +9,13 @@ import ActiveControl from "./ActiveControl/ActiveControl";
 import CryoGauge from "./Gauges/CryoGauge";
 import App from "../App";
 import MotorSpeed from "./MotorSpeed/MotorSpeed";
+import Closed from "./CryostatAlts/ClosedSec";
+import Expand from "./CryostatAlts/ExpandSec";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: 20,
-    minWidth: 1200,
+    display: "inline-block",
   },
   paperbig: {
     maxWidth: 333,
@@ -27,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paperroot: {
     padding: theme.spacing(2),
-    maxWidth: 1200,
     height: 500,
+    display: "inline-block",
+    paddingRight: 100,
     backgroundColor: "darkgrey",
   },
   paperdiagram: {
@@ -45,71 +48,65 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CryostatComp() {
+export default function CryostatComp(props) {
   const classes = useStyles();
-  console.log(Array.from(Array(30).keys()));
-  return (
-    <div className={classes.root}>
-      <Grid container spacing={2} xs={12}>
-        <Grid item xs={1}>
-          <Paper className={classes.paperdiagram}>
-            {[...Array.from(Array(30).keys())].map((e) => (
-              <Paper className={classes.paperitem}>{e}</Paper>
-            ))}
-          </Paper>
-        </Grid>
-        <Grid item xs>
-          <Paper className={classes.paperroot}>
-            <Grid item container spacing={2}>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item>
-                    <Paper className={classes.paperbig}>
-                      <CryoGauge></CryoGauge>
-                    </Paper>
-                  </Grid>
-                  <Grid item>
-                    <Paper className={classes.papersliver}>
-                      <MotorSpeed></MotorSpeed>
-                    </Paper>
-                  </Grid>
-                </Grid>
-              </Grid>
+  const buttons = (
+    <FunctionButtons
+      commands={[
+        { command: "Command", name: "cmd1" },
+        { command: "Command", name: "cmd2" },
+        { command: "Command", name: "cmd3" },
+        { command: "Command", name: "cmd4" },
+        { command: "Command", name: "cmd5" },
+        { command: "Command", name: "cmd6" },
+        { command: "Commandnew", name: "cmd7" },
+        { command: "Command", name: "cmd6" },
+        { command: "Commandnew", name: "cmd7" },
+      ]}
+      send={send}
+    />
+  );
 
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item>
-                    <Paper className={classes.papersliver}>
-                      <ActiveControl></ActiveControl>
-                    </Paper>
-                  </Grid>
-                  <Grid item>
-                    <Paper className={classes.paperbig}>
-                      <FunctionButtons
-                        commands={[
-                          { command: "Command", name: "cmd1" },
-                          { command: "Command", name: "cmd2" },
-                          { command: "Command", name: "cmd3" },
-                          { command: "Command", name: "cmd4" },
-                          { command: "Command", name: "cmd5" },
-                          { command: "Command", name: "cmd6" },
-                          { command: "Commandnew", name: "cmd7" },
-                        ]}
-                      />
-                    </Paper>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid xs></Grid>
-                  <App />
-                </Grid>
-              </Grid>
-            </Grid>
-          </Paper>
+  const [params, setParams] = React.useState({
+    xs: 10,
+    input: <Closed onclick={changeUp} buttons={buttons}></Closed>,
+  });
+  React.useEffect(() => {});
+  return (
+    <Paper className={classes.paperroot}>
+      <Grid item container xs={params.xs} spacing={2}>
+        <Grid item xs={8} container direction="column" spacing={2}>
+          <Grid item>
+            <Paper className={classes.paperbig}>
+              <CryoGauge></CryoGauge>
+            </Paper>
+          </Grid>
+          <Grid item>
+            <Paper className={classes.papersliver}>
+              <MotorSpeed></MotorSpeed>
+            </Paper>
+          </Grid>
+        </Grid>
+        <Grid item xs={4}>
+          {params.input}
         </Grid>
       </Grid>
-    </div>
+    </Paper>
   );
+
+  function changeUp() {
+    setParams({
+      xs: 5,
+      input: <Expand onclick={changeDown} buttons={buttons}></Expand>,
+    });
+  }
+  function changeDown() {
+    setParams({
+      xs: 10,
+      input: <Closed onclick={changeUp} buttons={buttons}></Closed>,
+    });
+  }
+  function send(cmd) {
+    console.log(cmd);
+  }
 }

@@ -17,14 +17,10 @@ export default function FButton(props) {
       color="primary"
       disableElevation
       onClick={function (e) {
-        send(props.command);
+        props.onclick(props.command);
       }}
     >
       {props.name}
     </Button>
   );
-
-  function send(cmd) {
-    console.log(cmd);
-  }
 }

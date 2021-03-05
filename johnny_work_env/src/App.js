@@ -8,13 +8,13 @@ import OutputLine from "./Components/OutputLine";
 class App extends Component {
   state = {
     output: [],
-    display: "none",
+    display: this.props.init,
     currentcmd: "",
-    inputWidth: 320,
+    inputWidth: this.props.initWidth,
   };
   render() {
     return (
-      <div>
+      <div style={{ width: 530 }}>
         <ThemeProvider theme={theme}>
           <OutputLine output={this.state.output} display={this.state.display} />
           <TextField
@@ -26,7 +26,7 @@ class App extends Component {
           <IconButton
             variant="contained"
             color="primary"
-            onClick={this.handleClick}
+            onClick={this.props.onclick}
           >
             <ArrowForwardIosIcon />
           </IconButton>
@@ -36,12 +36,10 @@ class App extends Component {
   }
 
   handleClick = () => {
-    let newDisplay = this.state.display == "none" ? "block" : "none";
-
-    if (newDisplay != "none") {
-      this.setState({ display: newDisplay, inputWidth: 482 });
+    if (this.state.display != "none") {
+      this.setState({ inputWidth: 482 });
     } else {
-      this.setState({ display: newDisplay, inputWidth: 320 });
+      this.setState({ inputWidth: 320 });
     }
   };
   handleChange = (e) => {
