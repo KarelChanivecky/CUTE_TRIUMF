@@ -131,7 +131,7 @@ function CalibrationSlider(props) {
       setValues( [values[0], event.target.value === '' ? '' : Number(event.target.value)]);
    };
    
-   const orientation = () => {return(props.screenwidth < props.screenheight)?"vertical":"horizontal";}
+   const orientation = () => {return(props.screenwidth < props.screenheight) ? "vertical" : "horizontal";}
 
 
    return (      
@@ -161,12 +161,12 @@ function CalibrationSlider(props) {
             value={values[1]} 
             type="number"
             size='small'
-            // label='Desired Source Position'
             onChange={handleInputChange}
          />
          <Button 
             variant="contained" 
             color="primary"
+            // Plug in function to change data here and hand it the same variable
             onClick={()=>{move_source(values[1])}}>
                Move
          </Button>
