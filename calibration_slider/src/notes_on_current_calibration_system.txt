@@ -1,0 +1,11 @@
+Variables that server feeds:(all declared in header)
+
+in_use
+pos_calib            (updated in header ajax call?)
+d_speed_auto         (updated in header ajax call?)
+someone_logged_in
+
+Variables of note in main body:
+
+var access_lvl = localStorage.getItem("access_lvl");
+var current_user = localStorage.getItem("current_user");
