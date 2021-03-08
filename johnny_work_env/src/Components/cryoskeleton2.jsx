@@ -53,15 +53,15 @@ export default function CryostatComp(props) {
   const buttons = (
     <FunctionButtons
       commands={[
-        { command: "Command1", name: "cmd1" },
-        { command: "Command2", name: "cmd2" },
-        { command: "Command3", name: "cmd3" },
-        { command: "Command4", name: "cmd4" },
-        { command: "Command5", name: "cmd5" },
-        { command: "Command6", name: "cmd6" },
-        { command: "Command7", name: "cmd7" },
-        { command: "Command8", name: "cmd8" },
-        { command: "Command9", name: "cmd9" },
+        { command: "Command", name: "cmd1" },
+        { command: "Command", name: "cmd2" },
+        { command: "Command", name: "cmd3" },
+        { command: "Command", name: "cmd4" },
+        { command: "Command", name: "cmd5" },
+        { command: "Command", name: "cmd6" },
+        { command: "Commandnew", name: "cmd7" },
+        { command: "Command", name: "cmd6" },
+        { command: "Commandnew", name: "cmd7" },
       ]}
       send={send}
     />
