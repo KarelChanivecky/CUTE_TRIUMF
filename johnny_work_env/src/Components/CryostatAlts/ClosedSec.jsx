@@ -2,9 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import FunctionButtons from "../FunctionButtons/functionButtons";
 import ActiveControl from "../ActiveControl/ActiveControl";
-import App from "../../App";
+import CommandLine from "../CommandLine";
 const useStyles = makeStyles((theme) => ({
   rootGrid: {
     width: 500,
@@ -41,9 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Closed(props) {
   const classes = useStyles();
-  const [params, setParams] = React.useState({
-    buttonCmds: "",
-  });
   return (
     <div className={classes.rootGrid}>
       <Grid item xs={12} sm container>
@@ -57,13 +53,12 @@ export default function Closed(props) {
             <Paper className={classes.paperbig}>{props.buttons}</Paper>
           </Grid>
           <Grid item>
-            <App
+            <CommandLine
               init={"none"}
               initWidth={320}
               onclick={props.onclick}
-              extra={params.buttonCmds}
               commands={props.commands}
-            ></App>
+            ></CommandLine>
           </Grid>
         </Grid>
       </Grid>

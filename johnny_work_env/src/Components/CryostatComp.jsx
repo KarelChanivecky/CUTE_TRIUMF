@@ -2,12 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import FunctionButtons from "./FunctionButtons/functionButtons";
-import ActiveControl from "./ActiveControl/ActiveControl";
 import CryoGauge from "./Gauges/CryoGauge";
-import App from "../App";
 import MotorSpeed from "./MotorSpeed/MotorSpeed";
 import Closed from "./CryostatAlts/ClosedSec";
 import Expand from "./CryostatAlts/ExpandSec";
@@ -63,47 +59,46 @@ export default function CryostatComp(props) {
         { command: "Command8", name: "cmd8" },
         { command: "Command9", name: "cmd9" },
       ]}
-      onClick={btnPress}
     />
   );
-
-  const [test, setTest] = React.useState([]);
 
   //Cryostat comp state
   const [params, setParams] = React.useState({
     xs: 10,
-    input: <Closed onclick={changeUp} buttons={buttons} commands={[]}></Closed>,
-    cmdList: [],
+    input: (
+      <Closed onclick={changeMaximize} buttons={buttons} commands={[]}></Closed>
+    ),
   });
 
   //Handles the button press, maximizing the command line.
-  function changeUp(cmd) {
+  function changeMaximize(cmd) {
     setParams({
       xs: 5,
       input: (
-        <Expand onclick={changeDown} buttons={buttons} commands={cmd}></Expand>
+        <Expand
+          onclick={changeMinimize}
+          buttons={buttons}
+          commands={cmd}
+        ></Expand>
       ),
     });
   }
 
   //Handles the button press, minimizing the command line
-  function changeDown(cmd) {
+  function changeMinimize(cmd) {
     setParams({
       xs: 10,
       input: (
-        <Closed onclick={changeUp} buttons={buttons} commands={cmd}></Closed>
+        <Closed
+          onclick={changeMaximize}
+          buttons={buttons}
+          commands={cmd}
+        ></Closed>
       ),
     });
   }
 
-  //Handles the submit of the commands in the command prompt
-  function btnPress(cmd) {
-    const newTest = test.slice();
-    newTest.push(cmd);
-    setTest(newTest);
-    console.log(newTest);
-  }
-
+  //Get references of all the buttons
   return (
     <Paper className={classes.paperroot}>
       <Grid item container xs={params.xs} spacing={2}>

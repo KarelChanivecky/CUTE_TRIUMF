@@ -2,9 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import FunctionButtons from "../FunctionButtons/functionButtons";
 import ActiveControl from "../ActiveControl/ActiveControl";
-import App from "../../App";
+import CommandLine from "../CommandLine";
 const useStyles = makeStyles((theme) => ({
   rootGrid: { width: 1000 },
   papersliver: {
@@ -40,9 +39,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Expand(props) {
   const classes = useStyles();
 
-  const [params, setParams] = React.useState({
-    buttonCmds: "",
-  });
   return (
     <div className={classes.rootGrid}>
       <Grid
@@ -65,13 +61,12 @@ export default function Expand(props) {
           </Grid>
         </Grid>
         <Grid item xs={3}>
-          <App
+          <CommandLine
             init={"display"}
             initWidth={482}
             onclick={props.onclick}
-            extra={params.buttonCmds}
             commands={props.commands}
-          ></App>
+          ></CommandLine>
         </Grid>
       </Grid>
     </div>

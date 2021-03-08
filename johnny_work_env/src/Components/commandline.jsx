@@ -1,72 +1,60 @@
 import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
+import { ThemeProvider, IconButton, TextField, Grid } from "@material-ui/core";
+import theme from "../Themes/theme";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import OutputLine from "./OutputLine";
 
-//OUTDATED COMPONENT
 class CommandLine extends Component {
   state = {
+    output: this.props.commands,
+    display: this.props.init,
     currentcmd: "",
-    output: [],
-    outputboxStyle: {
-      width: 500,
-      height: 400,
-      overflow: "auto",
-      backgroundColor: "black",
-    },
-  };
-  //Handles the expansion of the commandline output box
-  expand = () => {
-    let newStyle =
-      this.state.outputboxStyle === { display: "none" }
-        ? {
-            width: 500,
-            height: 400,
-            overflow: "auto",
-            backgroundColor: "black",
-          }
-        : { display: "none" };
-    this.setState({ outputboxStyle: newStyle });
-    console.log(newStyle);
+    inputWidth: this.props.initWidth,
   };
 
-  //Handles the change in input of the textfield
+  //Handles the size of the input line on prompt resize
+  handleClick = () => {
+    if (this.state.display != "none") {
+      this.setState({ inputWidth: 482 });
+    } else {
+      this.setState({ inputWidth: 320 });
+    }
+  };
+
+  //Handles the change in the input line
   handleChange = (e) => {
     this.setState({ currentcmd: e.target.value });
   };
 
-  //Checks to see if the keypress is an enter and handles it
-  keyPress = (e) => {
+  //Checks to see if the key pressed is the enter key and handles it
+  handleSubmit = (e) => {
     if (e.keyCode == 13) {
       const output = [...this.state.output, e.target.value];
-      this.setState({ currentcmd: "", output });
-      console.log(e.target.value);
-      console.log(output);
+      this.setState({ output, currentcmd: "" });
     }
   };
 
   render() {
     return (
-      <div>
-        <div id="output" style={this.state.outputboxStyle}>
-          {this.state.output.map((text) => (
-            <span style={{ color: "white" }}>
-              {text}
-              <br></br>
-            </span>
-          ))}
-        </div>
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          style={{ width: 500 }}
-          onKeyDown={this.keyPress}
-          onChange={this.handleChange}
-          value={this.state.currentcmd}
-        />
-        <IconButton aria-label="delete" onClick={this.expand}>
-          <ArrowForwardIosIcon />
-        </IconButton>
+      <div style={{ width: 530 }}>
+        <ThemeProvider theme={theme}>
+          <OutputLine output={this.state.output} display={this.state.display} />
+          <TextField
+            onChange={this.handleChange}
+            onKeyDown={this.handleSubmit}
+            value={this.state.currentcmd}
+            style={{ width: this.state.inputWidth }}
+          ></TextField>
+          <IconButton
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              this.props.onclick(this.state.output);
+            }}
+          >
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </ThemeProvider>
       </div>
     );
   }

@@ -1,18 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Grid from "@material-ui/core/Grid";
 import reportWebVitals from "./reportWebVitals";
-import CommandLine from "./Components/commandline";
-import DiscreteSlider from "./Components/Gauges/slider";
-import App from "./App";
-import FunctionButtons from "./Components/FunctionButtons/functionButtons";
-import ActiveControl from "./Components/ActiveControl/ActiveControl";
-import CryostatComp from "./Components/cryoskeleton2";
-import Test from "./test3";
-import Gauge from "./Components/Gauges/CryoGauge";
-import Closed from "./Components/CryostatAlts/ClosedSec";
-import Expand from "./Components/CryostatAlts/ExpandSec";
+import CryostatComp from "./Components/CryostatComp";
 
 ReactDOM.render(<CryostatComp></CryostatComp>, document.getElementById("root"));
 
