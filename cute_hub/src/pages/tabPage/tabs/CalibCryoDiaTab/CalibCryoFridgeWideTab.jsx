@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import PlaceholderWidget from "../../../../widgets/placeholder/placeholderWidget";
 import {ModuleDisplayStates} from "../../../../constants/moduleDisplayStates";
 import {Grid} from "@material-ui/core";
-
+import CalibrationControl from "../../../../components/CuteCalibration/cute_calibration";
+// import "../../../../components/CuteCalibration/cute_calibration";
 
 function CalibCryoFridgeWideTab(props) {
 
@@ -61,7 +62,7 @@ function CalibCryoFridgeWideTab(props) {
 
                 </Grid>
             </Grid>
-            <PlaceholderWidget height={20} width={85}/>
+        <CalibrationControl/>
         </Grid>
     )
 }
