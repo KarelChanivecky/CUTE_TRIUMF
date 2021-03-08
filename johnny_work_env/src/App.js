@@ -12,6 +12,25 @@ class App extends Component {
     currentcmd: "",
     inputWidth: this.props.initWidth,
   };
+
+  handleClick = () => {
+    if (this.state.display != "none") {
+      this.setState({ inputWidth: 482 });
+    } else {
+      this.setState({ inputWidth: 320 });
+    }
+  };
+  handleChange = (e) => {
+    this.setState({ currentcmd: e.target.value });
+  };
+  handleSubmit = (e) => {
+    if (e.keyCode == 13) {
+      const output = [...this.state.output, e.target.value];
+      this.setState({ output, currentcmd: "" });
+      console.log(output);
+    }
+  };
+
   render() {
     return (
       <div style={{ width: 530 }}>
@@ -34,24 +53,6 @@ class App extends Component {
       </div>
     );
   }
-
-  handleClick = () => {
-    if (this.state.display != "none") {
-      this.setState({ inputWidth: 482 });
-    } else {
-      this.setState({ inputWidth: 320 });
-    }
-  };
-  handleChange = (e) => {
-    this.setState({ currentcmd: e.target.value });
-  };
-  handleSubmit = (e) => {
-    if (e.keyCode == 13) {
-      const output = [...this.state.output, e.target.value];
-      this.setState({ output, currentcmd: "" });
-      console.log(output);
-    }
-  };
 }
 
 export default App;

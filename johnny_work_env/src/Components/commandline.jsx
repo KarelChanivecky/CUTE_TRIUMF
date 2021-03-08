@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-
-import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
+//OUTDATED COMPONENT
 class CommandLine extends Component {
   state = {
     currentcmd: "",
@@ -16,6 +15,36 @@ class CommandLine extends Component {
       backgroundColor: "black",
     },
   };
+  //Handles the expansion of the commandline output box
+  expand = () => {
+    let newStyle =
+      this.state.outputboxStyle === { display: "none" }
+        ? {
+            width: 500,
+            height: 400,
+            overflow: "auto",
+            backgroundColor: "black",
+          }
+        : { display: "none" };
+    this.setState({ outputboxStyle: newStyle });
+    console.log(newStyle);
+  };
+
+  //Handles the change in input of the textfield
+  handleChange = (e) => {
+    this.setState({ currentcmd: e.target.value });
+  };
+
+  //Checks to see if the keypress is an enter and handles it
+  keyPress = (e) => {
+    if (e.keyCode == 13) {
+      const output = [...this.state.output, e.target.value];
+      this.setState({ currentcmd: "", output });
+      console.log(e.target.value);
+      console.log(output);
+    }
+  };
+
   render() {
     return (
       <div>
@@ -41,32 +70,6 @@ class CommandLine extends Component {
       </div>
     );
   }
-  expand = () => {
-    let newStyle =
-      this.state.outputboxStyle === { display: "none" }
-        ? {
-            width: 500,
-            height: 400,
-            overflow: "auto",
-            backgroundColor: "black",
-          }
-        : { display: "none" };
-    this.setState({ outputboxStyle: newStyle });
-    console.log(newStyle);
-  };
-
-  handleChange = (e) => {
-    this.setState({ currentcmd: e.target.value });
-  };
-
-  keyPress = (e) => {
-    if (e.keyCode == 13) {
-      const output = [...this.state.output, e.target.value];
-      this.setState({ currentcmd: "", output });
-      console.log(e.target.value);
-      console.log(output);
-    }
-  };
 }
 
 export default CommandLine;

@@ -63,27 +63,24 @@ export default function CryostatComp(props) {
         { command: "Command", name: "cmd6" },
         { command: "Commandnew", name: "cmd7" },
       ]}
-      send={send}
     />
   );
 
+  //Cryostat comp state
   const [params, setParams] = React.useState({
     xs: 10,
     input: (
       <Closed
         onclick={changeUp}
         buttons={buttons}
-        commands={["hello"]}
+        commands={[]}
         onSubmit={onSubmit}
       ></Closed>
     ),
-    commandlist: ["hello"],
+    commandlist: [],
   });
 
-  React.useEffect(() => {
-    console.log("somethings happening");
-  }, [params.commandlist]);
-
+  //Handles the button press, maximizing the command line.
   function changeUp() {
     setParams({
       xs: 5,
@@ -98,6 +95,7 @@ export default function CryostatComp(props) {
     });
   }
 
+  //Handles the button press, minimizing the command line
   function changeDown() {
     setParams({
       xs: 10,
@@ -112,6 +110,7 @@ export default function CryostatComp(props) {
     });
   }
 
+  //Handles the submit of the commands in the command prompt
   function onSubmit(cmd) {
     console.log("step2");
     const output = [...params.commandlist, cmd];
@@ -129,10 +128,6 @@ export default function CryostatComp(props) {
       commandlist: output,
     });
     console.log(params.commandlist);
-  }
-
-  function send(cmd) {
-    console.log(cmd);
   }
 
   return (

@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 
 class OutputLine extends Component {
+  //Scrolls the command line to the bottom always
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   render() {
     return (
       <div
@@ -23,18 +36,6 @@ class OutputLine extends Component {
         ></div>
       </div>
     );
-  }
-
-  scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-  };
-
-  componentDidMount() {
-    this.scrollToBottom();
-  }
-
-  componentDidUpdate() {
-    this.scrollToBottom();
   }
 }
 
