@@ -70,13 +70,11 @@ export default function Expand(props) {
             initWidth={482}
             onclick={props.onclick}
             extra={params.buttonCmds}
+            commands={props.commands}
+            onSubmit={props.onSubmit}
           ></App>
         </Grid>
       </Grid>
     </div>
   );
-  function send(cmd) {
-    console.log(cmd);
-    setParams({ buttonCmds: cmd });
-  }
 }

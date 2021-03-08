@@ -62,6 +62,8 @@ export default function Closed(props) {
               initWidth={320}
               onclick={props.onclick}
               extra={params.buttonCmds}
+              commands={props.commands}
+              onSubmit={props.onSubmit}
             ></App>
           </Grid>
         </Grid>

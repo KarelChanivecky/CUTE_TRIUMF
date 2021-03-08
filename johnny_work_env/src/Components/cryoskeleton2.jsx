@@ -69,9 +69,72 @@ export default function CryostatComp(props) {
 
   const [params, setParams] = React.useState({
     xs: 10,
-    input: <Closed onclick={changeUp} buttons={buttons}></Closed>,
+    input: (
+      <Closed
+        onclick={changeUp}
+        buttons={buttons}
+        commands={["hello"]}
+        onSubmit={onSubmit}
+      ></Closed>
+    ),
+    commandlist: ["hello"],
   });
-  React.useEffect(() => {});
+
+  React.useEffect(() => {
+    console.log("somethings happening");
+  }, [params.commandlist]);
+
+  function changeUp() {
+    setParams({
+      xs: 5,
+      input: (
+        <Expand
+          onclick={changeDown}
+          buttons={buttons}
+          commands={params.commandlist}
+          onSubmit={onSubmit}
+        ></Expand>
+      ),
+    });
+  }
+
+  function changeDown() {
+    setParams({
+      xs: 10,
+      input: (
+        <Closed
+          onclick={changeUp}
+          buttons={buttons}
+          commands={params.commandlist}
+          onSubmit={onSubmit}
+        ></Closed>
+      ),
+    });
+  }
+
+  function onSubmit(cmd) {
+    console.log("step2");
+    const output = [...params.commandlist, cmd];
+    console.log(output);
+    setParams({
+      xs: params.xs,
+      input: (
+        <Expand
+          onclick={changeDown}
+          buttons={buttons}
+          commands={output}
+          onSubmit={onSubmit}
+        ></Expand>
+      ),
+      commandlist: output,
+    });
+    console.log(params.commandlist);
+  }
+
+  function send(cmd) {
+    console.log(cmd);
+  }
+
   return (
     <Paper className={classes.paperroot}>
       <Grid item container xs={params.xs} spacing={2}>
@@ -93,20 +156,4 @@ export default function CryostatComp(props) {
       </Grid>
     </Paper>
   );
-
-  function changeUp() {
-    setParams({
-      xs: 5,
-      input: <Expand onclick={changeDown} buttons={buttons}></Expand>,
-    });
-  }
-  function changeDown() {
-    setParams({
-      xs: 10,
-      input: <Closed onclick={changeUp} buttons={buttons}></Closed>,
-    });
-  }
-  function send(cmd) {
-    console.log(cmd);
-  }
 }

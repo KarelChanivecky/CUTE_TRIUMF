@@ -7,7 +7,7 @@ import OutputLine from "./Components/OutputLine";
 
 class App extends Component {
   state = {
-    output: [],
+    output: this.props.commands,
     display: this.props.init,
     currentcmd: "",
     inputWidth: this.props.initWidth,
