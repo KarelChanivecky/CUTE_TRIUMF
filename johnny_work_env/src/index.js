@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import CryostatComp from "./Components/CryostatComp";
+import CryostatComp from "./Widgets/CryoStatWidget/CryostatComp";
 
 ReactDOM.render(<CryostatComp></CryostatComp>, document.getElementById("root"));
 
