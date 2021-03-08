@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
       maxWidth: '20ch',
-      maxHeight: '99vh',
+      maxHeight: theme.spacing(70),
       overflow: 'auto',
       backgroundColor: theme.palette.background.paper,
     },
