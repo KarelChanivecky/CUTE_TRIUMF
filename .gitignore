@@ -1,6 +1,7 @@
 ./cute_hub/node_modules
 ./karel_work_env/node_modules
 ./calibration_slider/node_modules
+./diagram_app/node_modules
 /.idea/CUTE_TRIUMF.iml
 /.idea/runConfigurations/localhost_3000.xml
 /.idea/modules.xml
