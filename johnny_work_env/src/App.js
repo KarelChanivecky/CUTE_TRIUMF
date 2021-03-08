@@ -13,6 +13,7 @@ class App extends Component {
     inputWidth: this.props.initWidth,
   };
 
+  //Handles the size of the input line on prompt resize
   handleClick = () => {
     if (this.state.display != "none") {
       this.setState({ inputWidth: 482 });
@@ -20,15 +21,22 @@ class App extends Component {
       this.setState({ inputWidth: 320 });
     }
   };
+
+  //Handles the change in the input line
   handleChange = (e) => {
     this.setState({ currentcmd: e.target.value });
   };
+
+  //Checks to see if the key pressed is the enter key and handles it
   handleSubmit = (e) => {
     if (e.keyCode == 13) {
       const output = [...this.state.output, e.target.value];
       this.setState({ output, currentcmd: "" });
-      console.log(output);
     }
+  };
+
+  getOutput = () => {
+    return this.state;
   };
 
   render() {
@@ -45,7 +53,9 @@ class App extends Component {
           <IconButton
             variant="contained"
             color="primary"
-            onClick={this.props.onclick}
+            onClick={() => {
+              this.props.onclick(this.state.output);
+            }}
           >
             <ArrowForwardIosIcon />
           </IconButton>

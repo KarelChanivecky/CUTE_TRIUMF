@@ -8,8 +8,8 @@ export default function FunctionButtons(props) {
   return (
     <Grid container spacing={2}>
       {props.commands.map((c) => (
-        <Grid item xs={6}>
-          <FButton command={c.command} name={c.name} onclick={props.send} />
+        <Grid key={c.name} item xs={6}>
+          <FButton command={c.command} name={c.name} onclick={props.onClick} />
         </Grid>
       ))}
     </Grid>

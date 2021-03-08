@@ -63,7 +63,6 @@ export default function Closed(props) {
               onclick={props.onclick}
               extra={params.buttonCmds}
               commands={props.commands}
-              onSubmit={props.onSubmit}
             ></App>
           </Grid>
         </Grid>

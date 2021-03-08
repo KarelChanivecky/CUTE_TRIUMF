@@ -17,6 +17,7 @@ class OutputLine extends Component {
   render() {
     return (
       <div
+        id={"commandContainer"}
         style={{
           display: this.props.display,
           width: 530,
@@ -26,7 +27,9 @@ class OutputLine extends Component {
         }}
       >
         {this.props.output.map((text) => (
-          <div style={{ color: "white" }}>{text}</div>
+          <div key={text} style={{ color: "white" }}>
+            {text}
+          </div>
         ))}
         <div
           style={{ float: "left", clear: "both" }}
