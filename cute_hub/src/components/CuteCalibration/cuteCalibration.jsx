@@ -146,7 +146,11 @@ function CalibrationSlider(props) {
                aria-labelledby="range-slider"
                onChange={handleChange}
                marks={marks()}
+               // Steps controls the values the slider can have,
+               // 1 means it will have values 1,2,3,4, etc.
+               // .5 means it have have values .5,1,1.5,2
                step={1}
+               /////////////////////////////
                min={-10}
                max={150}
                valueLabelDisplay="on"
@@ -155,21 +159,23 @@ function CalibrationSlider(props) {
                orientation={orientation()}
             />
          </div>
-         <OutlinedInput
-            className={buttonStyle.root}
-            id="calibration_input"
-            value={values[1]} 
-            type="number"
-            size='small'
-            onChange={handleInputChange}
-         />
-         <Button 
-            variant="contained" 
-            color="primary"
-            // Plug in function to change data here and hand it the same variable
-            onClick={()=>{move_source(values[1])}}>
-               Move
-         </Button>
+         <div className="inputDiv">
+            <OutlinedInput
+               className={buttonStyle.root}
+               id="calibration_input"
+               value={values[1]} 
+               type="number"
+               size='small'
+               onChange={handleInputChange}
+            />
+            <Button 
+               variant="contained" 
+               color="primary"
+               // Plug in function to change data here and hand it the same variable
+               onClick={()=>{move_source(values[1])}}>
+                  Move
+            </Button>
+         </div>
       </div>
    );
 }
