@@ -3,7 +3,7 @@ import PlaceholderWidget from "../../../../widgets/placeholder/placeholderWidget
 import DiagramWidget from "../../../../widgets/DiagramWidget/DiagramWidget";
 import {ModuleDisplayStates} from "../../../../constants/moduleDisplayStates";
 import {Grid} from "@material-ui/core";
-
+import CalibrationWidget from "../../../../widgets/CuteCalibrationWidget/CalibrationWidget"
 
 function CalibCryoFridgeWideTab(props) {
 
@@ -62,7 +62,7 @@ function CalibCryoFridgeWideTab(props) {
 
                 </Grid>
             </Grid>
-            <PlaceholderWidget height={20} width={85}/>
+        <CalibrationWidget/>
         </Grid>
     )
 }
