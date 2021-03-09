@@ -2,21 +2,23 @@ import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
 
+////////////////////////// TEST VALUES
 var testValues = [1,1,1];
 
-function move_source() {
+function changeTestValues() {
   setTimeout(()=>{
     testValues = [
-      Math.random() * 2,
-      Math.random() * 2,
-      Math.random() * 2
+      (Math.random() * .4 + .8).toFixed(1),
+      (Math.random() * .4 + .8).toFixed(1),
+      (Math.random() * .4 + .8).toFixed(1)
     ]
-    console.log(testValues)
-    move_source()
+    // console.log(testValues)
+    changeTestValues()
   }, 1000)
 }
 
-move_source();
+changeTestValues();
+/////////////////////////////////////////
 
 const useStyles = makeStyles((theme) => ({
   paperroot: {
@@ -94,15 +96,22 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
+// Draw the 3 damper position
 export default function CryoGauge(props) {
   const classes = useStyles();
 
+  // The next two functions set and reset the values of damper position sliders,
+  // They do this based on the test values array at the top of the file.
+  // Either change the test values array object or have them point at another object to accurately show the damper positions.
+
+  // Set the initial values of the gauges
   const [damperPositions, setDamperPositions] = React.useState({
     a: testValues[0],
     b: testValues[1],
     c: testValues[2],
   });
   
+  // Reset the values every second to display the current value.
   React.useEffect(()=>{
     let secTimer = setInterval(() => {
         setDamperPositions({
@@ -111,7 +120,9 @@ export default function CryoGauge(props) {
           c: testValues[2],
         })
       }, 1000)
-  
+      // ^ you can change this time interval to anything
+
+      // return value is important
       return () => clearInterval(secTimer);
   });
 

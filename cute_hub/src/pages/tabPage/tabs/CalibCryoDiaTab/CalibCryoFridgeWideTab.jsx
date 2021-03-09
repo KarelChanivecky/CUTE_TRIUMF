@@ -17,24 +17,16 @@ function CalibCryoFridgeWideTab(props) {
   const [displayState, setDisplayState] = useState(expandedModules.BOTH);
 
   const fridgeModuleState =
-    displayState === expandedModules.FRIDGE
-      ? ModuleDisplayStates.EXPANDED
-      : displayState === expandedModules.BOTH
-      ? ModuleDisplayStates.OPEN
-      : ModuleDisplayStates.MINIMIZED;
+    (displayState === expandedModules.FRIDGE) ? ModuleDisplayStates.EXPANDED : 
+      (displayState === expandedModules.BOTH) ? ModuleDisplayStates.OPEN : ModuleDisplayStates.MINIMIZED;
 
   const cryoModuleState =
-    displayState === expandedModules.CRYO
-      ? ModuleDisplayStates.EXPANDED
-      : displayState === expandedModules.BOTH
-      ? ModuleDisplayStates.OPEN
-      : ModuleDisplayStates.MINIMIZED;
+    (displayState === expandedModules.CRYO) ? ModuleDisplayStates.EXPANDED : 
+      (displayState === expandedModules.BOTH) ? ModuleDisplayStates.OPEN : ModuleDisplayStates.MINIMIZED;
 
   const handleExpandedChange = (module) => () => {
     const otherModule =
-      module === expandedModules.CRYO
-        ? expandedModules.FRIDGE
-        : expandedModules.CRYO;
+      (module === expandedModules.CRYO) ? expandedModules.FRIDGE : expandedModules.CRYO;
 
     if (displayState === otherModule || displayState === expandedModules.NONE) {
       // expanding
@@ -54,9 +46,9 @@ function CalibCryoFridgeWideTab(props) {
   };
 
   return (
-    <Grid container>
+    <Grid container justify="space-around">
       <Grid item container lg={12} direction="column">
-        <Grid item container lg={12} justify="space-between">
+        <Grid item container lg={12} justify="space-around">
           <DiagramWidget
             displayState={fridgeModuleState}
             minimizable
