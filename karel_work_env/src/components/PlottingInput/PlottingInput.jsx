@@ -160,8 +160,8 @@ function PlottingInput(props) {
                                 </Grid>
                                 <Box p={2}>
                                     <Grid container direction="row" justify="space-between" >
-                                        <Button color="primary" variant="outlined" m={4}>Download</Button>
-                                        {/*<Button color="primary" variant="outlined" >Plot</Button>*/}
+                                        <Button color="primary" variant="outlined" m={4} onClick={downloadHandler}>Download</Button>
+                                        {/*<Button color="primary" variant="outlined" onClick={plotHandler} >Plot</Button>*/}
                                     </Grid>
                                 </Box>
                             </Grid>

@@ -2,6 +2,7 @@ import React from 'react';
 import ColoredPaper from "../../../../components/ColoredPaper/ColoredPaper";
 import {Grid, useTheme} from "@material-ui/core";
 import PlottingInput from "../../../../components/PlottingInput/PlottingInput";
+import axios from 'axios';
 
 /*
 Proper order of inputs for request as per data.html:
@@ -56,8 +57,7 @@ function buildSensorBoolString(checkedThermo, checkedPressure) {
 }
 
 function makeDateTimeString(startDateTime, endDateTime) {
-
-    const dateTimeString = `dateLeft=${startDateTime.date}&timeLeft=${startDateTime.time}&dateRight=${endDateTime.date}&timeRight=${endDateTime.time}`
+    return `dateLeft=${startDateTime.date}&timeLeft=${startDateTime.time}&dateRight=${endDateTime.date}&timeRight=${endDateTime.time}`
 }
 
 function makeQuery(sensorBoolString, dateTimeString) {
@@ -80,7 +80,15 @@ function PlottingTab(props) {
         const dateTimeString = makeDateTimeString(startDateTime, endDateTime);
         const query = makeQuery(sensorBoolString, dateTimeString);
         const url = `${baseDataURL}${query}`;
-
+        axios.get(url)
+            .then(()=>{
+                const a = document.createElement("a");
+                // TODO Add url to csv file
+                a.href = "URL TO FILE HERE";
+                a.download =  "data.csv";
+                a.click();
+                URL.revokeObjectURL(a.href);
+            });
     }
     return (
         <Grid container justify="space-between" >
@@ -88,6 +96,8 @@ function PlottingTab(props) {
                 <PlottingInput
                     notifyCheckedThermoState={notifyCheckedThermo}
                     notifyCheckedPressureState={notifyCheckedPressure}
+                    plot={plot}
+                    download={download}
                 />
             </Grid>
 
