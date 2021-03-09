@@ -49,7 +49,7 @@ export default function DiagramWidget(props) {
         },
     }));
     const classes = useStyles()
-    let thing = displayState == ModuleDisplayStates.OPEN ? <DiagramSVG className={classes.diag}/> : <DiagramList />
+    let thing = (displayState == ModuleDisplayStates.OPEN) ? <DiagramSVG className={classes.diag}/> : <DiagramList />
     return (
       <Box className={classes.root}>
           <Paper>
