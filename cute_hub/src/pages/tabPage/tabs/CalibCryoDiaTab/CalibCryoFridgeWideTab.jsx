@@ -17,16 +17,18 @@ function CalibCryoFridgeWideTab(props) {
 
     const [displayState, setDisplayState] = useState(expandedModules.BOTH);
 
-    const fridgeModuleState = displayState === expandedModules.FRIDGE ? ModuleDisplayStates.EXPANDED :
-        displayState === expandedModules.BOTH ? ModuleDisplayStates.OPEN : ModuleDisplayStates.MINIMIZED;
+    const fridgeModuleState = 
+        (displayState === expandedModules.FRIDGE) ? ModuleDisplayStates.EXPANDED :
+            (displayState === expandedModules.BOTH) ? ModuleDisplayStates.OPEN : ModuleDisplayStates.MINIMIZED;
 
-    const cryoModuleState = displayState === expandedModules.CRYO ? ModuleDisplayStates.EXPANDED :
-        displayState === expandedModules.BOTH ? ModuleDisplayStates.OPEN : ModuleDisplayStates.MINIMIZED;
+    const cryoModuleState = 
+        (displayState === expandedModules.CRYO) ? ModuleDisplayStates.EXPANDED :
+            (displayState === expandedModules.BOTH) ? ModuleDisplayStates.OPEN : ModuleDisplayStates.MINIMIZED;
 
 
     const handleExpandedChange = (module) => () => {
 
-        const otherModule = module === expandedModules.CRYO ? expandedModules.FRIDGE : expandedModules.CRYO;
+        const otherModule = (module === expandedModules.CRYO) ? expandedModules.FRIDGE : expandedModules.CRYO;
 
         if (displayState === otherModule || displayState === expandedModules.NONE) {
             // expanding
@@ -62,7 +64,10 @@ function CalibCryoFridgeWideTab(props) {
 
                 </Grid>
             </Grid>
-        <CalibrationWidget/>
+        <CalibrationWidget 
+            displayState={fridgeModuleState}
+            minimizable          
+        />
         </Grid>
     )
 }

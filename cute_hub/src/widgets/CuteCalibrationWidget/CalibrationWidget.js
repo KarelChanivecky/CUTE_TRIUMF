@@ -27,8 +27,6 @@ export default function CalibrationWidget(props) {
             flexWrap: 'wrap',
             '& > *': {
                 margin: theme.spacing(1),
-                width: theme.spacing(width),
-                height: theme.spacing(height),
             },
         },
     }));
