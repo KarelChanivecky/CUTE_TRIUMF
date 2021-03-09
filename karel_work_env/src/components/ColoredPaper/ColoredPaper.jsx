@@ -3,14 +3,14 @@ import {makeStyles, Paper} from "@material-ui/core";
 
 
 function ColoredPaper(props) {
-    const {color, children, ...other} = props;
+    const {color, children, parentSize, ...other} = props;
 
     const useStyles = makeStyles((theme) => ({
         root: {
             backgroundColor: color ? color.main : '#FFF',
             color: color ? color.contrastText : '#000',
-            height: props.parentSize? "100%" :  "auto",
-            width: props.parentSize? "100%" :  "auto",
+            height: parentSize? "100%" :  "auto",
+            width: parentSize? "100%" :  "auto",
         }
     }));
 

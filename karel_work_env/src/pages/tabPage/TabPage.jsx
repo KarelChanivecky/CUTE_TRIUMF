@@ -36,7 +36,7 @@ function TabPage(props) {
                             textColor="inherit"
                             centered>
                             <Tab label="Calibration/Cryostat/Fridge"/>
-                            <Tab label="Plotting"/>
+                            <Tab label="Data"/>
                         </Tabs>
                         <CalibratorInProgressIndicator/>
                     </Grid>

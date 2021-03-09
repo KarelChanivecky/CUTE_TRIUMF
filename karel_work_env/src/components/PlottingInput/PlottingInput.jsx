@@ -1,7 +1,18 @@
 import React, {useState} from 'react';
-import {Box, Checkbox, Grid, ListItem, ListItemIcon, ListItemText, Typography, useTheme} from "@material-ui/core";
+import {
+    Box, Button,
+    Checkbox,
+    Grid,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    makeStyles,
+    TextField,
+    Typography,
+    useTheme
+} from "@material-ui/core";
 import ColoredPaper from "../ColoredPaper/ColoredPaper";
-import {BackspaceOutlined} from "@material-ui/icons";
 
 
 const getHandleToggle = (checked, setChecked, notifier) => (value) => () => {
@@ -20,6 +31,14 @@ const getHandleToggle = (checked, setChecked, notifier) => (value) => () => {
 
 function PlottingInput(props) {
     const theme = useTheme();
+
+    const useStyles = makeStyles(theme => ({
+        root: {
+            height: "2.2rem"
+        }
+    }))
+
+    const classes = useStyles();
 
     const {notifyCheckedThermoState, notifyCheckedPressureState, ...other} = props
 
@@ -45,14 +64,44 @@ function PlottingInput(props) {
         "K8"
     ];
 
+    const defaultDate = "2000-01-01";
+    const defaultTime = "00:00:00";
+
     const [checkedThermo, setCheckedThermo] = useState([]);
     const checkedThermoHandler = getHandleToggle(checkedThermo, setCheckedThermo, props.notifyCheckedThermoState);
 
     const [checkedPressure, setCheckedPressure] = useState([]);
     const checkedPressureHandler = getHandleToggle(checkedPressure, setCheckedPressure, props.notifyCheckedPressureState);
 
+    const [startDateTime, setStartDateTime] = useState({
+        date: defaultDate,
+        time: defaultTime
+    });
+
+    const [endDateTime, setEndDateTime] = useState({
+        date: defaultDate,
+        time: defaultTime
+    });
+
+    const handleDateChange = (prevState, stateSetter) => event => {
+        let newValue = event.target.value;
+        if (newValue === null || newValue === "") {
+            newValue = defaultDate;
+        }
+        stateSetter({...prevState, date: newValue});
+    };
+
+    const handleTimeChange = (prevState, stateSetter) => event => {
+        let newValue = event.target.value;
+        if (newValue === null || newValue === "") {
+            newValue = defaultTime;
+        }
+        const newState = {...prevState, time: newValue,};
+        stateSetter(newState);
+    };
+
     const makeListItem = (key, id, checkedStates, handleToggle) => (
-        <ListItem key={key} button onClick={handleToggle(id)} dense>
+        <ListItem key={key} button onClick={handleToggle(id)} className={classes.root}>
             <ListItemIcon>
                 <Checkbox
                     edge="start"
@@ -60,24 +109,61 @@ function PlottingInput(props) {
                     tabIndex={-1}/>
             </ListItemIcon>
             <ListItemText
-                primary={id}
+                primary={<Typography variant={"body1"}>{id}</Typography>}
                 id={"checkedText_" + id.split(" ").join()}/>
         </ListItem>
     );
 
+    const plotHandler = () => {
+        other.plot(startDateTime, endDateTime, checkedThermo, checkedPressure);
+    };
+
+    const downloadHandler = () => {
+        other.download(startDateTime, endDateTime, checkedPressure, checkedThermo);
+    };
+
+    const withSeconds = {step: 1};
     return (
         <Grid container>
-            <Grid item xs={5} sm={4} md={3} lg={2}>
+            <Grid item xs={6} sm={4} md={3} lg={2}>
                 <ColoredPaper elevation={0}>
                     <Grid container justify="center">
                         <Box width={0.95}>
                             <Grid container direction="column">
                                 <Typography variant="h2" align={"left"}>Thermometers</Typography>
-                                {thermoIds.map((id, i) => makeListItem(i, id, checkedThermo, checkedThermoHandler))}
+                                <List dense>
+                                    {thermoIds.map((id, i) => makeListItem(i, id, checkedThermo, checkedThermoHandler))}
+                                </List>
 
                                 <Typography variant="h2" align={"left"}>Pressure Gauges</Typography>
-                                {pressureIds.map((id, i) => makeListItem(i, id, checkedPressure, checkedPressureHandler))}
+                                <List dense>
+                                    {pressureIds.map((id, i) => makeListItem(i, id, checkedPressure, checkedPressureHandler))}
+                                </List>
                                 <Typography variant="h2" align={"left"}>Timeframe</Typography>
+                                <Grid container direction="row" justify="space-between">
+                                    <TextField label="start date" type="date"
+                                               value={startDateTime.date}
+                                               onChange={handleDateChange(startDateTime, setStartDateTime)}/>
+                                    <TextField label="start time" type="time"
+                                               value={startDateTime.time}
+                                               onChange={handleTimeChange(startDateTime, setStartDateTime)}
+                                                inputProps={withSeconds}/>
+                                </Grid>
+                                <Grid container direction="row" justify="space-between">
+                                    <TextField label="end date" type="date"
+                                               value={endDateTime.date}
+                                               onChange={handleDateChange(endDateTime, setEndDateTime)}/>
+                                    <TextField label="end time" type="time"
+                                               value={endDateTime.time}
+                                               onChange={handleTimeChange(endDateTime, setEndDateTime)}
+                                                inputProps={withSeconds}/>
+                                </Grid>
+                                <Box p={2}>
+                                    <Grid container direction="row" justify="space-between" >
+                                        <Button color="primary" variant="outlined" m={4}>Download</Button>
+                                        {/*<Button color="primary" variant="outlined" >Plot</Button>*/}
+                                    </Grid>
+                                </Box>
                             </Grid>
                         </Box>
                     </Grid>
