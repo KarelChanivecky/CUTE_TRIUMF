@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ThemeProvider, IconButton, TextField, Grid } from "@material-ui/core";
-import theme from "../Themes/theme";
+import theme from "./theme";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import OutputLine from "./OutputLine";
 
