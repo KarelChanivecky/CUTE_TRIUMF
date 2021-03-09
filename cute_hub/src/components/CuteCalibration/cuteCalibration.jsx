@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css';
+import './cuteCalibration.css';
 // import {source_position, move_source} from './test.js'
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
