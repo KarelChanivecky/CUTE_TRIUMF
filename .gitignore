@@ -7,3 +7,7 @@
 /.idea/modules.xml
 /karel_work_env/src/widgets/placeholder/placeholderWidget.js
 /.idea/vcs.xml
+
+diagram_app/node_modules/
+
+diagram_app/src/.DS_Store

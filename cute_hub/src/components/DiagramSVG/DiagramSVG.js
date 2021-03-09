@@ -45,7 +45,7 @@ function valveState(state){
          
        return()=>clearInterval(interval)
     },[])  // includes empty dependency array
-    let svgObject = <div class="container-fluid">
+    let svgObject = <div class="container-fluid diag">
     <div class="row">
       <div class="col col-lg-8">
         <p>Last Updated: <span id="clock">{data.Time}</span></p>

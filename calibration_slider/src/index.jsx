@@ -97,13 +97,13 @@ const buttonStyle = makeStyles({
 function SourcePositionSlider(props) {
 
    // The Source Slider Position is based on whatever variable you hand to this function...
-   const [srcPos, setSrcPos] = useState(source_position);
+   const [srcPos, setSrcPos] = useState(0);
    
    React.useEffect(()=>{
       let secTimer = setInterval( () => {
          // ...this function
          setSrcPos(source_position)
-       }, 1000)
+       }, 500)
    
        return () => clearInterval(secTimer);
    });

@@ -12,12 +12,12 @@ export default function PlaceholderWidget(props) {
 
     switch (displayState) {
         case ModuleDisplayStates.OPEN :
-            height = 40;
-            width = 40;
+            height = 70;
+            width = 90;
             break;
         case ModuleDisplayStates.EXPANDED:
-            height = 40;
-            width = 75;
+            height = 80;
+            width = 140;
     }
 
     const useStyles = makeStyles((theme) => ({
