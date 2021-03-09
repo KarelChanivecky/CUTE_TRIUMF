@@ -201,6 +201,3 @@ export default function CalibrationControl(props) {
             />    
    );
 }
-
-// export default {CalibrationControl};
-// ReactDOM.render(<CalibrationControl />, document.getElementById("root"));
