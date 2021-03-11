@@ -26,8 +26,8 @@ class OutputLine extends Component {
           backgroundColor: "black",
         }}
       >
-        {this.props.output.map((text) => (
-          <div key={text} style={{ color: "white" }}>
+        {this.props.output.map((text, index) => (
+          <div key={text + index} style={{ color: "white"}}>
             {text}
           </div>
         ))}

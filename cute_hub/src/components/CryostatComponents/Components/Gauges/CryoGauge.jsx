@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
-
+import Grid from "@material-ui/core/Grid";
 ////////////////////////// TEST VALUES
 var testValues = [1,1,1];
 
@@ -27,9 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     "& div": {
-      display: "flex",
-      justifyContent: "space-between",
-      margin: 30}
+      margin: 20}
   },
 }));
 
@@ -128,7 +126,8 @@ export default function CryoGauge(props) {
 
   return (
     <div className={classes.paperroot}>
-      <div className=".container">
+      <Grid container direction="row">
+        <Grid item xs={2}>
         <StyledSlider
           value={damperPositions.a}
           valueLabelDisplay="on"
@@ -138,6 +137,8 @@ export default function CryoGauge(props) {
           min={0}
           max={2}
         />
+        </Grid>
+        <Grid item  xs={2}>
         <StyledSlider
           valueLabelDisplay="on"
           value={damperPositions.b}
@@ -147,6 +148,8 @@ export default function CryoGauge(props) {
           min={0}
           max={2}
         />
+        </Grid>
+        <Grid item xs={2}>
         <StyledSlider
           valueLabelDisplay="on"
           value={damperPositions.c}
@@ -156,7 +159,41 @@ export default function CryoGauge(props) {
           min={0}
           max={2}
         />
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
+
+
+//   <div className={classes.paperroot}>
+//   <div className=".container">
+//     <StyledSlider
+//       value={damperPositions.a}
+//       valueLabelDisplay="on"
+//       orientation="vertical"
+//       step={0.1}
+//       marks={marks()}
+//       min={0}
+//       max={2}
+//     />
+//     <StyledSlider
+//       valueLabelDisplay="on"
+//       value={damperPositions.b}
+//       orientation="vertical"
+//       step={0.1}
+//       marks={marks()}
+//       min={0}
+//       max={2}
+//     />
+//     <StyledSlider
+//       valueLabelDisplay="on"
+//       value={damperPositions.c}
+//       orientation="vertical"
+//       step={0.1}
+//       marks={marks()}
+//       min={0}
+//       max={2}
+//     />
+//   </div>
+// </div>
 }
