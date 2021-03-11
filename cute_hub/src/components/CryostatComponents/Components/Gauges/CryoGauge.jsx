@@ -8,13 +8,13 @@ var testValues = [1,1,1];
 function changeTestValues() {
   setTimeout(()=>{
     testValues = [
-      (Math.random() * .4 + .8).toFixed(1),
-      (Math.random() * .4 + .8).toFixed(1),
-      (Math.random() * .4 + .8).toFixed(1)
+      parseFloat((Math.random() * .4 + .8).toFixed(1)),
+      parseFloat((Math.random() * .4 + .8).toFixed(1)),
+      parseFloat((Math.random() * .4 + .8).toFixed(1)),
     ]
     // console.log(testValues)
     changeTestValues()
-  }, 1000)
+  }, 2000)
 }
 
 changeTestValues();
