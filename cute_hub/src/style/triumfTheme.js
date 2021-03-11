@@ -44,6 +44,9 @@ const triumfTypography = {
     h1: {
         fontSize: "2rem",
     },
+    h2: {
+        fontSize: "1.7rem"
+    }
 };
 
 const muiThemeOptions = {

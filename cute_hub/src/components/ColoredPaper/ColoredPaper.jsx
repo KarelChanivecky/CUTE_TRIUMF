@@ -3,7 +3,7 @@ import {makeStyles, Paper} from "@material-ui/core";
 
 
 function ColoredPaper(props) {
-    const {color, children, ...other} = props;
+    const {color, children, parentSize, ...other} = props;
 
     const useStyles = makeStyles((theme) => ({
         root: {
