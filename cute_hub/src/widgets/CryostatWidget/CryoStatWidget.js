@@ -32,6 +32,7 @@ export default function CryoStatWidget(props) {
     },
   }));
   const classes = useStyles();
+  //let thing = (displayState == ModuleDisplayStates.OPEN) ?  <CryostatComp></CryostatComp> : <span></span>
   return (
     <Box className={classes.root}>
       <Paper>
