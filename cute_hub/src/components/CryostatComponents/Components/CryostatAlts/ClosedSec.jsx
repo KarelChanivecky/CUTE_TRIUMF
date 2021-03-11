@@ -1,9 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import ActiveControl from "../ActiveControl/ActiveControl";
 import CommandLine from "../CommandLine";
+
 const useStyles = makeStyles((theme) => ({
   rootGrid: {
     width: 500,
@@ -46,7 +47,7 @@ export default function Closed(props) {
         <Grid item xs container direction="column" spacing={2}>
           <Grid item>
             <Paper className={classes.papersliver}>
-              <ActiveControl></ActiveControl>
+              <ActiveControl/>
             </Paper>
           </Grid>
           <Grid item>
@@ -54,11 +55,10 @@ export default function Closed(props) {
           </Grid>
           <Grid item>
             <CommandLine
-              init={"none"}
-              initWidth={100}
-              onclick={props.onclick}
-              commands={props.commands}
-            ></CommandLine>
+                init={"none"}
+                initWidth={100}
+                onclick={props.onclick}
+                commands={props.commands} />
           </Grid>
         </Grid>
       </Grid>

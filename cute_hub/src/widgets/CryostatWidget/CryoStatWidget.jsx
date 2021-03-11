@@ -41,7 +41,7 @@ export default function CryoStatWidget(props) {
           helpable={displayState !== ModuleDisplayStates.MINIMIZED}
           onToggle={props.onDisplayChange}
         />
-        <CryostatComp></CryostatComp>
+        <CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange}/>
       </Paper>
     </Box>
   );

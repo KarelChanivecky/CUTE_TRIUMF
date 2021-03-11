@@ -25,24 +25,13 @@ function CalibCryoFridgeWideTab(props) {
       (displayState === expandedModules.BOTH) ? ModuleDisplayStates.OPEN : ModuleDisplayStates.MINIMIZED;
 
   const handleExpandedChange = (module) => () => {
-    const otherModule =
-      (module === expandedModules.CRYO) ? expandedModules.FRIDGE : expandedModules.CRYO;
 
-    if (displayState === otherModule || displayState === expandedModules.NONE) {
-      // expanding
-      if (displayState === expandedModules.NONE) {
-        setDisplayState(module);
-      } else {
-        setDisplayState(expandedModules.BOTH);
-      }
-      return;
-    }
-    // minimizing
     if (displayState === expandedModules.BOTH) {
-      setDisplayState(otherModule);
-    } else {
-      setDisplayState(expandedModules.NONE);
+        setDisplayState(expandedModules.CRYO);
+        return;
     }
+
+    setDisplayState(expandedModules.BOTH);
   };
 
   return (
