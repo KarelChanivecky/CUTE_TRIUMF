@@ -17,7 +17,7 @@ export default function FButton(props) {
       color="primary"
       disableElevation
       onClick={function (e) {
-        props.onclick(props.command);
+        props.onclick(props.onclick);
       }}
     >
       {props.name}

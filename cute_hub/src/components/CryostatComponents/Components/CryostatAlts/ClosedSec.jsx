@@ -55,7 +55,7 @@ export default function Closed(props) {
           <Grid item>
             <CommandLine
               init={"none"}
-              initWidth={320}
+              initWidth={100}
               onclick={props.onclick}
               commands={props.commands}
             ></CommandLine>

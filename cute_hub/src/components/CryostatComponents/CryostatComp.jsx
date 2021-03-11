@@ -2,11 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import FunctionButtons from "../../Components/FunctionButtons/functionButtons";
-import CryoGauge from "../../Components/Gauges/CryoGauge";
-import MotorSpeed from "../../Components/MotorSpeed/MotorSpeed";
-import Closed from "../../Components/CryostatAlts/ClosedSec";
-import Expand from "../../Components/CryostatAlts/ExpandSec";
+import FunctionButtons from "./Components/FunctionButtons/functionButtons";
+import CryoGauge from "./Components/Gauges/CryoGauge";
+import MotorSpeed from "./Components/MotorSpeed/MotorSpeed";
+import Closed from "./Components/CryostatAlts/ClosedSec";
+import Expand from "./Components/CryostatAlts/ExpandSec";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperbig: {
     maxWidth: 333,
-    height: 400,
+    height: 375,
     backgroundColor: "grey",
   },
   papersliver: {
@@ -59,6 +59,7 @@ export default function CryostatComp(props) {
         { command: "Command8", name: "cmd8" },
         { command: "Command9", name: "cmd9" },
       ]}
+      onclick={sendCommand}
     />
   );
 
@@ -98,11 +99,12 @@ export default function CryostatComp(props) {
     });
   }
 
+  function sendCommand(){}
+
   //Get references of all the buttons
   return (
-    <Paper className={classes.paperroot}>
-      <Grid item container xs={params.xs} spacing={2}>
-        <Grid item xs={8} container direction="column" spacing={2}>
+      <Grid item container xs={params.xs} spacing={2} justify="center">
+        <Grid item xs={7} container direction="column" spacing={3}>
           <Grid item>
             <Paper className={classes.paperbig}>
               <CryoGauge></CryoGauge>
@@ -118,6 +120,5 @@ export default function CryostatComp(props) {
           {params.input}
         </Grid>
       </Grid>
-    </Paper>
   );
 }

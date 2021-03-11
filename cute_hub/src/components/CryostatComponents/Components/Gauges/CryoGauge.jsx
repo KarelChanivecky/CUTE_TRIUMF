@@ -1,22 +1,24 @@
 import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
-
+import Grid from "@material-ui/core/Grid";
+////////////////////////// TEST VALUES
 var testValues = [1,1,1];
 
-function move_source() {
+function changeTestValues() {
   setTimeout(()=>{
     testValues = [
-      Math.random() * 2,
-      Math.random() * 2,
-      Math.random() * 2
+      (Math.random() * .4 + .8).toFixed(1),
+      (Math.random() * .4 + .8).toFixed(1),
+      (Math.random() * .4 + .8).toFixed(1)
     ]
-    console.log(testValues)
-    move_source()
+    // console.log(testValues)
+    changeTestValues()
   }, 1000)
 }
 
-move_source();
+changeTestValues();
+/////////////////////////////////////////
 
 const useStyles = makeStyles((theme) => ({
   paperroot: {
@@ -25,9 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     "& div": {
-      display: "flex",
-      justifyContent: "space-between",
-      margin: 30}
+      margin: 20}
   },
 }));
 
@@ -94,15 +94,22 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
+// Draw the 3 damper position
 export default function CryoGauge(props) {
   const classes = useStyles();
 
+  // The next two functions set and reset the values of damper position sliders,
+  // They do this based on the test values array at the top of the file.
+  // Either change the test values array object or have them point at another object to accurately show the damper positions.
+
+  // Set the initial values of the gauges
   const [damperPositions, setDamperPositions] = React.useState({
     a: testValues[0],
     b: testValues[1],
     c: testValues[2],
   });
   
+  // Reset the values every second to display the current value.
   React.useEffect(()=>{
     let secTimer = setInterval(() => {
         setDamperPositions({
@@ -111,13 +118,16 @@ export default function CryoGauge(props) {
           c: testValues[2],
         })
       }, 1000)
-  
+      // ^ you can change this time interval to anything
+
+      // return value is important
       return () => clearInterval(secTimer);
   });
 
   return (
     <div className={classes.paperroot}>
-      <div className=".container">
+      <Grid container direction="row">
+        <Grid item xs={2}>
         <StyledSlider
           value={damperPositions.a}
           valueLabelDisplay="on"
@@ -127,6 +137,8 @@ export default function CryoGauge(props) {
           min={0}
           max={2}
         />
+        </Grid>
+        <Grid item  xs={2}>
         <StyledSlider
           valueLabelDisplay="on"
           value={damperPositions.b}
@@ -136,6 +148,8 @@ export default function CryoGauge(props) {
           min={0}
           max={2}
         />
+        </Grid>
+        <Grid item xs={2}>
         <StyledSlider
           valueLabelDisplay="on"
           value={damperPositions.c}
@@ -145,7 +159,41 @@ export default function CryoGauge(props) {
           min={0}
           max={2}
         />
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
+
+
+//   <div className={classes.paperroot}>
+//   <div className=".container">
+//     <StyledSlider
+//       value={damperPositions.a}
+//       valueLabelDisplay="on"
+//       orientation="vertical"
+//       step={0.1}
+//       marks={marks()}
+//       min={0}
+//       max={2}
+//     />
+//     <StyledSlider
+//       valueLabelDisplay="on"
+//       value={damperPositions.b}
+//       orientation="vertical"
+//       step={0.1}
+//       marks={marks()}
+//       min={0}
+//       max={2}
+//     />
+//     <StyledSlider
+//       valueLabelDisplay="on"
+//       value={damperPositions.c}
+//       orientation="vertical"
+//       step={0.1}
+//       marks={marks()}
+//       min={0}
+//       max={2}
+//     />
+//   </div>
+// </div>
 }

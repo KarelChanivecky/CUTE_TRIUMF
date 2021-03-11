@@ -1,6 +1,7 @@
 import React from 'react'
 import PlaceholderWidget from "../../../../widgets/placeholder/placeholderWidget";
 import {Grid} from "@material-ui/core";
+import {CalibrationControl} from "../../../../components/CuteCalibration/cute_calibration";
 
 function CalibCryoDiagWideTab(props) {
     return (
@@ -11,7 +12,7 @@ function CalibCryoDiagWideTab(props) {
                     <PlaceholderWidget height={40} width={40}/>
                 </Grid>
             </Grid>
-            <PlaceholderWidget height={20} width={85}/>
+            <CalibrationControl />
         </div>
     )
 }
