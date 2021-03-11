@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert} from "@material-ui/lab";
 
 
-function WarningHeader(props) {
+function CalibrationStatusIndicator(props) {
     const alertText = "System available";
     const alertSeverity = "success";
     return (
@@ -10,4 +10,4 @@ function WarningHeader(props) {
     );
 }
 
-export default WarningHeader;
+export default CalibrationStatusIndicator;

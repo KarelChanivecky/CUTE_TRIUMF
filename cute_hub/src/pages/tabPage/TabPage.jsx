@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
-import CalibratorInProgressIndicator from "../../components/WarningHeader/WarningHeader";
+import CalibratorInProgressIndicator from "../../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 
