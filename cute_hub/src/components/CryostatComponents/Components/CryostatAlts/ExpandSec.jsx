@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   papersliver: {
     maxWidth: 333,
     height: 50,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
   paperroot: {
     padding: theme.spacing(2),
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   paperbig: {
     maxWidth: 333,
     height: 400,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
   paperdiagram: {
     overflow: "auto",
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   paperitem: {
     marginBottom: 10,
     height: 50,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
 }));
 
@@ -61,12 +61,14 @@ export default function Expand(props) {
           </Grid>
         </Grid>
         <Grid item xs={3}>
+          <div style={{width: 530}}>
           <CommandLine
             init={"display"}
             initWidth={482}
             onclick={props.onclick}
             commands={props.commands}
           ></CommandLine>
+          </div>
         </Grid>
       </Grid>
     </div>

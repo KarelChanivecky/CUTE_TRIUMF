@@ -9,60 +9,61 @@ import Closed from "./Components/CryostatAlts/ClosedSec";
 import Expand from "./Components/CryostatAlts/ExpandSec";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        margin: 20,
-        display: "inline-block",
-    },
-    paperbig: {
-        maxWidth: 333,
-        height: 375,
-        backgroundColor: "grey",
-    },
-    papersliver: {
-        maxWidth: 333,
-        height: 50,
-        backgroundColor: "grey",
-    },
-    paperroot: {
-        padding: theme.spacing(2),
-        height: 500,
-        display: "inline-block",
-        paddingRight: 100,
-        backgroundColor: "darkgrey",
-    },
-    paperdiagram: {
-        overflow: "auto",
-        minWidth: 100,
-        maxWidth: 200,
-        maxHeight: 530,
-        backgroundColor: "darkgrey",
-    },
-    paperitem: {
-        marginBottom: 10,
-        height: 50,
-        backgroundColor: "grey",
-    },
+  root: {
+    flexGrow: 1,
+    margin: 20,
+    display: "inline-block",
+  },
+  paperbig: {
+    maxWidth: 333,
+    height: 375,
+    backgroundColor: "darkgrey",
+  },
+  papersliver: {
+    maxWidth: 333,
+    height: 50,
+    backgroundColor: "darkgrey",
+  },
+  paperroot: {
+    padding: theme.spacing(2),
+    height: 500,
+    display: "inline-block",
+    paddingRight: 100,
+    backgroundColor: "darkgrey",
+  },
+  paperdiagram: {
+    overflow: "auto",
+    minWidth: 100,
+    maxWidth: 200,
+    maxHeight: 530,
+    backgroundColor: "darkgrey",
+  },
+  paperitem: {
+    marginBottom: 10,
+    height: 50,
+    backgroundColor: "darkgrey",
+  },
 }));
 
 export default function CryostatComp(props) {
-    const classes = useStyles();
-    const buttons = (
-        <FunctionButtons
-            commands={[
-                {command: "Command1", name: "cmd1"},
-                {command: "Command2", name: "cmd2"},
-                {command: "Command3", name: "cmd3"},
-                {command: "Command4", name: "cmd4"},
-                {command: "Command5", name: "cmd5"},
-                {command: "Command6", name: "cmd6"},
-                {command: "Command7", name: "cmd7"},
-                {command: "Command8", name: "cmd8"},
-                {command: "Command9", name: "cmd9"},
-            ]}
-            onclick={sendCommand}
-        />
-    );
+  const classes = useStyles();
+  const buttons = (
+    <FunctionButtons
+      commands={[
+        { command: "Command1", name: "cmd1" },
+        { command: "Command2", name: "cmd2" },
+        { command: "Command3", name: "cmd3" },
+        { command: "Command4", name: "cmd4" },
+        { command: "Command5", name: "cmd5" },
+        { command: "Command6", name: "cmd6" },
+        { command: "Command7", name: "cmd7" },
+        { command: "Command8", name: "cmd8" },
+        { command: "Command9", name: "cmd9" },
+        { command: "Command10", name: "cmd10" },
+      ]}
+      onclick={sendCommand}
+    />
+  );
 
     const expanded = props.expanded;
 

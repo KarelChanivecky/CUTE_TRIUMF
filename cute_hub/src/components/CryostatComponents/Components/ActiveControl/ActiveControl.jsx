@@ -6,9 +6,9 @@ import Switch from "@material-ui/core/Switch";
 
 export default function FunctionButtons(props) {
   return (
-    <Grid container direction="row" spacing={2}>
-      <Grid item xs={9}>
-        <Typography>Active Control:</Typography>
+    <Grid container direction="row" spacing={2} justify="space-around">
+      <Grid item xs={7}>
+        <Typography style={{marginTop: 7}}>Active Control:</Typography>
       </Grid>
       <Grid item xs={3}>
         <Switch />

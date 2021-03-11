@@ -6,9 +6,9 @@ import FButton from "./FButtons";
 
 export default function FunctionButtons(props) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} justify="space-around">
       {props.commands.map((c) => (
-        <Grid key={c.name} item xs={6}>
+        <Grid key={c.name} item xs={5}>
           <FButton command={c.command} name={c.name} onclick={props.onclick} />
         </Grid>
       ))}

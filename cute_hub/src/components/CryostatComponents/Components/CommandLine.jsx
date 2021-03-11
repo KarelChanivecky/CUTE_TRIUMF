@@ -34,29 +34,28 @@ class CommandLine extends Component {
         }
     };
 
-    render() {
-        return (
-            <div style={{width: 530}}>
-                <ThemeProvider theme={theme}>
-                    <OutputLine output={this.state.output} display={this.state.display}/>
-                    <TextField
-                        onChange={this.handleChange}
-                        onKeyDown={this.handleSubmit}
-                        value={this.state.currentcmd}
-                        style={{width: this.state.inputWidth}}/>
-                    <IconButton
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                            this.props.onclick(this.state.output);
-                        }}
-                    >
-                        <ArrowForwardIosIcon/>
-                    </IconButton>
-                </ThemeProvider>
-            </div>
-        );
-    }
+  render() {
+    return (
+        <ThemeProvider theme={theme}>
+          <OutputLine output={this.state.output} display={this.state.display} />
+          <TextField
+            onChange={this.handleChange}
+            onKeyDown={this.handleSubmit}
+            value={this.state.currentcmd}
+            style={{ width: this.state.inputWidth }}
+          ></TextField>
+          <IconButton
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              this.props.onclick(this.state.output);
+            }}
+          >
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </ThemeProvider>
+    );
+  }
 }
 
 export default CommandLine;
