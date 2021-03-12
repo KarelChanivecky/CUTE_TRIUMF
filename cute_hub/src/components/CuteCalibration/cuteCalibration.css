@@ -1,27 +1,29 @@
 
 .calibration_widget {
-    margin: 10px;
-    padding: 20px;
-    border-radius: 5px;
-    width: fit-content;
- }
- 
- #calibration_input {
-    width: 75px;
- }
- 
- .calib_control_horizontal {
-    height: fit-content;
-    width: 860px;
- }
- 
- .calib_control_vertical {
-    justify-content: center;
-    width: 100px;
-    height: 800px;
- }
+   margin: 10px;
+   padding: 20px;
+   border-radius: 5px;
+   width: fit-content;
+}
 
- .inputDiv {
-    display: flex;
-    margin-top: 10px;
- }
+.calibration_input {
+   width: 75px;
+}
+
+.calib_control_horizontal {
+   margin-top: 10px;
+   height: fit-content;
+   width: 1000px;
+}
+
+.calib_control_vertical {
+   justify-content: center;
+   width: 100px;
+   height: 800px;
+}
+
+.inputDiv {
+   margin: 10px;
+   height: 37px;
+   display: flex;
+}

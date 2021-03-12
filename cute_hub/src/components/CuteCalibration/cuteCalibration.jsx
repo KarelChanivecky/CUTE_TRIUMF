@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './cuteCalibration.css';
-// import {source_position, move_source} from './test.js'
+import Grid from '@material-ui/core/Grid'
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import { makeStyles, OutlinedInput, TextField, ThemeProvider, Typography, withStyles } from '@material-ui/core';
@@ -50,7 +50,7 @@ const sliderStyles = {
    root: {
       color: 'primary',
       height: 8,
-      width: 860,
+      width: 1000,
    },
    vertical: {
       color: 'primary',
@@ -128,7 +128,7 @@ function SourcePositionSlider(props) {
    sourceStyles.root.color = '#52af77';
    sourceStyles.vertical.color = '#52af77';
    sourceStyles.rail.display = 'none';
-   sourceStyles.thumb.marginTop = -66;
+   sourceStyles.thumb.marginTop = -67.5;
    sourceStyles.vertical["& $thumb"].marginLeft = -56;
 
    // Creates a new Slider object with specific styling
@@ -158,18 +158,20 @@ function CalibrationSlider(props) {
       setValues( [values[0], event.target.value === '' ? '' : Number(event.target.value)]);
    };
    
-   const orientation = () => {return(props.screenwidth < props.screenheight) ? "vertical" : "horizontal";}
+   const getSliderOrientation = () => {return(props.screenwidth < props.screenheight) ? "vertical" : "horizontal";}
+   const getGridOrientation = () => {return(props.screenwidth < props.screenheight) ? "column" : "row";}
 
 
    return (      
       <div  
          className="calibration_widget">
-         <div  
+         <Grid container direction={getGridOrientation()}>
+         <Grid item><div  
             className={getCalibDivClass()}
             id="calibration_slider">
             <StyledMovementSlider
                value={values[1]}
-               orientation={orientation()}
+               orientation={getSliderOrientation()}
                aria-labelledby="range-slider"
                onChange={handleChange}
                marks={marks()}
@@ -183,12 +185,13 @@ function CalibrationSlider(props) {
                valueLabelDisplay="auto"
             />
             <SourcePositionSlider
-               orientation={orientation()}
+               orientation={getSliderOrientation()}
             />
-         </div>
-         <div className="inputDiv">
+         </div></Grid>
+         
+         <Grid item><div className="inputDiv">
             <OutlinedInput
-               className={buttonStyle.root}
+               className="calibration_input"
                id="calibration_input"
                value={values[1]} 
                type="number"
@@ -203,7 +206,8 @@ function CalibrationSlider(props) {
                onClick={()=>{move_source(values[1])}}>
                   Move
             </Button>
-         </div>
+         </div></Grid>
+         </Grid>
       </div>
    );
 }
