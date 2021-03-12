@@ -220,28 +220,8 @@ function CalibrationSlider(props) {
 
 // 
 export default function CalibrationControl(props) {
-   const [dimensions, setDimensions] = React.useState({ 
-      height: window.innerHeight,
-      width: window.innerWidth,
-   })
-   
-   React.useEffect(() => {
-      function handleResize() {
-         setDimensions({
-            height: window.innerHeight,
-            width: window.innerWidth,
-         })
-      }
-      window.addEventListener('resize', handleResize)
-
-      return _ => {
-         window.removeEventListener('resize', handleResize)
-      }
-   })
    return (
          <CalibrationSlider 
-            screenwidth={dimensions.width}
-            screenheight={dimensions.height}
             displayState={props.displayState}
             />    
    );
