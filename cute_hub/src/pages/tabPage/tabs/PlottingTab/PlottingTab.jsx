@@ -65,7 +65,9 @@ function makeQuery(sensorBoolString, dateTimeString) {
 }
 
 function PlottingTab(props) {
-    const theme = useTheme();
+    const theme = useTheme()
+
+    // The following empty functions will be used to implement the plotting
     const notifyCheckedPressure = checkedList => {
     };
     const notifyCheckedThermo = checkedList => {

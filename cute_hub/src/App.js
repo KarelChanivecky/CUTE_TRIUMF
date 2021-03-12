@@ -1,4 +1,4 @@
-import './App.css';
+import './style/App.css';
 import './components/ToggleHeader/ToggleHeader';
 import TabPage from "./pages/tabPage/TabPage";
 import {Grid} from "@material-ui/core";
