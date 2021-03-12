@@ -12,12 +12,12 @@ import {Typography} from "@material-ui/core";
  * @param {Function} props.onToggle A toggle button click handler
  */
 function ToggleHeader(props) {
-    const MinimizeButton = !props.minimizable ? <></> :
+    const MinimizeButton = !props.minimizable ? <span/> :
         <IconButton className={"toggle_btn th_btn"} onClick={props.onToggle}>
             <ChangeHistoryRounded/>
         </IconButton>;
 
-    const HelpButton = !props.helpable ? <></> :
+    const HelpButton = !props.helpable ? <span/> :
         <IconButton className={"help_btn th_btn"} onClick={props.onHelp}>
             <HelpRounded/>
         </IconButton>;
@@ -28,7 +28,7 @@ function ToggleHeader(props) {
 
     return (
         <Grid container>
-            <Grid item container justify={justify} xs={12} lg={12} alignItems="center">
+            <Grid item container justify={"space-between"} xs={12} lg={12} alignItems="center">
                 {MinimizeButton}
                 {Name}
                 {HelpButton}

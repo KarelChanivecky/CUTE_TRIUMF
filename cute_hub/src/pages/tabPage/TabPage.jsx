@@ -36,7 +36,7 @@ function evaluateWindowWidth() {
 function getCalibCryoFridgeTab() {
     switch (evaluateWindowWidth()) {
         case WindowStates.NARROW:
-            return <CalibrationWidget/>;
+            return <CalibrationWidget helpable/>;
         case WindowStates.ACCORDION:
             return <CalibCryoFridgeMediumTab/>;
         default:
