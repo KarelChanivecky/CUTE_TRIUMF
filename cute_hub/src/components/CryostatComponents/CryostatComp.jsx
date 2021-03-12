@@ -58,13 +58,13 @@ export default function CryostatComp(props) {
     const colsWidth = expanded ? 5 : 10;
     const consoleComponent = expanded ?
         <Expand
-            onclick={props.onDisplayChange}
+            onclick={props.onDisplayChange ?? null}
             buttons={buttons}
             commands={consoleLog}
         />
         :
         <Closed
-              onclick={props.onDisplayChange}
+              onclick={props.onDisplayChange ?? null}
               buttons={buttons}
               commands={consoleLog}
           />;

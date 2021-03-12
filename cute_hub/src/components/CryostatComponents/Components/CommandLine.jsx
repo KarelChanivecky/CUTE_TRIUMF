@@ -42,14 +42,15 @@ class CommandLine extends Component {
             onChange={this.handleChange}
             onKeyDown={this.handleSubmit}
             value={this.state.currentcmd}
-            style={{ width: this.state.inputWidth }}
-          ></TextField>
+            style={{width: this.state.inputWidth}}
+            />
           <IconButton
             variant="contained"
             color="primary"
-            onClick={() => {
+            onClick={ this.props.onclick ? () => {
               this.props.onclick(this.state.output);
-            }}
+            }
+            : null}
           >
             <ArrowForwardIosIcon />
           </IconButton>

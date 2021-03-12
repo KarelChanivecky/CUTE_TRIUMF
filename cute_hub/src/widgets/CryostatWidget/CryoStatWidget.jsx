@@ -34,6 +34,7 @@ export default function CryoStatWidget(props) {
   }));
   const classes = useStyles();
   //let thing = (displayState == ModuleDisplayStates.OPEN) ?  <CryostatComp></CryostatComp> : <span></span>
+
   return (
     <Box className={classes.root}>
       <Paper>
@@ -43,7 +44,7 @@ export default function CryoStatWidget(props) {
           onToggle={props.onDisplayChange}
           name={props.noName? null :WidgetNames.CRYOSTAT}
         />
-        <CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange}/>
+        <CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange ?? null}/>
       </Paper>
     </Box>
   );

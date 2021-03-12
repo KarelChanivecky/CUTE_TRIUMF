@@ -34,7 +34,7 @@ export default function Closed(props) {
         <Grid item xs container direction="column" spacing={2} alignContent="flex-start">
           <Grid item>
             <Paper className={classes.papersliver}>
-              <ActiveControl></ActiveControl>
+              <ActiveControl/>
             </Paper>
           </Grid>
           <Grid item>
@@ -44,9 +44,9 @@ export default function Closed(props) {
             <CommandLine
               init={"none"}
               initWidth={320}
-              onclick={props.onclick}
+              onclick={props.onclick ?? null}
               commands={props.commands}
-            ></CommandLine>
+              />
           </Grid>
         </Grid>
       </Grid>

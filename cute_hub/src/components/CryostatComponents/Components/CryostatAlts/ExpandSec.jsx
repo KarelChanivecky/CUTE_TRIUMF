@@ -40,7 +40,7 @@ export default function Expand(props) {
         <Grid item xs={9} container direction="column" spacing={2}>
           <Grid item>
             <Paper className={classes.papersliver}>
-              <ActiveControl></ActiveControl>
+              <ActiveControl/>
             </Paper>
           </Grid>
           <Grid item>
@@ -50,11 +50,11 @@ export default function Expand(props) {
         <Grid item xs={3}>
           <div style={{width: 530}}>
           <CommandLine
-            init={"display"}
+              init={"display"}
             initWidth={482}
-            onclick={props.onclick}
+            onclick={props.onclick??null}
             commands={props.commands}
-          ></CommandLine>
+            />
           </div>
         </Grid>
       </Grid>
