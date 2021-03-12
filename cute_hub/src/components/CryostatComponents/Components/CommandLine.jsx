@@ -31,6 +31,7 @@ class CommandLine extends Component {
         if (e.keyCode === 13) {
             const output = [...this.state.output, e.target.value];
             this.setState({output, currentcmd: ""});
+            this.props.sendCommand(e.target.value, output);
         }
     };
 

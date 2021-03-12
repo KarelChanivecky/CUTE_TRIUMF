@@ -39,7 +39,7 @@ function CalibCryoFridgeWideTab(props) {
       <Grid item container lg={12} direction="column">
         <Grid item container lg={12} justify="space-around">
           <DiagramWidget
-            displayState={fridgeModuleState}
+            displayState={fridgeModuleState} 
             minimizable
             onDisplayChange={handleExpandedChange(expandedModules.FRIDGE)}
           />

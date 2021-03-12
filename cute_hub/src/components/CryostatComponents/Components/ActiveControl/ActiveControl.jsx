@@ -11,7 +11,12 @@ export default function FunctionButtons(props) {
         <Typography style={{marginTop: 7}}>Active Control:</Typography>
       </Grid>
       <Grid item xs={3}>
-        <Switch color='primary' />
+        <Switch color='primary' onClick={function (e) {
+          if(e.target.checked){
+            props.onActive("/Active 1");
+          } else{
+            props.onActive("/Active 0");
+          }}}/>
       </Grid>
     </Grid>
   );

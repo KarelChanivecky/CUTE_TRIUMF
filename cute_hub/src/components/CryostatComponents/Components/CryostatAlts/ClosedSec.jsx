@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'primary',
     border: "solid",
     borderColor: '#009fdf',
+    borderWidth: 0.5,
   },
   paperbig: {
     maxWidth: 333,
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     border: "solid",
     borderColor: '#009fdf',
+    borderWidth: 0.5,
     paddingTop: 10
   },
 }));
@@ -34,7 +36,7 @@ export default function Closed(props) {
         <Grid item xs container direction="column" spacing={2} alignContent="flex-start">
           <Grid item>
             <Paper className={classes.papersliver}>
-              <ActiveControl></ActiveControl>
+              <ActiveControl onActive={props.sendCommand}></ActiveControl>
             </Paper>
           </Grid>
           <Grid item>
@@ -46,6 +48,7 @@ export default function Closed(props) {
               initWidth={320}
               onclick={props.onclick}
               commands={props.commands}
+              sendCommand={props.sendCommand}
             ></CommandLine>
           </Grid>
         </Grid>
