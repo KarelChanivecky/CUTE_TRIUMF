@@ -13,7 +13,7 @@ export default function FButton(props) {
   return (
     <Button
       className={classes.button}
-      variant="contained"
+      variant="outlined"
       color="primary"
       disableElevation
       onClick={function (e) {

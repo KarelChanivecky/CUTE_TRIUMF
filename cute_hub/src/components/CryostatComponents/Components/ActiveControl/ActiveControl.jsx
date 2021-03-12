@@ -11,7 +11,7 @@ export default function FunctionButtons(props) {
         <Typography style={{marginTop: 7}}>Active Control:</Typography>
       </Grid>
       <Grid item xs={3}>
-        <Switch />
+        <Switch color='primary' />
       </Grid>
     </Grid>
   );
