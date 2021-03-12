@@ -16,33 +16,19 @@ const useStyles = makeStyles((theme) => ({
   },
   paperbig: {
     maxWidth: 333,
-    height: 375,
-    backgroundColor: "darkgrey",
+    height: 500,
+    backgroundColor: "white",
+    border: "solid",
+    borderColor: '#009fdf',
   },
   papersliver: {
     maxWidth: 333,
     height: 50,
-    backgroundColor: "darkgrey",
+    backgroundColor: "white",
+    border: "solid",
+    borderColor: '#009fdf',
   },
-  paperroot: {
-    padding: theme.spacing(2),
-    height: 500,
-    display: "inline-block",
-    paddingRight: 100,
-    backgroundColor: "darkgrey",
-  },
-  paperdiagram: {
-    overflow: "auto",
-    minWidth: 100,
-    maxWidth: 200,
-    maxHeight: 530,
-    backgroundColor: "darkgrey",
-  },
-  paperitem: {
-    marginBottom: 10,
-    height: 50,
-    backgroundColor: "darkgrey",
-  },
+
 }));
 
 export default function CryostatComp(props) {

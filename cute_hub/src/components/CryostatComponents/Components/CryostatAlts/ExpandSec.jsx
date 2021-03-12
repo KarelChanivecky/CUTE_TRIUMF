@@ -9,30 +9,17 @@ const useStyles = makeStyles((theme) => ({
   papersliver: {
     maxWidth: 333,
     height: 50,
-    backgroundColor: "darkgrey",
-  },
-  paperroot: {
-    padding: theme.spacing(2),
-    height: 300,
-    width: 200,
-    backgroundColor: "darkgrey",
+    backgroundColor: "white",
+    border: "solid",
+    borderColor: '#009fdf',
   },
   paperbig: {
     maxWidth: 333,
-    height: 400,
-    backgroundColor: "darkgrey",
-  },
-  paperdiagram: {
-    overflow: "auto",
-    minWidth: 100,
-    maxWidth: 200,
-    maxHeight: 530,
-    backgroundColor: "darkgrey",
-  },
-  paperitem: {
-    marginBottom: 10,
-    height: 50,
-    backgroundColor: "darkgrey",
+    height: 505,
+    backgroundColor: "white",
+    border: "solid",
+    borderColor: '#009fdf',
+    paddingTop: 10
   },
 }));
 

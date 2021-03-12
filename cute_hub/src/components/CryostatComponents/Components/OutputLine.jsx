@@ -21,7 +21,7 @@ class OutputLine extends Component {
         style={{
           display: this.props.display,
           width: 530,
-          height: 400,
+          height: 520,
           overflowY: "auto",
           backgroundColor: "black",
         }}
