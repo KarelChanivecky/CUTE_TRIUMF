@@ -1,4 +1,4 @@
-# Cute React page filesystem description
+# Cute React page directory structure description
 
 ## Index
 * [Root](#root)
