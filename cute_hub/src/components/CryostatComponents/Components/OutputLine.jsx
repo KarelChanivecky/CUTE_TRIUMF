@@ -1,3 +1,4 @@
+import { display } from "@material-ui/system";
 import React, { Component } from "react";
 
 class OutputLine extends Component {
@@ -24,10 +25,11 @@ class OutputLine extends Component {
           height: 520,
           overflowY: "auto",
           backgroundColor: "black",
+          float: "left"
         }}
       >
         {this.props.output.map((text, index) => (
-          <div key={text + index} style={{ color: "white"}}>
+          <div key={text + index} style={{ color: "white", display: "flex", paddingLeft: 5}}>
             {text}
           </div>
         ))}

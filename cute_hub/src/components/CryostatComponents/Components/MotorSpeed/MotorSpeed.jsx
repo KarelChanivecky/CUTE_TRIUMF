@@ -16,19 +16,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function MotorSpeed(props) {
   const classes = useStyles();
+
+  const [speeds, setSpeeds] = React.useState(props.speeds)
+
   return (
     <div className={classes.paperroot}>
     <Grid container direction="row" alignContent="center">
       <Grid item xs={3}>
-        12
+        {speeds[0]}
       </Grid>
       <Grid item  xs={3}>
-      15
+        {speeds[1]}
       </Grid>
       <Grid item xs={3}>
-      6
+        {speeds[2]}
       </Grid>
     </Grid>
   </div>
