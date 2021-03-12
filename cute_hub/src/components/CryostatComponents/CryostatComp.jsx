@@ -1,5 +1,5 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, {useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import FunctionButtons from "./Components/FunctionButtons/functionButtons";
@@ -7,6 +7,7 @@ import CryoGauge from "./Components/Gauges/CryoGauge";
 import MotorSpeed from "./Components/MotorSpeed/MotorSpeed";
 import Closed from "./Components/CryostatAlts/ClosedSec";
 import Expand from "./Components/CryostatAlts/ExpandSec";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -16,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
   paperbig: {
     maxWidth: 333,
     height: 375,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
   papersliver: {
     maxWidth: 333,
     height: 50,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
   paperroot: {
     padding: theme.spacing(2),
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   paperitem: {
     marginBottom: 10,
     height: 50,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
 }));
 
@@ -58,67 +59,53 @@ export default function CryostatComp(props) {
         { command: "Command7", name: "cmd7" },
         { command: "Command8", name: "cmd8" },
         { command: "Command9", name: "cmd9" },
+        { command: "Command10", name: "cmd10" },
       ]}
       onclick={sendCommand}
     />
   );
 
-  //Cryostat comp state
-  const [params, setParams] = React.useState({
-    xs: 10,
-    input: (
-      <Closed onclick={changeMaximize} buttons={buttons} commands={[]}></Closed>
-    ),
-  });
+    const expanded = props.expanded;
 
-  //Handles the button press, maximizing the command line.
-  function changeMaximize(cmd) {
-    setParams({
-      xs: 5,
-      input: (
+    const [consoleLog, setConsoleLog] = useState([]);
+
+    const colsWidth = expanded ? 5 : 10;
+    const consoleComponent = expanded ?
         <Expand
-          onclick={changeMinimize}
-          buttons={buttons}
-          commands={cmd}
-        ></Expand>
-      ),
-    });
-  }
-
-  //Handles the button press, minimizing the command line
-  function changeMinimize(cmd) {
-    setParams({
-      xs: 10,
-      input: (
+            onclick={props.onDisplayChange}
+            buttons={buttons}
+            commands={consoleLog}
+        />
+        :
         <Closed
-          onclick={changeMaximize}
-          buttons={buttons}
-          commands={cmd}
-        ></Closed>
-      ),
-    });
-  }
+              onclick={props.onDisplayChange}
+              buttons={buttons}
+              commands={consoleLog}
+          />;
 
-  function sendCommand(){}
 
-  //Get references of all the buttons
-  return (
-      <Grid item container xs={params.xs} spacing={2} justify="center">
-        <Grid item xs={7} container direction="column" spacing={3}>
-          <Grid item>
-            <Paper className={classes.paperbig}>
-              <CryoGauge></CryoGauge>
-            </Paper>
-          </Grid>
-          <Grid item>
-            <Paper className={classes.papersliver}>
-              <MotorSpeed></MotorSpeed>
-            </Paper>
-          </Grid>
+
+    function sendCommand() {
+    }
+
+    //Get references of all the buttons
+    return (
+        <Grid item container xs={colsWidth} spacing={2} justify="center">
+            <Grid item xs={7} container direction="column" spacing={3}>
+                <Grid item>
+                    <Paper className={classes.paperbig}>
+                        <CryoGauge/>
+                    </Paper>
+                </Grid>
+                <Grid item>
+                    <Paper className={classes.papersliver}>
+                        <MotorSpeed/>
+                    </Paper>
+                </Grid>
+            </Grid>
+            <Grid item xs={4}>
+                {consoleComponent}
+            </Grid>
         </Grid>
-        <Grid item xs={4}>
-          {params.input}
-        </Grid>
-      </Grid>
-  );
+    );
 }

@@ -1,9 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import ActiveControl from "../ActiveControl/ActiveControl";
 import CommandLine from "../CommandLine";
+
 const useStyles = makeStyles((theme) => ({
   rootGrid: {
     width: 500,
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   papersliver: {
     maxWidth: 333,
     height: 50,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
   paperroot: {
     padding: theme.spacing(2),
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   paperbig: {
     maxWidth: 333,
     height: 400,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
   paperdiagram: {
     overflow: "auto",
@@ -34,19 +35,20 @@ const useStyles = makeStyles((theme) => ({
   paperitem: {
     marginBottom: 10,
     height: 50,
-    backgroundColor: "grey",
+    backgroundColor: "darkgrey",
   },
 }));
 
 export default function Closed(props) {
   const classes = useStyles();
   return (
+
     <div className={classes.rootGrid}>
       <Grid item xs={12} sm container>
-        <Grid item xs container direction="column" spacing={2}>
+        <Grid item xs container direction="column" spacing={2} alignContent="flex-start">
           <Grid item>
             <Paper className={classes.papersliver}>
-              <ActiveControl></ActiveControl>
+              <ActiveControl/>
             </Paper>
           </Grid>
           <Grid item>
@@ -55,7 +57,7 @@ export default function Closed(props) {
           <Grid item>
             <CommandLine
               init={"none"}
-              initWidth={100}
+              initWidth={320}
               onclick={props.onclick}
               commands={props.commands}
             ></CommandLine>

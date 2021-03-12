@@ -1,8 +1,9 @@
 import React from 'react';
 import {Box, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
-import CalibratorInProgressIndicator from "../../components/WarningHeader/WarningHeader";
+import CalibratorInProgressIndicator from "../../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
+import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 
 
 function TabPage(props) {
@@ -15,36 +16,35 @@ function TabPage(props) {
     };
 
 
-    const tabs = [<CalibCryoFridgeWideTab/>, <></>];
+    const tabs = [<CalibCryoFridgeWideTab/>, <PlottingTab/>];
 
     const ActiveTab = tabs[value];
+
+    const height = props.height ?? "auto";
     return (
-        <Grid container>
 
-            <Grid item container lg={12} xs={12}>
-                <Box width={1}>
-                    <ColoredPaper color={theme.palette.primary} square elevation={0}>
-                        <Grid item container direction='row' justify="space-between" wrap="wrap-reverse">
-                            <Tabs
-                                value={value}
-                                onChange={handleChange}
-                                indicatorColor="secondary"
-                                textColor="inherit"
-                                centered>
-                                <Tab label="Calibration/Cryostat/Fridge"/>
-                                <Tab label="Plotting"/>
-                            </Tabs>
-                            <CalibratorInProgressIndicator/>
-                        </Grid>
-                    </ColoredPaper>
-                </Box>
 
-                <ColoredPaper elevation={0} color={theme.palette.backgroundLight} square>
-                    {ActiveTab}
+        <Box width={1} height={height}>
+
+            <ColoredPaper elevation={0} color={theme.palette.backgroundLight} parentSize square>
+                <ColoredPaper color={theme.palette.primary} square elevation={0}>
+                    <Grid item container direction='row' justify="space-between" wrap="wrap-reverse">
+                        <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            indicatorColor="secondary"
+                            textColor="inherit"
+                            centered>
+                            <Tab label="Calibration/Cryostat/Fridge"/>
+                            <Tab label="Data"/>
+                        </Tabs>
+                        <CalibratorInProgressIndicator/>
+                    </Grid>
                 </ColoredPaper>
-            </Grid>
-        </Grid>
 
+                {ActiveTab}
+            </ColoredPaper>
+        </Box>
     );
 }
 
