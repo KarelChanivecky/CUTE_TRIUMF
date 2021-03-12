@@ -129,12 +129,6 @@ export default function DiagramSVG() {
     }, [])  // includes empty dependency array
     let SvgObject =
         <Grid container justify="center" alignItems="center">
-            <Grid item>
-                <Typography variant="body1">
-                    Last Updated: <span id="clock">{data.Time}</span>
-                </Typography>
-
-            </Grid>
             <Grid item container justify="center">
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
                      viewBox="-100 0 1200 929">
@@ -503,6 +497,13 @@ export default function DiagramSVG() {
             <text id="TMC" className="cls-2" transform="translate(1115.86 567.8412)">13</text>
           </g> */}
                 </svg>
+            </Grid>
+            
+            <Grid item>
+                <Typography variant="body1" >
+                    Last Updated: <span id="clock">{data.Time}</span>
+                </Typography>
+
             </Grid>
         </Grid>
 

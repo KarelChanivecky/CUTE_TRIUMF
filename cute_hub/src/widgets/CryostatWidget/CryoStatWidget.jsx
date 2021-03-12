@@ -12,12 +12,12 @@ export default function CryoStatWidget(props) {
 
   switch (displayState) {
     case ModuleDisplayStates.OPEN:
-      height = 70;
+      height = 80;
       width = 90;
       break;
     case ModuleDisplayStates.EXPANDED:
       height = 80;
-      width = 140;
+      width = 150;
   }
 
   const useStyles = makeStyles((theme) => ({

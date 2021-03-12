@@ -27,8 +27,8 @@ export default function DiagramWidget(props) {
 
     switch (displayState) {
         case ModuleDisplayStates.OPEN :
-            height = 70;
-            width = 80;
+            height = 80;
+            width = 90;
             break;
     }
 
