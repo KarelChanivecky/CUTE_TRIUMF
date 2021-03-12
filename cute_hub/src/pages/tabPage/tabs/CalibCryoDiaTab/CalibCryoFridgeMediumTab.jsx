@@ -61,7 +61,7 @@ function CalibCryoDiagWideTab(props) {
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
-
+    // console.log("in accordian")
     return (
         <div>
             <Accordion expanded={expanded === WidgetNames.DIAGRAM} onChange={handleChange(WidgetNames.DIAGRAM)}>

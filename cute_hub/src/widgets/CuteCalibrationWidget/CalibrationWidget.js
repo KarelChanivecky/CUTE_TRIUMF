@@ -38,7 +38,9 @@ export default function CalibrationWidget(props) {
                 <ToggleHeader
                     helpable={props.helpable}
                     name={props.noName? null :WidgetNames.CALIBRATION}/>
-                <CalibrationControl/>
+                <CalibrationControl
+                    displayState={props.displayState}
+                />
             </Paper>
         </Box>
     )
