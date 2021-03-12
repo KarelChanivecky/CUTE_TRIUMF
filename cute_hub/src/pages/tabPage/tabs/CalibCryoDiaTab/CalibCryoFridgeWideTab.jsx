@@ -50,7 +50,7 @@ function CalibCryoFridgeWideTab(props) {
           />
         </Grid>
       </Grid>
-      <CalibrationWidget displayState={fridgeModuleState} minimizable />
+      <CalibrationWidget helpable />
     </Grid>
   );
 }

@@ -35,10 +35,9 @@ export default function CalibrationWidget(props) {
     return (
         <Box className={classes.root}>
             <Paper>
-                <ToggleHeader minimizable={props.minimizable}
-                              helpable={displayState !== ModuleDisplayStates.MINIMIZED}
-                              onToggle={props.onDisplayChange}
-                              name={props.noName? null :WidgetNames.CALIBRATION}/>
+                <ToggleHeader
+                    helpable={props.helpable}
+                    name={props.noName? null :WidgetNames.CALIBRATION}/>
                 <CalibrationControl/>
             </Paper>
         </Box>

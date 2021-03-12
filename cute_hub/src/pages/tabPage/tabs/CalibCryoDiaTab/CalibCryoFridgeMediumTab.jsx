@@ -85,7 +85,7 @@ function CalibCryoDiagWideTab(props) {
                     <Typography variant="h3">{WidgetNames.CALIBRATION}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <CalibrationWidget noName/>
+                    <CalibrationWidget noName helpable/>
                 </AccordionDetails>
             </Accordion>
 
