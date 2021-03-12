@@ -29,6 +29,7 @@ export default function Expand(props) {
   const classes = useStyles();
 
   return (
+    // This component is the right side of the Cryostat when the command line is expanded
     <div className={classes.rootGrid}>
       <Grid
         item

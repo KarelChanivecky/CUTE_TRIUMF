@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CryostatComp(props) {
   const classes = useStyles();
+
   const buttons = (
     <FunctionButtons
       commands={[
@@ -75,7 +76,7 @@ export default function CryostatComp(props) {
           />;
 
 
-
+    // A function to hand to components that need to send commands to the server.
     function sendCommand(msg, log = []) {
       if(log.length > 0){
         setConsoleLog(log);
@@ -90,11 +91,13 @@ export default function CryostatComp(props) {
       }
     }
 
+    // A function which logs the message given to it into the command prompt
     function LogMsg(msg) {
       const temp = [...consoleLog, msg];
       setConsoleLog(temp);
     }
 
+    // A function which sends the given command to the server.
     function Send(cmd)  {
     console.log(cmd);
       // try {
@@ -117,7 +120,7 @@ export default function CryostatComp(props) {
                 </Grid>
                 <Grid item>
                     <Paper className={classes.papersliver}>
-                        <MotorSpeed/>
+                        <MotorSpeed speeds={[0,0,0]}/>
                     </Paper>
                 </Grid>
             </Grid>

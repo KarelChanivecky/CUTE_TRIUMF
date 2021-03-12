@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Closed(props) {
   const classes = useStyles();
   return (
-
+    //This component is the right side of the Cryostat when the command line is closed
     <div className={classes.rootGrid}>
       <Grid item xs={12} sm container>
         <Grid item xs container direction="column" spacing={2} alignContent="flex-start">
