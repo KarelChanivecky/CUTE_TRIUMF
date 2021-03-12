@@ -3,6 +3,7 @@ import { Box, makeStyles, Paper } from "@material-ui/core";
 import ToggleHeader from "../../components/ToggleHeader/ToggleHeader";
 import { ModuleDisplayStates } from "../../constants/moduleDisplayStates";
 import CryostatComp from "../../components/CryostatComponents/CryostatComp";
+import {WidgetNames} from "../../constants/widgetNames";
 
 export default function CryoStatWidget(props) {
   const displayState = props.displayState;
@@ -40,6 +41,7 @@ export default function CryoStatWidget(props) {
           minimizable={props.minimizable}
           helpable={displayState !== ModuleDisplayStates.MINIMIZED}
           onToggle={props.onDisplayChange}
+          name={props.noName? null :WidgetNames.CRYOSTAT}
         />
         <CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange}/>
       </Paper>

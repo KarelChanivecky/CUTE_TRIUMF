@@ -35,7 +35,7 @@ function CalibCryoFridgeWideTab(props) {
   };
 
   return (
-    <Grid container justify="space-around" alignItems="flex-start">
+    <Grid container justify="flex-start" alignItems="flex-start">
       <Grid item container lg={12} direction="column" >
         <Grid item container lg={12} justify="flex-start">
           <DiagramWidget

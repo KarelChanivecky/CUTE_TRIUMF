@@ -3,6 +3,7 @@ import {Box, makeStyles, Paper} from "@material-ui/core";
 import ToggleHeader from "../../components/ToggleHeader/ToggleHeader";
 import {ModuleDisplayStates} from "../../constants/moduleDisplayStates";
 import CalibrationControl from "../../components/CuteCalibration/cuteCalibration.jsx";
+import {WidgetNames} from "../../constants/widgetNames";
 
 
 export default function CalibrationWidget(props) {
@@ -36,7 +37,8 @@ export default function CalibrationWidget(props) {
             <Paper>
                 <ToggleHeader minimizable={props.minimizable}
                               helpable={displayState !== ModuleDisplayStates.MINIMIZED}
-                              onToggle={props.onDisplayChange}/>
+                              onToggle={props.onDisplayChange}
+                              name={props.noName? null :WidgetNames.CALIBRATION}/>
                 <CalibrationControl/>
             </Paper>
         </Box>

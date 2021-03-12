@@ -5,6 +5,7 @@ import DiagramList from '../../components/DiagramList/DiagramList'
 import {Box, Grid, makeStyles, Paper} from "@material-ui/core";
 import ToggleHeader from "../../components/ToggleHeader/ToggleHeader";
 import {ModuleDisplayStates} from "../../constants/moduleDisplayStates";
+import {WidgetNames} from "../../constants/widgetNames";
 
 export default function DiagramWidget(props) {
     // const [width, setWidth] = useState(window.innerWidth);
@@ -48,14 +49,14 @@ export default function DiagramWidget(props) {
         },
     }));
     const classes = useStyles()
-    let thing = displayState === ModuleDisplayStates.OPEN ? <DiagramSVG className={classes.diag}/> : <DiagramList/>
+    let thing = displayState === ModuleDisplayStates.OPEN ? <DiagramSVG className={classes.diag} /> : <DiagramList/>
     return (
         <Box className={classes.root}>
             <Paper>
                 <ToggleHeader minimizable={props.minimizable}
                               helpable={displayState !== ModuleDisplayStates.MINIMIZED}
                               onToggle={props.onDisplayChange}
-                            name="Fridge diagram"/>
+                              name={props.noName? null :WidgetNames.DIAGRAM}/>
                 <Grid container alignItems="center" justify="center">
                         {thing}
                 </Grid>

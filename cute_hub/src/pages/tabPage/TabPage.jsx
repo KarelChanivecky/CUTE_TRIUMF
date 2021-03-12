@@ -1,10 +1,48 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Box, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
 import CalibratorInProgressIndicator from "../../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
+import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
+import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 
+
+const WindowBreakpoints = {
+    FULL_SCREEN: 1520,
+    ACCORDION: 800
+}
+
+const WindowStates = {
+    NARROW: 0,
+    ACCORDION: 1,
+    FULL_SCREEN: 2,
+}
+
+function evaluateWindowWidth() {
+    const width = window.innerWidth;
+
+    if (WindowBreakpoints.FULL_SCREEN < width) {
+        return WindowStates.FULL_SCREEN;
+    }
+
+    if (WindowBreakpoints.ACCORDION < width) {
+        return WindowStates.ACCORDION;
+    }
+
+    return WindowStates.NARROW;
+}
+
+function getCalibCryoFridgeTab() {
+    switch (evaluateWindowWidth()) {
+        case WindowStates.NARROW:
+            return <CalibrationWidget/>;
+        case WindowStates.ACCORDION:
+            return <CalibCryoFridgeMediumTab/>;
+        default:
+            return <CalibCryoFridgeWideTab/>;
+    }
+}
 
 function TabPage(props) {
     const theme = useTheme();
@@ -15,8 +53,14 @@ function TabPage(props) {
         setValue(newValue);
     };
 
+    const [tabs, setTabs] = useState([getCalibCryoFridgeTab(), <PlottingTab/>]);
 
-    const tabs = [<CalibCryoFridgeWideTab/>, <PlottingTab/>];
+    // This handles detecting the changing width of the screen and show the appropriate CalibCryoFridgeTabVersion
+    // Currently, changing the screen size may result in loosing the log of commands sent
+    window.onresize =
+        () => {
+            setTabs([getCalibCryoFridgeTab(), tabs[1]]);
+        };
 
     const ActiveTab = tabs[value];
 
