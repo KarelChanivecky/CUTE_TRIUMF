@@ -7,6 +7,7 @@ import CryoGauge from "./Components/Gauges/CryoGauge";
 import MotorSpeed from "./Components/MotorSpeed/MotorSpeed";
 import Closed from "./Components/CryostatAlts/ClosedSec";
 import Expand from "./Components/CryostatAlts/ExpandSec";
+import { render } from "react-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     height: 500,
     backgroundColor: "white",
     border: "solid",
+    borderWidth: 0.5,
     borderColor: '#009fdf',
   },
   papersliver: {
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
     backgroundColor: "white",
     border: "solid",
+    borderWidth: 0.5,
     borderColor: '#009fdf',
   },
 
@@ -33,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CryostatComp(props) {
   const classes = useStyles();
+
   const buttons = (
     <FunctionButtons
       commands={[
@@ -45,7 +49,7 @@ export default function CryostatComp(props) {
         { command: "Command7", name: "cmd7" },
         { command: "Command8", name: "cmd8" },
         { command: "Command9", name: "cmd9" },
-        { command: "Command10", name: "cmd10" },
+        { command: "/respond position", name: "cmd10" },
       ]}
       onclick={sendCommand}
     />
@@ -61,17 +65,48 @@ export default function CryostatComp(props) {
             onclick={props.onDisplayChange}
             buttons={buttons}
             commands={consoleLog}
+            sendCommand={sendCommand}
         />
         :
         <Closed
               onclick={props.onDisplayChange}
               buttons={buttons}
               commands={consoleLog}
+              sendCommand={sendCommand}
           />;
 
 
+    // A function to hand to components that need to send commands to the server.
+    function sendCommand(msg, log = []) {
+      if(log.length > 0){
+        setConsoleLog(log);
+      } else {
+        LogMsg(msg);
+      }
+      let cmd = msg.split(' ',1)[0];
+      if (cmd && cmd.length>1 && cmd.substr(0,1) == '/') {
+        Send(cmd.substr(1) + ':' + msg.substr(msg.indexOf(cmd)+cmd.length+1));
+      } else {
+        Send('log:"'+msg+'"');
+      }
+    }
 
-    function sendCommand() {
+    // A function which logs the message given to it into the command prompt
+    function LogMsg(msg) {
+      const temp = [...consoleLog, msg];
+      setConsoleLog(temp);
+    }
+
+    // A function which sends the given command to the server.
+    function Send(cmd)  {
+    console.log(cmd);
+      // try {
+      //     if (cuteServer) cuteServer.send(cmd);
+      // }
+      // catch (err) {
+      //     // (string was split to avoid messing up BBEdit colour syntax highlighting)
+      //     LogMsg('<span class=res>Error sending command to server<'+'/span><br/>');
+      // }
     }
 
     //Get references of all the buttons
@@ -85,7 +120,7 @@ export default function CryostatComp(props) {
                 </Grid>
                 <Grid item>
                     <Paper className={classes.papersliver}>
-                        <MotorSpeed/>
+                        <MotorSpeed speeds={[0,0,0]}/>
                     </Paper>
                 </Grid>
             </Grid>
