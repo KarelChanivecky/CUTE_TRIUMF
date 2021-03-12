@@ -44,49 +44,52 @@ const marks = ()=>{
 
 const StyledSlider = withStyles({
   root: {
-    color: '#52af77',
-    height: 8,
-    width: 860,
+     color: 'primary',
+     height: 8,
+     width: 860,
   },
   vertical: {
-    color: '#52af77',
-    width: 8,
-    height: 800,
-    '& $rail': {
-      width: 10
-    },
-    '& $track': {
-      width: 8
-    },
-    '& $thumb': {
-      marginLeft: -7,
-      marginBottom: -11
-    }
+     color: 'primary',
+     width: 8,
+     height: 800,
+     '& $rail': {
+        marginLeft: -8,
+        width: 20
+     },
+     '& $track': {
+       width: 8
+     },
+     '& $thumb': {
+       marginLeft: -8,
+       marginBottom: -11
+     }
 
   },
   thumb: {
-    height: 20,
-    width: 20,
-    backgroundColor: 'currentColor',
-    border: '1px solid currentColor',
-    marginTop: -8,
-    marginLeft: -12,
-    '&:focus, &:hover, &$active': {
+     height: 20,
+     width: 20,
+     borderRadius: 0,
+     backgroundColor: 'currentColor',
+     border: '1px solid currentColor',
+     marginTop: -8,
+     marginLeft: -12,
+     '&:focus, &:hover, &$active': {
         boxShadow: 'inherit',
-    },
+     },
   },
   active: {},
   valueLabel: {
-    left: 'calc(-50% + 2px)',
+     left: 'calc(-50% + 2px)',
   },
   track: {
-    display: 'none',
-    height: 8,
-    borderRadius: 4,
+     display: 'none',
+     height: 8,
+     borderRadius: 4,
   },
   rail: {
-    height: 8,
-    borderRadius: 4,
+     marginTop: -8,
+     height: 20,
+     borderRadius: 4,
   },
 })(Slider);
 
