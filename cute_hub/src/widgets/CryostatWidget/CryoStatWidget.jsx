@@ -8,15 +8,15 @@ export default function CryoStatWidget(props) {
   const displayState = props.displayState;
 
   let width = props.width ? props.width : 6;
-  let height = props.height ? props.height : 40;
+  let height =  40;
 
   switch (displayState) {
     case ModuleDisplayStates.OPEN:
-      height = 70;
+      height = props.height ? props.height : 70;
       width = 90;
       break;
     case ModuleDisplayStates.EXPANDED:
-      height = 80;
+      height = props.height ? props.height : 80;
       width = 140;
   }
 

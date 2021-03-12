@@ -46,6 +46,9 @@ const triumfTypography = {
     },
     h2: {
         fontSize: "1.7rem"
+    },
+    h3: {
+        fontSize: "1.5rem",
     }
 };
 

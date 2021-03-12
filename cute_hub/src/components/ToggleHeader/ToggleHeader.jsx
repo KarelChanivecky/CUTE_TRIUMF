@@ -4,6 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ChangeHistoryRounded from "@material-ui/icons/ChangeHistoryRounded";
 import HelpRounded from "@material-ui/icons/HelpRounded";
 import Grid from '@material-ui/core/Grid';
+import {Typography} from "@material-ui/core";
 
 /**
  * Renders a transparent header bar with a toggle and help buttons
@@ -21,11 +22,15 @@ function ToggleHeader(props) {
             <HelpRounded/>
         </IconButton>;
 
+    const Name = props.name ? <Typography variant="h3">{props.name}</Typography> : <></>
+
     const justify = props.minimizable ? 'space-between' : 'flex-end';
+
     return (
         <Grid container>
-            <Grid item container justify={justify} xs={12} lg={12}>
+            <Grid item container justify={justify} xs={12} lg={12} alignItems="center">
                 {MinimizeButton}
+                {Name}
                 {HelpButton}
             </Grid>
         </Grid>

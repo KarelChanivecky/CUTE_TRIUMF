@@ -22,13 +22,13 @@ export default function DiagramWidget(props) {
 
     const displayState = props.displayState;
 
-    let width = props.width ? props.width : 30;
-    let height = props.height ? props.height : 80;
+    let width = 30;
+    let height = 80;
 
     switch (displayState) {
         case ModuleDisplayStates.OPEN :
-            height = 70;
-            width = 80;
+            height = props.width ? props.width : 70;
+            width = props.height ? props.height : 80;
             break;
     }
 
@@ -54,7 +54,8 @@ export default function DiagramWidget(props) {
             <Paper>
                 <ToggleHeader minimizable={props.minimizable}
                               helpable={displayState !== ModuleDisplayStates.MINIMIZED}
-                              onToggle={props.onDisplayChange}/>
+                              onToggle={props.onDisplayChange}
+                            name="Fridge diagram"/>
                 <Grid container alignItems="center" justify="center">
                         {thing}
                 </Grid>
