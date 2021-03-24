@@ -5,9 +5,9 @@ import {Grid, Typography} from "@material-ui/core";
 
 function valveState(state) {
     if (state == "1") {
-        return '#008000'
+        return 'rgb(7, 153, 2)'
     } else {
-        return '#FF0000'
+        return 'rgb(237, 98, 55)'
     }
 }
 
@@ -18,6 +18,15 @@ function scaleTemp(temp) {
     }
 
     return T.toPrecision(4) + ' K';
+}
+
+
+function parseFloatPrecision(value) {
+    // comment next 3 lines and uncomment the 4th line to just get raw decimal values
+    let precision = Math.floor(Math.log10(value, 10))
+    if (precision < 3) precision = 3;
+    return parseFloat(parseFloat(value).toPrecision(precision)).toExponential()
+    // return parseFloat(value);
 }
 
 export default function DiagramSVG() {
@@ -82,7 +91,7 @@ export default function DiagramSVG() {
         "VE24": "0",
         "VE25": "0",
         "VE26": "0",
-        "VE27": "0",
+        "VE27": "1",
         "VE28": "0",
         "VE29": "0",
         "VE30": "0",
@@ -97,9 +106,9 @@ export default function DiagramSVG() {
         "VE39": "0",
         "PP pomp": "0",
         "comp": "0",
-        "PP aux": "0",
+        "PP aux": "1",
         "Turbo AUX": "0",
-        "PT": "0",
+        "PT": "1",
         "turbo Pomp": "0",
         "mot7": "0",
         "mot8": "0",
@@ -140,36 +149,36 @@ export default function DiagramSVG() {
                     </g>
                     <rect className="cls-3" x="616.9462" y="44.228" width="108" height="36"/>
                     <rect className="cls-3" x="616.9462" y="80.228" width="108" height="36"/>
-                    <text className="cls-2" transform="translate(627.6513 67.2681)">
+                    <text className="cls-2" transform="translate(623.6513 67.2681)">
                         <tspan white-space="preserve">MC temp</tspan>
                     </text>
                     <text id="mctemp" className="cls-2"
                           transform="translate(623.8393 103.2681)">{scaleTemp(data["Cernoc MC"])}</text>
                     <circle id="V1" className="cls-4" cx="670.9582" cy="148.967" r="18"
-                            fill={valveState(data.VE1)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE1)}/>
                     <text className="cls-5" transform="translate(664.8026 156.011)">1</text>
                     <circle id="V8" className="cls-4" cx="1006.1623" cy="474.25" r="18"
-                            transform="translate(299.4346 1433.1857) rotate(-86.8636)" fill={valveState(data.VE8)}/>
+                            transform="translate(299.4346 1433.1857) rotate(-86.8636)" fill="white" stroke-width="4" stroke={valveState(data.VE8)}/>
                     <text className="cls-5"
                           transform="matrix(0.9985, 0.0547, -0.0547, 0.9985, 821.4922, 461.1746)">8
                     </text>
                     <circle id="V5" className="cls-4" cx="280.6665" cy="820.2506" r="18"
                             transform="translate(-731.8496 1035.8465) rotate(-86.8636)"
-                            fill={valveState(data.VE5)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE5)}/>
                     <text className="cls-5"
                           transform="matrix(0.9985, 0.0547, -0.0547, 0.9985, 95.9963, 807.1752)">5
                     </text>
                     <circle id="V9" className="cls-4" cx="680.2727" cy="820.2506" r="18"
-                            transform="translate(-354.107 1434.8541) rotate(-86.8636)" fill={valveState(data.VE9)}/>
+                            transform="translate(-354.107 1434.8541) rotate(-86.8636)" fill="white" stroke-width="4" stroke={valveState(data.VE9)}/>
                     <text className="cls-5"
                           transform="matrix(0.9985, 0.0547, -0.0547, 0.9985, 495.6026, 807.1752)">9
                     </text>
                     <circle id="TD" className="cls-4" cx="670.9462" cy="291.2061" r="36"
-                            fill={valveState(data['turbo Pomp'])}/>
+                            fill="white" stroke-width="4" stroke={valveState(data['turbo Pomp'])}/>
                     <text className="cls-5" transform="translate(657.0026 298.25)">TD</text>
                     <g>
                         <circle id="TA" className="cls-4" cx="420.6119" cy="218.2194" r="36"
-                                fill={valveState(data['turbo AUX'])}/>
+                                fill="white" stroke-width="4" stroke={valveState(data['Turbo AUX'])}/>
                         <text className="cls-6" transform="translate(396.1917 225.2633)">T
                             <tspan className="cls-7" x="10.1279" y="0">A</tspan>
                             <tspan className="cls-8" x="24.5278" y="0">ux</tspan>
@@ -177,23 +186,23 @@ export default function DiagramSVG() {
                     </g>
                     <g>
                         <rect id="PT" className="cls-4" x="111.585" width="255.0269" height="48.6467" rx="12"
-                              ry="12" fill={valveState(data['PT'])}/>
+                              ry="12" fill="white" stroke-width="4" stroke={valveState(data['PT'])}/>
                         <text className="cls-9" transform="translate(159.0894 34.7075)">
                             <tspan className="cls-10">P</tspan>
-                            <tspan x="18.6118" y="0">ulse</tspan>
+                            <tspan className="cls-10" x="18.6118" y="0">ulse</tspan>
                             <tspan className="cls-11" x="79.2349" y="0"></tspan>
                             <tspan className="cls-12" x="85.3911" y="0">T</tspan>
-                            <tspan x="101.6631" y="0">ube</tspan>
+                            <tspan className="cls-12" x="101.6631" y="0">ube</tspan>
                         </text>
                     </g>
                     <circle id="V2" className="cls-4" cx="670.9462" cy="454.478" r="18"
-                            fill={valveState(data.VE2)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE2)}/>
                     <text className="cls-5" transform="translate(664.7904 461.522)">2</text>
-                    <circle id="PPD" className="cls-4" cx="670.9462" cy="557.7278" r="36" fill="#4e9cff"/>
+                    <circle id="PPD" className="cls-4" cx="670.9462" cy="557.7278" r="36" fill="white" stroke-width="4" stroke="#4e9cff"/>
                     <text className="cls-5" transform="translate(650.1867 564.7722)">PPD</text>
                     <g>
                         <circle id="PPA" className="cls-4" cx="215.1346" cy="341.4447" r="36"
-                                fill={valveState(data['turbo aux'])}/>
+                                fill="white" stroke-width="4" stroke={valveState(data['PP aux'])}/>
                         <text className="cls-5" transform="translate(184.0186 348.4887)">P
                             <tspan className="cls-13" x="12.7681" y="0">P</tspan>
                             <tspan className="cls-7" x="23.52" y="0">A</tspan>
@@ -201,124 +210,124 @@ export default function DiagramSVG() {
                         </text>
                     </g>
                     <circle id="Comp" className="cls-4" cx="399.0095" cy="870.25" r="36"
-                            fill={valveState(data['comp'])}/>
+                            fill="white" stroke-width="4" stroke={valveState(data['comp'])}/>
                     <text className="cls-5" transform="translate(368.7695 877.2939)">
                         <tspan className="cls-14">C</tspan>
                         <tspan x="13.6563" y="0">omp</tspan>
                     </text>
                     <circle id="V3" className="cls-4" cx="670.9582" cy="800.4786" r="18"
-                            fill={valveState(data.VE3)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE3)}/>
                     <text className="cls-5" transform="translate(664.8024 807.5225)">3</text>
                     <g>
                         <rect className="cls-3" x="259.8848" y="104.1527" width="108" height="36"/>
                         <rect className="cls-3" x="259.8848" y="140.1527" width="108" height="36"/>
                         <text id="P3" className="cls-2"
-                              transform="translate(277.19 127.1927)">{parseFloat(data.P3)}</text>
+                              transform="translate(277.19 127.1927)">{parseFloatPrecision(data.P3)}</text>
                         <text className="cls-2" transform="translate(275.7374 163.1927)">P3 - mb</text>
                     </g>
                     <g>
                         <rect className="cls-3" x="366.6119" y="305.4447" width="108" height="36"/>
                         <rect className="cls-3" x="366.6119" y="341.4447" width="108" height="36"/>
                         <text id="P2" className="cls-2"
-                              transform="translate(383.917 328.4847)">{parseFloat(data.P2)}</text>
+                              transform="translate(383.917 328.4847)">{parseFloatPrecision(data.P2)}</text>
                         <text className="cls-2" transform="translate(382.4644 364.4847)">P2 - mb</text>
                     </g>
                     <rect className="cls-3" x="156.3965" y="488.5006" width="108" height="36"/>
                     <rect className="cls-3" x="156.3965" y="524.5006" width="108" height="36"/>
                     <text id="flow" className="cls-2"
-                          transform="translate(204.2407 511.5406)">{parseFloat(data['FLOW'])}</text>
+                          transform="translate(195.2407 511.5406)">{parseFloatPrecision(data['FLOW'])}</text>
                     <text className="cls-2" transform="translate(181.813 547.5406)">u mol</text>
                     <rect className="cls-3" x="48.5284" y="662.2061" width="108" height="36"/>
                     <rect className="cls-3" x="48.5284" y="698.2061" width="108" height="36"/>
                     <text id="K5" className="cls-2"
-                          transform="translate(96.3726 685.2461)">{parseFloat(data.K5)}</text>
+                          transform="translate(80.3726 685.2461)">{parseFloatPrecision(data.K5)}</text>
                     <text className="cls-2" transform="translate(64.2613 721.2461)">K5 - mb</text>
                     <rect className="cls-3" x="403.8616" y="662.2061" width="108" height="36"/>
                     <rect className="cls-3" x="403.8616" y="698.2061" width="108" height="36"/>
                     <text id="K6" className="cls-2"
-                          transform="translate(439.3943 685.2461)">{parseFloat(data.K6)}</text>
+                          transform="translate(420.3943 685.2461)">{parseFloatPrecision(data.K6)}</text>
                     <text className="cls-2" transform="translate(419.5945 721.2461)">K6 - mb</text>
                     <rect className="cls-3" x="48.5284" y="834.25" width="108" height="36"/>
                     <rect className="cls-3" x="48.5284" y="870.25" width="108" height="36"/>
                     <text id="K4" className="cls-2"
-                          transform="translate(90.2168 857.29)">{parseFloat(data.K4)}</text>
+                          transform="translate(76.2168 857.29)">{parseFloatPrecision(data.K4)}</text>
                     <text className="cls-2" transform="translate(64.2613 893.29)">K4 - mb</text>
                     <rect className="cls-3" x="940.0022" y="662.2061" width="108" height="36"/>
                     <rect className="cls-3" x="940.0022" y="698.2061" width="108" height="36"/>
                     <text id="K8" className="cls-2"
-                          transform="translate(981.6907 685.2461)">{parseFloat(data.K8)}</text>
+                          transform="translate(960.6907 685.2461)">{parseFloatPrecision(data.K8)}</text>
                     <text className="cls-2" transform="translate(955.7351 721.2461)">K8 - mb</text>
                     <rect className="cls-3" x="770.9462" y="210.75" width="108" height="36"/>
                     <rect className="cls-3" x="770.9462" y="246.75" width="108" height="36"/>
                     <text id="P1" className="cls-2"
-                          transform="translate(788.2514 233.79)">{parseFloat(data.P1)}</text>
+                          transform="translate(788.2514 233.79)">{parseFloatPrecision(data.P1)}</text>
                     <text className="cls-2" transform="translate(786.7988 269.79)">P1 - mb</text>
                     <line className="cls-15" x1="670.9582" y1="116.228" x2="670.9462" y2="130.967"/>
                     <line className="cls-15" x1="670.9462" y1="166.967" x2="670.9462" y2="255.2061"/>
                     <line className="cls-15" x1="670.9462" y1="327.2061" x2="670.9462" y2="436.478"/>
                     <line className="cls-16" x1="670.9462" y1="472.478" x2="670.9462" y2="521.7278"/>
                     <circle id="V23" className="cls-4" cx="828.0242" cy="184.967" r="18"
-                            fill={valveState(data.VE23)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE23)}/>
                     <text className="cls-5" transform="translate(815.7125 192.011)">23</text>
                     <g>
                         <circle id="V31" className="cls-4" cx="420.6238" cy="279.832" r="18"
-                                fill={valveState(data.VE31)}/>
+                                fill="white" stroke-width="4" stroke={valveState(data.VE31)}/>
                         <text className="cls-5" transform="translate(408.3123 286.876)">31</text>
                     </g>
                     <g>
                         <circle id="V30" className="cls-4" cx="325.3109" cy="341.7692" r="18"
-                                fill={valveState(data.VE30)}/>
+                                fill="white" stroke-width="4" stroke={valveState(data.VE30)}/>
                         <text className="cls-5" transform="translate(312.9994 348.8132)">30</text>
                     </g>
                     <g>
                         <circle id="V32" className="cls-4" cx="548.6752" cy="341.4447" r="18"
-                                fill={valveState(data.VE32)}/>
+                                fill="white" stroke-width="4" stroke={valveState(data.VE32)}/>
                         <text className="cls-5" transform="translate(536.3637 348.4887)">32</text>
                     </g>
                     <circle id="V7" className="cls-4" cx="280.6665" cy="168.739" r="18"
-                            transform="translate(-81.314 419.981) rotate(-86.8636)" fill={valveState(data.VE7)}/>
+                            transform="translate(-81.314 419.981) rotate(-86.8636)" fill="white" stroke-width="4" stroke={valveState(data.VE7)}/>
                     <text className="cls-5"
                           transform="matrix(0.9985, 0.0547, -0.0547, 0.9985, 95.9963, 155.6636)">7
                     </text>
                     <circle id="V22" className="cls-4" cx="210.3965" cy="148.967" r="18"
-                            fill={valveState(data.VE22)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE22)}/>
                     <text className="cls-5" transform="translate(198.085 156.011)">22</text>
                     <circle id="V33" className="cls-4" cx="908.0022" cy="408.25" r="18"
-                            fill={valveState(data.VE33)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE33)}/>
                     <text className="cls-5" transform="translate(895.6907 415.2939)">33</text>
                     <circle id="V13" className="cls-4" cx="295.8848" cy="462.25" r="18"
-                            fill={valveState(data.VE13)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE13)}/>
                     <text className="cls-5" transform="translate(283.5733 469.2939)">13</text>
                     <circle id="V14" className="cls-4" cx="354.737" cy="462.25" r="18"
-                            fill={valveState(data.VE14)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE14)}/>
                     <text className="cls-5" transform="translate(342.4254 469.2939)">14</text>
                     <circle id="V17" className="cls-4" cx="210.3965" cy="408.25" r="18"
-                            fill={valveState(data.VE17)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE17)}/>
                     <text className="cls-5" transform="translate(198.085 415.2939)">17</text>
                     <circle id="V6" className="cls-4" cx="279.6817" cy="613.4998" r="18"
-                            transform="translate(-526.3395 839.4243) rotate(-86.8636)" fill={valveState(data.VE6)}/>
+                            transform="translate(-526.3395 839.4243) rotate(-86.8636)" fill="white" stroke-width="4" stroke={valveState(data.VE6)}/>
                     <text className="cls-5"
                           transform="matrix(0.9985, 0.0547, -0.0547, 0.9985, 95.0115, 600.4244)">6
                     </text>
                     <circle id="V25" className="cls-4" cx="208.5288" cy="594.9994" r="18"
-                            fill={valveState(data.VE25)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE25)}/>
                     <text className="cls-5" transform="translate(196.2173 602.0434)">25</text>
                     <circle id="V26" className="cls-4" cx="560.9867" cy="698.2061" r="18"
-                            fill={valveState(data.VE26)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE26)}/>
                     <text className="cls-5" transform="translate(548.6752 705.25)">26</text>
                     <circle id="V12" className="cls-4" cx="354.737" cy="698.2061" r="18"
-                            fill={valveState(data.VE12)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE12)}/>
                     <text className="cls-5" transform="translate(342.4255 705.25)">12</text>
                     <circle id="V16" className="cls-4" cx="295.8848" cy="800.4786" r="18"
-                            fill={valveState(data.VE16)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE16)}/>
                     <text className="cls-5" transform="translate(283.5733 807.5225)">16</text>
                     <circle id="V27" className="cls-4" cx="399.0095" cy="800.4786" r="18"
-                            fill={valveState(data.VE27)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE27)}/>
                     <text className="cls-5" transform="translate(386.6979 807.5225)">27</text>
                     <rect className="cls-3" x="770.9462" y="662.2061" width="108" height="36"/>
                     <rect className="cls-3" x="770.9462" y="698.2061" width="108" height="36"/>
                     <text id="K3" className="cls-2"
-                          transform="translate(806.4789 685.2461)">{parseFloat(data.K3)}</text>
+                          transform="translate(786.4789 685.2461)">{parseFloatPrecision(data.K3)}</text>
                     <text className="cls-2" transform="translate(786.6791 721.2461)">K3 - mb</text>
                     <g>
                         <rect className="cls-17" x="616.9462" y="606.7061" width="108" height="36"/>
@@ -334,7 +343,7 @@ export default function DiagramSVG() {
                     <line className="cls-20" x1="770.9462" y1="231.75" x2="670.9582" y2="231.75"/>
                     <line className="cls-20" x1="810.0242" y1="184.967" x2="670.9462" y2="184.967"/>
                     <circle id="V28" className="cls-4" cx="994.0022" cy="800.4786" r="18"
-                            fill={valveState(data.VE28)}/>
+                            fill="white" stroke-width="4" stroke={valveState(data.VE28)}/>
                     <text className="cls-5" transform="translate(981.6907 807.5225)">28</text>
                     <polyline className="cls-21" points="724.946 80.228 994.002 80.228 994.002 662.206"/>
                     <line className="cls-21" x1="994.0022" y1="734.2061" x2="994.0022" y2="782.4786"/>
@@ -373,7 +382,7 @@ export default function DiagramSVG() {
                         <rect className="cls-20" x="399.7249" y="432.2637" width="116.2734" height="124.023" rx="12"
                               ry="12"/>
                         <text id="MixPct" className="cls-2"
-                              transform="translate(429.2579 477.1446)">{parseFloat(data['P\/T']).toFixed(2)}</text>
+                              transform="translate(422.2579 477.1446)">{parseFloat(data['P\/T']).toFixed(2)}</text>
                         <text id="DumpTemp" className="cls-2"
                               transform="translate(430.4136 521.5141)">{parseFloat(data['PT 100 Bidon C'])}</text>
                         <text className="cls-2" transform="translate(482.2212 477.145)">%</text>
@@ -466,14 +475,14 @@ export default function DiagramSVG() {
                     </text>
                     <g>
                         <circle id="V37" className="cls-4" cx="566.6752" cy="161.1527" r="18"
-                                fill={valveState(data.VE37)}/>
+                                fill="white" stroke-width="4" stroke={valveState(data.VE37)}/>
                         <text className="cls-5" transform="translate(554.3637 168.1966)">37</text>
                     </g>
                     <line className="cls-30" x1="566.6752" y1="143.1527" x2="566.6752" y2="127.289"/>
                     <g>
                         <text id="TSpeed" className="cls-2"
-                              transform="translate(555.9107 298.8042)">{parseFloat(data['Pumping turbo speed'])}</text>
-                        <text className="cls-2" transform="translate(607.4423 298.8046)">%</text>
+                              transform="translate(555.9107 298.8042)">{parseFloat(data['Pumping turbo speed'])} %</text>
+                        <text className="cls-2" transform="translate(607.4423 298.8046)"></text>
                     </g>
                     {/* <image width="568" height="929" transform="translate(1077.3846)" href="fridgepic.png"/>
           <g>

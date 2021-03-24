@@ -10,7 +10,7 @@ import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 
 
 const WindowBreakpoints = {
-    FULL_SCREEN: 1520,
+    FULL_SCREEN: 1420,//1520
     ACCORDION: 800
 }
 
