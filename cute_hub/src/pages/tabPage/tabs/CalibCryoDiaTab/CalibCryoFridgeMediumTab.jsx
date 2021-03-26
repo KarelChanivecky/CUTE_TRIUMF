@@ -77,7 +77,7 @@ function CalibCryoDiagWideTab(props) {
                     <Typography variant="h3">{WidgetNames.CRYOSTAT}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <CryoStatWidget noName/>
+                    <CryoStatWidget noName cryostatWS={props.cryostatWS}/>
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === WidgetNames.CALIBRATION} onChange={handleChange(WidgetNames.CALIBRATION)}>

@@ -8,6 +8,9 @@ import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWi
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 
+const ws = new WebSocket('wss://echo.websocket.org');
+ws.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
+
 
 const WindowBreakpoints = {
     FULL_SCREEN: 1420,//1520
@@ -37,11 +40,11 @@ function evaluateWindowWidth() {
 function getCalibCryoFridgeTab() {
     switch (evaluateWindowWidth()) {
         case WindowStates.NARROW:
-            return <CalibrationWidget helpable displayState={ModuleDisplayStates.MINIMIZED}/>;
+            return <CalibrationWidget helpable displayState={ModuleDisplayStates.MINIMIZED} cryostatWS={ws}/>;
         case WindowStates.ACCORDION:
-            return <CalibCryoFridgeMediumTab/>;
+            return <CalibCryoFridgeMediumTab cryostatWS={ws}/>;
         default:
-            return <CalibCryoFridgeWideTab/>;
+            return <CalibCryoFridgeWideTab cryostatWS={ws}/>;
     }
 }
 
