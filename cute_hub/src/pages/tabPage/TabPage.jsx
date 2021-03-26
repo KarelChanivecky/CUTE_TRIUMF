@@ -49,11 +49,11 @@ function evaluateWindowWidth() {
 function getCalibCryoFridgeTab() {
     switch (evaluateWindowWidth()) {
         case WindowStates.NARROW:
-            return <CalibrationWidget calibWebSock={calibrationWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED}/>;
+            return <CalibrationWidget calibWebSock={calibrationWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED} cryostatWS={cryostatWebsocket}/>;
         case WindowStates.ACCORDION:
-            return <CalibCryoFridgeMediumTab calibWebSock={calibrationWebsocket}/>;
+            return <CalibCryoFridgeMediumTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket}/>;
         default:
-            return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket}/>;
+            return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket}/>;
     }
 }
 

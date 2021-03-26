@@ -140,7 +140,6 @@ export default function CryostatComp(props) {
   //function used to relay message when recieved from dummy websocket
   const relay = (event) => console.log("recieved command = " +  event.data)
 
-
   //adds an event listener to the websocket and acts when it recieves a response.
   React.useEffect(() => {
     props.cryostatWS.addEventListener('message', relay, true  )
@@ -157,7 +156,7 @@ export default function CryostatComp(props) {
         </Grid>
         <Grid item>
           <Paper className={classes.papersliver}>
-            <MotorSpeed speeds={[0, 0, 0]} />
+            <MotorSpeed speeds={[0, 0, 0]} cryostatWS={props.cryostatWS} />
           </Paper>
         </Grid>
       </Grid>
