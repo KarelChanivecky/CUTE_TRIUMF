@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
@@ -77,255 +78,157 @@ const useStyles = makeStyles((theme) => ({
   
     return (
       <List className={classes.root}>
-        <Divider variant="inset" component="li" />
+
+        <Divider variant="fullWidth" component="li" />
+
         <ListItem alignItems="flex">
-          <ListItemAvatar>
+          <ListItemText
+            primary="MC Temp"
+            secondary={scaleTemp(data["Cernoc MC"])}
+          />
+        </ListItem>
+
+        <Divider variant="fullWidth" component="li" />
+
+        <ListItem alignItems="flex">
+          {/* <ListItemAvatar>
             <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE1)]} />
-          </ListItemAvatar>
+          </ListItemAvatar> */}
           <ListItemText
-            primary="Valve 1"
+            primary="P1 - mb"
+            secondary={parseFloat(data.P1)}
           />
         </ListItem>
   
-        <Divider variant="inset" component="li" />
+        <Divider variant="fullWidth" component="li" />
         
         <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE2)]} />
-          </ListItemAvatar>
           <ListItemText
-            primary="Valve 2"
+            primary="P2 - mb"
+            secondary={parseFloat(data.P2)}
           />
         </ListItem>
   
-        <Divider variant="inset" component="li" />
+        <Divider variant="fullWidth" component="li" />
+  
         <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE3)]} />
-          </ListItemAvatar>
           <ListItemText
-            primary="Valve 3"
+            primary="P3 - mb"
+            secondary={parseFloat(data.P3)}
           />
         </ListItem>
   
-        <Divider variant="inset" component="li" />
+        <Divider variant="fullWidth" component="li" />
+
+        <ListItem alignItems="flex">
+          <ListItemText
+            primary="K3 - mb"
+            secondary={parseFloat(data.K3)}
+          />
+        </ListItem>
+  
+        <Divider variant="fullWidth" component="li" />
         
         <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE5)]} />
-          </ListItemAvatar>
           <ListItemText
-            primary="Valve 5"
+            primary="K4 - mb"
+            secondary={parseFloat(data.K4)}
           />
         </ListItem>
-  
-        <Divider variant="inset" component="li" />
+
+        <Divider variant="fullWidth" component="li" />
+
         <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE6)]} />
-          </ListItemAvatar>
           <ListItemText
-            primary="Valve 6"
+            primary="K5 - mb"
+            secondary={parseFloat(data.K5)}
           />
         </ListItem>
-  
-        <Divider variant="inset" component="li" />
+
+        <Divider variant="fullWidth" component="li" />
+
+        <ListItem alignItems="flex">
+          <ListItemText
+            primary="K6 - mb"
+            secondary={parseFloat(data.K6)}
+          />
+        </ListItem>
+    
+        <Divider variant="fullWidth" component="li" />
         
         <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE7)]} />
-          </ListItemAvatar>
           <ListItemText
-            primary="Valve 7"
+            primary="K8 - mb"
+            secondary={parseFloat(data.K8)}
           />
         </ListItem>
-  
-        <Divider variant="inset" component="li" />
+
+        <Divider variant="fullWidth" component="li" />
+
         <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE8)]} />
-          </ListItemAvatar>
           <ListItemText
-            primary="Valve 8"
+            primary="u mol"
+            secondary={parseFloat(data['FLOW'])}
           />
         </ListItem>
-  
-        <Divider variant="inset" component="li" />
+
+        <Divider variant="fullWidth" component="li" />
+
+        <ListItem alignItems="flex">
+          <ListItemText
+            primary="Pumping turbo speed"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  className={classes.inline}
+                >
+                  {parseFloat(data['Pumping turbo speed'])}
+                </Typography>
+                  %
+              </React.Fragment>
+            }  
+          />
+        </ListItem>
+          
+        <Divider variant="fullWidth" component="li" />
         
         <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE9)]} />
-          </ListItemAvatar>
           <ListItemText
-            primary="Valve 9"
+            primary="P/T"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  className={classes.inline}
+                >
+                  {parseFloat(data['P\/T']).toFixed(2)}
+                </Typography>
+                  %
+              </React.Fragment>
+            }
           />
         </ListItem>
-  
-        <Divider variant="inset" component="li" />
+
+        <Divider variant="fullWidth" component="li" />
+
         <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE12)]} />
-          </ListItemAvatar>
           <ListItemText
-            primary="Valve 12"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE13)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 13"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE14)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 14"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE16)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 16"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE17)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 17"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE22)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 22"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE23)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 23"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE25)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 25"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE26)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 26"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE27)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 27"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE28)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 28"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE30)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 30"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE31)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 31"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE32)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 32"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/1.jpg" className={classes['_'+parseFloat(data.VE33)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 33"
-          />
-        </ListItem>
-  
-        <Divider variant="inset" component="li" />
-        
-        <ListItem alignItems="flex">
-          <ListItemAvatar>
-            <Avatar alt="V" src="tar/2.jpg" className={classes['_'+parseFloat(data.VE37)]} />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Valve 37"
+            primary="PT 100 Bidon C"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  className={classes.inline}
+                >
+                  {parseFloat(data['PT 100 Bidon C'])}
+                </Typography>
+                  C
+              </React.Fragment>
+            }
           />
         </ListItem>
         
