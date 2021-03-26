@@ -20,6 +20,7 @@ cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket
 cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
 
+
 const WindowBreakpoints = {
     FULL_SCREEN: 1420,//1520
     ACCORDION: 800

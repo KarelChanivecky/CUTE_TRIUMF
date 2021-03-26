@@ -42,7 +42,7 @@ export default function CryoStatWidget(props) {
           onToggle={props.onDisplayChange}
           name={props.noName? null :WidgetNames.CRYOSTAT}
         />
-        <CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange ?? null}/>
+        <CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange ?? null} cryostatWS={props.cryostatWS}/>
       </Paper>
     </Box>
   );

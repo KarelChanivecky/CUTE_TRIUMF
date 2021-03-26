@@ -47,6 +47,7 @@ function CalibCryoFridgeWideTab(props) {
             displayState={cryoModuleState}
             minimizable
             onDisplayChange={handleExpandedChange(expandedModules.CRYO)}
+            cryostatWS={props.cryostatWS}
           />
         </Grid>
       </Grid>
