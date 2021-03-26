@@ -7,15 +7,27 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, OutlinedInput, TextField, ThemeProvider, Typography, withStyles } from '@material-ui/core';
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 
-////////////////////////////////////////////////////////// Testing Data Source ////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////// Data Source ////////////////////////////////////////////////////////
 // The source postion slider looks at this value and adjusts according to it
+//position of source for the AVR board to use
+//real physical source position, in centimeters
+var source_position = 0.01*-1000;//TODO get this -1000 value from a file and then be able to update the file
 var source_position = 40;
 
 var moving = false;
 
-// This function is called when the move button is clicked and can be replaced with something that actually moves the slider.
+// This function is called when the move button is clicked 
+// the parameters its given are the requested slider position and the websocket you want to send the message to
 function move_source(pos, ws) {
-   ws.send(pos);
+   //pos should be slider value in centimeters
+   //multiply by calibration factor (100) to go from cm to motor position
+   var motor_pos = pos*100;
+   //TODO: test this function, be very careful with what is happening here
+   //TODO: uncomment these lines when ready
+   //ws.send("avr1: m0 on 1"); //get the motor ready
+   var txt = "avr1: m0 step " + motor_pos + " 500"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
+   //ws.send(txt); //send the command
+   console.log(txt);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -148,10 +160,34 @@ function CalibrationSlider(props) {
       console.log("Moving source to: " + event.data);
       source_position = parseInt(event.data);
    };
-   
+
+   const handleWSMessage = function(message) {
+      //break the message up into a switch (c) and a msg 
+      var c = message.data.substr(0,1);
+      var msg = message.data.substr(2);
+      //get the position of the source
+      switch (c) {
+         case 'C': 
+            //console.log(msg); //also useful for debugging
+            var temp_msg ="";
+            var locate_pos = msg.search("POS");
+            if (locate_pos != -1 ) {
+               temp_msg = msg.substr(locate_pos); 
+               var act_pos = temp_msg.substr(4);
+               act_pos = act_pos.substring(0,act_pos.indexOf("<"));
+               var real_pos = 0.01*act_pos; //real position of source in cm
+               console.log(real_pos);
+               //TODO this part here I don't know if it's right, but it sometimes works
+               source_position = real_pos;
+            }
+         break;
+      }
+   };
+
    React.useEffect(()=>{
-      props.ws.addEventListener('message', changeSourcePos, true);
-      return () => props.ws.removeEventListener('message', changeSourcePos, true);
+      // handle messages from server
+      props.ws.addEventListener('message', handleWSMessage, true);
+      return () => { props.ws.removeEventListener('message', handleWSMessage, true); }
    });
 
    const handleChange = (_event, newValue) => {
@@ -222,7 +258,7 @@ function CalibrationSlider(props) {
 export default function CalibrationControl(props) {
    return (
          <CalibrationSlider 
-            ws={props.ws}
+            ws={props.calibWebSock}
             displayState={props.displayState}
             />    
    );
