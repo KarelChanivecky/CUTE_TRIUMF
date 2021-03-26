@@ -31,6 +31,7 @@ class CommandLine extends Component {
         if (e.keyCode === 13) {
             const output = [...this.state.output, e.target.value];
             this.setState({output, currentcmd: ""});
+            this.props.sendCommand(e.target.value, output);
         }
     };
 
@@ -42,14 +43,15 @@ class CommandLine extends Component {
             onChange={this.handleChange}
             onKeyDown={this.handleSubmit}
             value={this.state.currentcmd}
-            style={{ width: this.state.inputWidth }}
-          ></TextField>
+            style={{width: this.state.inputWidth}}
+            />
           <IconButton
             variant="contained"
             color="primary"
-            onClick={() => {
+            onClick={ this.props.onclick ? () => {
               this.props.onclick(this.state.output);
-            }}
+            }
+            : null}
           >
             <ArrowForwardIosIcon />
           </IconButton>

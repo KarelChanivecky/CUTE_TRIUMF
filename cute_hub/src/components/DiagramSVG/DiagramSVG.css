@@ -1,9 +1,11 @@
 .cls-1 {
     fill: #fc9;
+    fill-opacity: 0.3
   }
   
   .cls-1, .cls-30 {
     stroke: #f90;
+    stroke-opacity: 0.5
   }
   
   .cls-1, .cls-15, .cls-16, .cls-17, .cls-20, .cls-21, .cls-23, .cls-24, .cls-25, .cls-26, .cls-29, .cls-3, .cls-30 {
@@ -19,10 +21,10 @@
   }
   
   .cls-2, .cls-31, .cls-5, .cls-6, .cls-9 {
-    font-family: MyriadPro-Regular, Myriad Pro;
+    font-family: "Helvetica Neue", Arial;
   }
   
-  .cls-17, .cls-20, .cls-22, .cls-25, .cls-29, .cls-3, .cls-5, .cls-6, .cls-9 {
+  .cls-17, .cls-20, .cls-22, .cls-25, .cls-29, .cls-3, .cls-9 {
     fill: #fff;
   }
   
@@ -52,14 +54,17 @@
   
   .cls-10 {
     letter-spacing: -0.015em;
+    fill: #000;
   }
   
   .cls-11 {
     letter-spacing: -0.041em;
+    fill: #000;
   }
   
   .cls-12 {
     letter-spacing: -0.045em;
+    fill: #000;
   }
   
   .cls-13 {
@@ -75,7 +80,8 @@
   }
   
   .cls-15, .cls-16, .cls-17, .cls-20, .cls-21, .cls-24, .cls-29 {
-    stroke: blue;
+    stroke: rgb(67, 159, 217);
+    stroke-opacity: 0.5
   }
   
   .cls-15 {
@@ -99,7 +105,7 @@
   }
   
   .cls-26 {
-    stroke: red;
+    stroke: rgb(233, 58, 5);
   }
   
   .cls-27 {

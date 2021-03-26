@@ -6,10 +6,11 @@ import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
+import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 
 
 const WindowBreakpoints = {
-    FULL_SCREEN: 1520,
+    FULL_SCREEN: 1420,//1520
     ACCORDION: 800
 }
 
@@ -36,7 +37,7 @@ function evaluateWindowWidth() {
 function getCalibCryoFridgeTab() {
     switch (evaluateWindowWidth()) {
         case WindowStates.NARROW:
-            return <CalibrationWidget/>;
+            return <CalibrationWidget helpable displayState={ModuleDisplayStates.MINIMIZED}/>;
         case WindowStates.ACCORDION:
             return <CalibCryoFridgeMediumTab/>;
         default:

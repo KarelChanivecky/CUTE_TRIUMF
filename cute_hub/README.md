@@ -30,4 +30,4 @@ Technology students:
 ## documentation
 
 * [react](docs/react_readme.md)
-* [file organization](docs/file_organization.md)
+* [directory structure](docs/directoryStructure.md)

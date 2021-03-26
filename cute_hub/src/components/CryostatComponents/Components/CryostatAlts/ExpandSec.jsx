@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     border: "solid",
     borderColor: '#009fdf',
+    borderWidth: 0.5,
   },
   paperbig: {
     maxWidth: 333,
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     border: "solid",
     borderColor: '#009fdf',
+    borderWidth: 0.5,
     paddingTop: 10
   },
 }));
@@ -27,6 +29,7 @@ export default function Expand(props) {
   const classes = useStyles();
 
   return (
+    // This component is the right side of the Cryostat when the command line is expanded
     <div className={classes.rootGrid}>
       <Grid
         item
@@ -40,7 +43,7 @@ export default function Expand(props) {
         <Grid item xs={9} container direction="column" spacing={2}>
           <Grid item>
             <Paper className={classes.papersliver}>
-              <ActiveControl></ActiveControl>
+              <ActiveControl onActive={props.sendCommand}/>
             </Paper>
           </Grid>
           <Grid item>
@@ -52,9 +55,10 @@ export default function Expand(props) {
           <CommandLine
             init={"display"}
             initWidth={482}
-            onclick={props.onclick}
+            onclick={props.onclick??null}
             commands={props.commands}
-          ></CommandLine>
+            sendCommand={props.sendCommand}
+            />
           </div>
         </Grid>
       </Grid>

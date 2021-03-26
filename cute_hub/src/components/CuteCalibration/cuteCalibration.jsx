@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import { makeStyles, OutlinedInput, TextField, ThemeProvider, Typography, withStyles } from '@material-ui/core';
+import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 
 ////////////////////////////////////////////////////////// Testing Data Source ////////////////////////////////////////////////////////
 // The source postion slider looks at this value and adjusts according to it
@@ -41,8 +42,9 @@ const marks = ()=>{
 
 // This sets the class of the div the slider is sitting in, 
 // the classes width and heights are found in the cuteCalibration.css file
-function getCalibDivClass() {
-   return (window.innerWidth < window.innerHeight) ? "calib_control_vertical" : "calib_control_horizontal";
+function getCalibDivClass(displayState) {
+   // return (window.innerWidth < window.innerHeight) ? "calib_control_vertical" : "calib_control_horizontal";
+   return (displayState === ModuleDisplayStates.MINIMIZED) ? "calib_control_vertical" : "calib_control_horizontal";
 }
 
 // This JSON object sets the style properties of the sliders
@@ -128,7 +130,7 @@ function SourcePositionSlider(props) {
    sourceStyles.root.color = '#52af77';
    sourceStyles.vertical.color = '#52af77';
    sourceStyles.rail.display = 'none';
-   sourceStyles.thumb.marginTop = -67.5;
+   sourceStyles.thumb.marginTop = -68;
    sourceStyles.vertical["& $thumb"].marginLeft = -56;
 
    // Creates a new Slider object with specific styling
@@ -156,18 +158,22 @@ function CalibrationSlider(props) {
    
    const handleInputChange = (event) => {
       setValues( [values[0], event.target.value === '' ? '' : Number(event.target.value)]);
-   };
-   
-   const getSliderOrientation = () => {return(props.screenwidth < props.screenheight) ? "vertical" : "horizontal";}
-   const getGridOrientation = () => {return(props.screenwidth < props.screenheight) ? "column" : "row";}
+   }; 
 
+
+   console.log(props.displayState)
+   const getSliderOrientation = () => {return(props.displayState === ModuleDisplayStates.MINIMIZED) ? "vertical" : "horizontal";}
+   const getGridOrientation = () => {return(props.displayState === ModuleDisplayStates.MINIMIZED) ? "column" : "row";}
+
+   // const getSliderOrientation = () => {return(props.screenwidth < props.screenheight) ? "vertical" : "horizontal";}
+   // const getGridOrientation = () => {return(props.screenwidth < props.screenheight) ? "column" : "row";}
 
    return (      
       <div  
          className="calibration_widget">
          <Grid container direction={getGridOrientation()}>
          <Grid item><div  
-            className={getCalibDivClass()}
+            className={getCalibDivClass(props.displayState)}
             id="calibration_slider">
             <StyledMovementSlider
                value={values[1]}
@@ -214,28 +220,9 @@ function CalibrationSlider(props) {
 
 // 
 export default function CalibrationControl(props) {
-   const [dimensions, setDimensions] = React.useState({ 
-      height: window.innerHeight,
-      width: window.innerWidth,
-   })
-   
-   React.useEffect(() => {
-      function handleResize() {
-         setDimensions({
-            height: window.innerHeight,
-            width: window.innerWidth,
-         })
-      }
-      window.addEventListener('resize', handleResize)
-
-      return _ => {
-         window.removeEventListener('resize', handleResize)
-      }
-   })
    return (
          <CalibrationSlider 
-            screenwidth={dimensions.width}
-            screenheight={dimensions.height}
+            displayState={props.displayState}
             />    
    );
 }

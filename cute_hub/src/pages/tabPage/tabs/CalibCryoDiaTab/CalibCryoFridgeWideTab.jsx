@@ -39,7 +39,7 @@ function CalibCryoFridgeWideTab(props) {
       <Grid item container lg={12} direction="column" >
         <Grid item container lg={12} justify="flex-start">
           <DiagramWidget
-            displayState={fridgeModuleState}
+            displayState={fridgeModuleState} 
             minimizable
             onDisplayChange={handleExpandedChange(expandedModules.FRIDGE)}
           />
@@ -50,7 +50,7 @@ function CalibCryoFridgeWideTab(props) {
           />
         </Grid>
       </Grid>
-      <CalibrationWidget displayState={fridgeModuleState} minimizable />
+      <CalibrationWidget helpable />
     </Grid>
   );
 }

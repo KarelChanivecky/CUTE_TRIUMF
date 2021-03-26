@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import React, { Component } from "react";
 
 const useStyles = makeStyles((theme) => ({
-  button: { width: "100%" },
+  button: { width: "100%"},
 }));
 
 export default function FButton(props) {
@@ -14,10 +14,10 @@ export default function FButton(props) {
     <Button
       className={classes.button}
       variant="outlined"
-      color="primary"
       disableElevation
+      color="primary"
       onClick={function (e) {
-        props.onclick(props.onclick);
+        props.onclick(props.command);
       }}
     >
       {props.name}

@@ -131,37 +131,37 @@ export default function CryoGauge(props) {
     <div className={classes.paperroot}>
       <Grid container direction="row">
         <Grid item xs={2}>
-        <StyledSlider
-          value={damperPositions.a}
-          valueLabelDisplay="on"
-          orientation="vertical"
-          step={0.1}
-          marks={marks()}
-          min={0}
-          max={2}
-        />
+          <StyledSlider
+            value={damperPositions.a}
+            valueLabelDisplay="on"
+            orientation="vertical"
+            step={0.1}
+            marks={marks()}
+            min={0}
+            max={2}
+          />
         </Grid>
         <Grid item  xs={2}>
-        <StyledSlider
-          valueLabelDisplay="on"
-          value={damperPositions.b}
-          orientation="vertical"
-          step={0.1}
-          marks={marks()}
-          min={0}
-          max={2}
-        />
+          <StyledSlider
+            valueLabelDisplay="on"
+            value={damperPositions.b}
+            orientation="vertical"
+            step={0.1}
+            marks={marks()}
+            min={0}
+            max={2}
+          />
         </Grid>
         <Grid item xs={2}>
-        <StyledSlider
-          valueLabelDisplay="on"
-          value={damperPositions.c}
-          orientation="vertical"
-          step={0.1}
-          marks={marks()}
-          min={0}
-          max={2}
-        />
+          <StyledSlider
+            valueLabelDisplay="on"
+            value={damperPositions.c}
+            orientation="vertical"
+            step={1}
+            marks={marks()}
+            min={0}
+            max={2}
+          />
         </Grid>
       </Grid>
     </div>
