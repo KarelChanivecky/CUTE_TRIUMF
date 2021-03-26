@@ -160,8 +160,6 @@ function CalibrationSlider(props) {
       setValues( [values[0], event.target.value === '' ? '' : Number(event.target.value)]);
    }; 
 
-
-   console.log(props.displayState)
    const getSliderOrientation = () => {return(props.displayState === ModuleDisplayStates.MINIMIZED) ? "vertical" : "horizontal";}
    const getGridOrientation = () => {return(props.displayState === ModuleDisplayStates.MINIMIZED) ? "column" : "row";}
 

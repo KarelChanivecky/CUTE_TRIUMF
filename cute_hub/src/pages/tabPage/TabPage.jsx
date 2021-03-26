@@ -8,6 +8,8 @@ import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWi
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 
+const ws = new WebSocket('wss://echo.websocket.org');
+ws.onconnect = (event)=>{console.log("TabPage.js: Websocket Connected")};
 
 const WindowBreakpoints = {
     FULL_SCREEN: 1420,//1520
