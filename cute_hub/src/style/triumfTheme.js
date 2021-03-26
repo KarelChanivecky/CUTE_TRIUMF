@@ -49,7 +49,10 @@ const triumfTypography = {
     },
     h3: {
         fontSize: "1.5rem",
-    }
+    },
+    // button: {
+    //     fontSize: "0.92rem"
+    // }
 };
 
 const muiThemeOptions = {

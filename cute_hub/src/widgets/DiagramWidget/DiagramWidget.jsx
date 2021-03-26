@@ -49,16 +49,23 @@ export default function DiagramWidget(props) {
         },
     }));
     const classes = useStyles()
-    let thing = displayState === ModuleDisplayStates.OPEN ? <DiagramSVG className={classes.diag} /> : <DiagramList/>
+    let thing = displayState === ModuleDisplayStates.OPEN ? <DiagramSVG className={classes.diag}/> : <DiagramList/>
+
+    const onHelp = () => {
+        window.open("https://karelchanivecky.github.io/CUTE_docs/fridge");
+    };
+
     return (
         <Box className={classes.root}>
             <Paper>
                 <ToggleHeader minimizable={props.minimizable}
                               helpable={displayState !== ModuleDisplayStates.MINIMIZED}
                               onToggle={props.onDisplayChange}
-                              name={props.noName? null :WidgetNames.DIAGRAM}/>
+                              name={props.noName ? null : WidgetNames.DIAGRAM}
+                              onHelp={onHelp}
+                />
                 <Grid container alignItems="center" justify="center">
-                        {thing}
+                    {thing}
                 </Grid>
             </Paper>
         </Box>

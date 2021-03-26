@@ -32,13 +32,19 @@ export default function CalibrationWidget(props) {
         },
     }));
     const classes = useStyles()
+
+    const onHelp = () => {
+        window.open("https://karelchanivecky.github.io/CUTE_docs/calibration");
+    };
     return (
         <Box className={classes.root}>
             <Paper>
                 <ToggleHeader minimizable={props.minimizable}
                               helpable={displayState !== ModuleDisplayStates.MINIMIZED}
                               onToggle={props.onDisplayChange}
-                              name={props.noName? null :WidgetNames.CALIBRATION}/>
+                              name={props.noName? null :WidgetNames.CALIBRATION}
+                              onHelp={onHelp}
+                />
                 <CalibrationControl/>
             </Paper>
         </Box>

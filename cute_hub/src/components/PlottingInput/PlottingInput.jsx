@@ -13,6 +13,7 @@ import {
     useTheme
 } from "@material-ui/core";
 import ColoredPaper from "../ColoredPaper/ColoredPaper";
+import ToggleHeader from "../ToggleHeader/ToggleHeader";
 
 
 const getHandleToggle = (checked, setChecked, notifier) => (value) => () => {
@@ -34,7 +35,7 @@ function PlottingInput(props) {
 
     const useStyles = makeStyles(theme => ({
         root: {
-            height: "2.2rem"
+            height: "2rem"
         }
     }))
 
@@ -123,10 +124,17 @@ function PlottingInput(props) {
     };
 
     const withSeconds = {step: 1};
+
+    const onHelp = () => {
+        window.open("https://karelchanivecky.github.io/CUTE_docs/cryostat");
+    };
     return (
         <Grid container>
             <Grid item xs={6} sm={4} md={4} lg={3} xl={2} zeroMinWidth>
                 <ColoredPaper elevation={0}>
+                    <ToggleHeader
+                    onHelp={onHelp}
+                    helpable/>
                     <Grid container justify="center">
                         <Box width={0.95}>
                             <Grid item container direction="column">
