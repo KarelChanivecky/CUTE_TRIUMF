@@ -14,6 +14,11 @@ const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
 calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
 calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
+// Cryostat Websocket
+const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
+cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
+cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};
+////////////////////////////////////////////////////////////////////////////////////////////// 
 
 const WindowBreakpoints = {
     FULL_SCREEN: 1420,//1520
