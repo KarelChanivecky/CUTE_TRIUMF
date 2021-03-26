@@ -21,6 +21,7 @@ class OutputLine extends Component {
       <div
         id={"commandContainer"}
         style={{
+          borderRadius : 10,
           display: this.props.display,
           width: 530,
           height: 520,

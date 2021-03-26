@@ -16,6 +16,7 @@ calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Web
 calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
 // Cryostat Websocket
+//const cryostatWebsocket = new WebSocket("ws://192.168.44.30:8080", "cute");
 const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
 cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
 cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};

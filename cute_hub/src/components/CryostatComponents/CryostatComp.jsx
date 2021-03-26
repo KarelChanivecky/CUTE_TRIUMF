@@ -67,21 +67,48 @@ export default function CryostatComp(props) {
 
   const expanded = props.expanded;
   const colsWidth = expanded ? 5 : 10;
-  const consoleComponent = expanded ? (
-    <Expand
-      onclick={props.onDisplayChange ?? null}
-      buttons={buttons}
-      commands={consoleLog}
-      sendCommand={sendCommand}
-    />
-  ) : (
-    <Closed
-      onclick={props.onDisplayChange ?? null}
-      buttons={buttons}
-      commands={consoleLog}
-      sendCommand={sendCommand}
-    />
-  );
+
+  const [consoleComponent, setConsoleComponent] = useState((<Closed
+                                                                  onclick={props.onDisplayChange ?? null}
+                                                                  buttons={buttons}
+                                                                  commands={consoleLog}
+                                                                  sendCommand={sendCommand}
+                                                                  />))
+  // const consoleComponent = expanded ? (
+    // <Expand
+    //   onclick={props.onDisplayChange ?? null}
+    //   buttons={buttons}
+    //   commands={consoleLog}
+    //   sendCommand={sendCommand}
+    // />
+  // ) : (
+  //   <Closed
+  //     onclick={props.onDisplayChange ?? null}
+  //     buttons={buttons}
+  //     commands={consoleLog}
+  //     sendCommand={sendCommand}
+  //   />
+  // );
+
+
+  React.useEffect(() => {
+    console.log(consoleLog)
+    if(!expanded){
+      setConsoleComponent((<Closed
+                                  onclick={props.onDisplayChange ?? null}
+                                  buttons={buttons}
+                                  commands={consoleLog}
+                                  sendCommand={sendCommand}
+        />))
+    } else {
+      setConsoleComponent((<Expand
+                                  onclick={props.onDisplayChange ?? null}
+                                  buttons={buttons}
+                                  commands={consoleLog}
+                                  sendCommand={sendCommand}
+      />))
+    }
+  }, [consoleLog, expanded])
 
 
   // A function to hand to components that need to send commands to the server.
@@ -106,6 +133,7 @@ export default function CryostatComp(props) {
     } else {
       Send('log:"' + msg + '"');
     }
+    return consoleLog
   }
 
   // A function which logs the message given to it into the command prompt
