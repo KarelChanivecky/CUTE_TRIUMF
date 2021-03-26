@@ -6,7 +6,6 @@ import OutputLine from "./OutputLine";
 
 class CommandLine extends Component {
     state = {
-        output: this.props.commands,
         display: this.props.init,
         currentcmd: "",
         inputWidth: this.props.initWidth,
@@ -29,16 +28,16 @@ class CommandLine extends Component {
     //Checks to see if the key pressed is the enter key and handles it
     handleSubmit = (e) => {
         if (e.keyCode === 13) {
-            const output = [...this.state.output, e.target.value];
-            this.setState({output, currentcmd: ""});
+            const output = [...this.props.commands, e.target.value];
             this.props.sendCommand(e.target.value, output);
+            this.setState({ currentcmd: ""});
         }
     };
 
   render() {
     return (
         <ThemeProvider theme={theme}>
-          <OutputLine output={this.state.output} display={this.state.display} />
+          <OutputLine output={this.props.commands} display={this.state.display} />
           <TextField
             onChange={this.handleChange}
             onKeyDown={this.handleSubmit}
