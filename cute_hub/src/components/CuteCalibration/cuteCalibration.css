@@ -3,9 +3,8 @@
    /* margin: 10px; */
    padding: 20px;
    border-radius: 5px;
-   height: 120px;
-   width: 1530px;
-}
+   width: fit-content;
+}  
 
 .calibration_input {
    width: 75px;
@@ -14,7 +13,7 @@
 .calib_control_horizontal {
    margin-top: 10px;
    height: fit-content;
-   width: 1000px;
+   width: 1310px;
 }
 
 .calib_control_vertical {
