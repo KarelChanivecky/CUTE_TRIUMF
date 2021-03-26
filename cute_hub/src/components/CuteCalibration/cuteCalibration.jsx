@@ -19,6 +19,9 @@ var moving = false;
 // This function is called when the move button is clicked 
 // the parameters its given are the requested slider position and the websocket you want to send the message to
 function move_source(pos, ws) {
+   if (pos > 150 || pos < -10) {
+      alert("Input Number out of Range: \nPick a number between -10 and 150 (inclusive).");
+   }
    //pos should be slider value in centimeters
    //multiply by calibration factor (100) to go from cm to motor position
    var motor_pos = pos*100;
@@ -237,7 +240,9 @@ function CalibrationSlider(props) {
                id="calibration_input"
                value={values[1]} 
                type="number"
+               max={150}
                step={0.1}
+               inputProps={{ min: "-10", max: "150"}}
                size='small'
                onChange={handleInputChange}
             />
