@@ -8,7 +8,7 @@ export default function ActiveControl(props) {
   return (
     <Grid container direction="row" spacing={2} justify="space-around">
       <Grid item xs={7}>
-        <Typography style={{marginTop: 7}}>Active Control:</Typography>
+        <Typography style={{marginTop: 7, fontSize : 20}}>Active Control:</Typography>
       </Grid>
       <Grid item xs={3}>
         <Switch color='primary' onClick={function (e) {

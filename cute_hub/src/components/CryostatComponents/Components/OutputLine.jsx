@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import { display } from "@material-ui/system";
 import React, { Component } from "react";
 
@@ -30,7 +31,7 @@ class OutputLine extends Component {
       >
         {this.props.output.map((text, index) => (
           <div key={text + index} style={{ color: "white", display: "flex", paddingLeft: 5}}>
-            {text}
+            <Typography>{text}</Typography>
           </div>
         ))}
         <div

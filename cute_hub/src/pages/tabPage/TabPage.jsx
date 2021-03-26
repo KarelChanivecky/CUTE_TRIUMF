@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Box, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
+import {Box, Container, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
 import CalibratorInProgressIndicator from "../../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
-import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
+import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
+import {makeStyles} from "@material-ui/core/styles";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Calibration Websocket
@@ -14,9 +15,21 @@ const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
 calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
 calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
+// Cryostat Websocket
+const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
+cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
+cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};
+////////////////////////////////////////////////////////////////////////////////////////////// 
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        fontSize: '1.2rem',
+    }
+}));
 
 const WindowBreakpoints = {
-    FULL_SCREEN: 1420,//1520
+    FULL_SCREEN: 1570,//1520
     ACCORDION: 800
 }
 
@@ -43,17 +56,17 @@ function evaluateWindowWidth() {
 function getCalibCryoFridgeTab() {
     switch (evaluateWindowWidth()) {
         case WindowStates.NARROW:
-            return <CalibrationWidget calibWebSock={calibrationWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED}/>;
+            return <CalibrationWidget calibWebSock={calibrationWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED} cryostatWS={cryostatWebsocket}/>;
         case WindowStates.ACCORDION:
-            return <CalibCryoFridgeMediumTab calibWebSock={calibrationWebsocket}/>;
+            return <CalibCryoFridgeMediumTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket}/>;
         default:
-            return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket}/>;
+            return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket}/>;
     }
 }
 
 function TabPage(props) {
     const theme = useTheme();
-
+    const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -79,16 +92,18 @@ function TabPage(props) {
 
             <ColoredPaper elevation={0} color={theme.palette.backgroundLight} parentSize square>
                 <ColoredPaper color={theme.palette.primary} square elevation={0}>
-                    <Grid item container direction='row' justify="space-between" wrap="wrap-reverse">
-                        <Tabs
-                            value={value}
-                            onChange={handleChange}
-                            indicatorColor="secondary"
-                            textColor="inherit"
-                            centered>
-                            <Tab label="Calibration/Cryostat/Fridge"/>
-                            <Tab label="Data"/>
-                        </Tabs>
+                    <Grid item container direction='row' justify="space-between" wrap="wrap-reverse" alignItems={"stretch"}>
+                        {/*<Grid item container alignItems="flex-end">*/}
+                            <Tabs
+                                value={value}
+                                onChange={handleChange}
+                                indicatorColor="secondary"
+                                textColor="inherit"
+                                centered>
+                                <Tab label="Controls" className={classes.root}/>
+                                <Tab label="Data" className={classes.root}/>
+                            </Tabs>
+                        {/*</Grid>*/}
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
