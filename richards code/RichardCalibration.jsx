@@ -7,16 +7,19 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, OutlinedInput, TextField, ThemeProvider, Typography, withStyles } from '@material-ui/core';
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 
+//TODO I added the websocket module here
+import {w3cwebsocket as WebSocket} from "websocket"; //import the websocket module
+//also added this to get the current position from a text file
+
 ////////////////////////////////////////////////////////// Testing Data Source ////////////////////////////////////////////////////////
 // The source postion slider looks at this value and adjusts according to it
-var source_position = 40;
+//position of source for the AVR board to use
+//real physical source position, in centimeters
+var source_position = 0.01*-1000;//TODO get this -1000 value from a file and then be able to update the file
 
 var moving = false;
+const calib_factor = 100; //conversion factor between cm/s and motor steps/s
 
-// This function is called when the move button is clicked and can be replaced with something that actually moves the slider.
-function move_source(pos, ws) {
-   ws.send(pos);
-}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // This creates an array of JSON objects that will be called at line ## to mark the values of a slider
@@ -106,15 +109,6 @@ function SourcePositionSlider(props) {
 
    // The Source Slider Position is based on whatever variable you hand to this function...
    const [srcPos, setSrcPos] = useState(source_position);
-   
-   React.useEffect(()=>{
-      let secTimer = setInterval( () => {
-         // ...this function
-         setSrcPos(source_position)
-       }, 1000)
-   
-       return () => clearInterval(secTimer);
-   });
 
    // Applies some extra style to the source slider, starting with the original sliderStyle object.
    let sourceStyles = sliderStyles;
@@ -139,20 +133,79 @@ function SourcePositionSlider(props) {
 }
 
 
-
 function CalibrationSlider(props) {
-   // First value represents current position, Second Value represents desired position
-   const [values, setValues] = React.useState([source_position,80])
+   // First value represents current/actual position, Second Value represents desired position
+   const [values, setValues] = React.useState([source_position,79]);
 
-   const changeSourcePos = (event)=>{
-      console.log("Moving source to: " + event.data);
-      source_position = parseInt(event.data);
-   };
+   //create the websocket instance, or at least a null reference to it 
+   const ws = React.useRef(null);
    
-   React.useEffect(()=>{
-      props.ws.addEventListener('message', changeSourcePos, true);
-      return () => props.ws.removeEventListener('message', changeSourcePos, true);
-   });
+   //React.useEffect(()=>{
+   //   let secTimer = setInterval( () => {
+   //      // ...this function
+   //      setSrcPos(source_position)
+   //    }, 1000)
+   
+        //now create the websocket and set up it's methods
+        //ws.current = new WebSocket("ws://localhost:8092", "cute-protocol"); //test server
+        ws.current = new WebSocket("ws://192.168.44.30:8081", "cute"); //actual server
+        //
+        //what to do on open
+        ws.current.onopen = () => {
+            console.log("calibration websocket connected");
+            //TODO: uncomment
+            //this line updates the source position on the board with the value stored in the text file
+            //ws.current.send('avr1: m0 pos '+current_pos);
+        };
+        //what to do when the websocket gets closed
+        ws.current.onclose = () => {
+            console.log("calibration websocket connection closed");
+        };
+        // handle messages from server
+        ws.current.onmessage = function(message) {
+            //break the message up into a switch (c) and a msg 
+            var c = message.data.substr(0,1);
+            var msg = message.data.substr(2);
+            //get the position of the source
+            switch (c) {
+              case 'C': 
+                //console.log(msg); //also useful for debugging
+                var temp_msg ="";
+                var locate_pos = msg.search("POS");
+                if (locate_pos != -1 ) {
+                  temp_msg = msg.substr(locate_pos); 
+                  var act_pos = temp_msg.substr(4);
+                  act_pos = act_pos.substring(0,act_pos.indexOf("<"));
+                  var real_pos = 0.01*act_pos; //real position of source in cm
+                  console.log(real_pos);
+                  //TODO this part here I don't know if it's right, but it sometimes works
+                  //setSrcPos(real_pos);
+                  source_position = real_pos;
+                  setValues([real_pos, values[1]]);
+                }
+                break;
+            }
+        };
+
+        //return a callback to close the connection
+        return () => ws.current.close();
+
+  }, []); //TODO put an empty brack there
+
+
+    // This function is called when the move button is clicked and can be replaced with something that actually moves the slider.
+    function move_source(pos) {
+        //pos should be slider value in centimeters
+        //multiply by calibration factor (100) to go from cm to motor position
+        var motor_pos = pos*100;
+        //TODO: test this function, be very careful with what is happening here
+        //TODO: uncomment these lines when ready
+          //ws.current.send("avr1: m0 on 1"); //get the motor ready
+          var txt = "avr1: m0 step " + motor_pos + " 500"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
+          //ws.current.send(txt); //send the command
+          console.log(txt);
+    }
+
 
    const handleChange = (_event, newValue) => {
       setValues([values[0],  newValue]);
@@ -162,6 +215,8 @@ function CalibrationSlider(props) {
       setValues( [values[0], event.target.value === '' ? '' : Number(event.target.value)]);
    }; 
 
+
+   //console.log(props.displayState);
    const getSliderOrientation = () => {return(props.displayState === ModuleDisplayStates.MINIMIZED) ? "vertical" : "horizontal";}
    const getGridOrientation = () => {return(props.displayState === ModuleDisplayStates.MINIMIZED) ? "column" : "row";}
 
@@ -209,7 +264,7 @@ function CalibrationSlider(props) {
                variant="contained" 
                color="primary"
                // Plug in function to change data here and hand it the same variable
-               onClick={()=>{move_source(values[1], props.ws)}}>
+               onClick={()=>{move_source(values[1])}}>
                   Move
             </Button>
          </div></Grid>
@@ -222,7 +277,6 @@ function CalibrationSlider(props) {
 export default function CalibrationControl(props) {
    return (
          <CalibrationSlider 
-            ws={props.ws}
             displayState={props.displayState}
             />    
    );
