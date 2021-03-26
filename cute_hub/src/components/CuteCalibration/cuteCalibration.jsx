@@ -210,7 +210,7 @@ function CalibrationSlider(props) {
    return (      
       <div  
          className="calibration_widget">
-         <Grid container direction={getGridOrientation()}>
+         <Grid container justify="center" spacing={4} direction={getGridOrientation()}>
          <Grid item><div  
             className={getCalibDivClass(props.displayState)}
             id="calibration_slider">

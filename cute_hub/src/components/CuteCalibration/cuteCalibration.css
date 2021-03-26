@@ -1,9 +1,10 @@
 
 .calibration_widget {
-   margin: 10px;
+   /* margin: 10px; */
    padding: 20px;
    border-radius: 5px;
-   width: fit-content;
+   height: 120px;
+   width: 1530px;
 }
 
 .calibration_input {
