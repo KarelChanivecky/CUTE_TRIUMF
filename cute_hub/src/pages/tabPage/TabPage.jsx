@@ -8,6 +8,12 @@ import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWi
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Calibration Websocket
+const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
+calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
+calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
+////////////////////////////////////////////////////////////////////////////////////////////// 
 
 const WindowBreakpoints = {
     FULL_SCREEN: 1420,//1520
@@ -37,11 +43,11 @@ function evaluateWindowWidth() {
 function getCalibCryoFridgeTab() {
     switch (evaluateWindowWidth()) {
         case WindowStates.NARROW:
-            return <CalibrationWidget helpable displayState={ModuleDisplayStates.MINIMIZED}/>;
+            return <CalibrationWidget calibWebSock={calibrationWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED}/>;
         case WindowStates.ACCORDION:
-            return <CalibCryoFridgeMediumTab/>;
+            return <CalibCryoFridgeMediumTab calibWebSock={calibrationWebsocket}/>;
         default:
-            return <CalibCryoFridgeWideTab/>;
+            return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket}/>;
     }
 }
 

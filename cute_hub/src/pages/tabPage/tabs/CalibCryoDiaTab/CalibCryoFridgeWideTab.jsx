@@ -50,7 +50,7 @@ function CalibCryoFridgeWideTab(props) {
           />
         </Grid>
       </Grid>
-      <CalibrationWidget helpable />
+      <CalibrationWidget calibWebSock={props.calibWebSock} helpable />
     </Grid>
   );
 }
