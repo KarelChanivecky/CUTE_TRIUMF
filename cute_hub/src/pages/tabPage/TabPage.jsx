@@ -1,16 +1,23 @@
 import React, {useState} from 'react';
-import {Box, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
+import {Box, Container, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
 import CalibratorInProgressIndicator from "../../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
-import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
+import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
+import {makeStyles} from "@material-ui/core/styles";
 
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        fontSize: '1.2rem',
+    }
+}));
 
 const WindowBreakpoints = {
-    FULL_SCREEN: 1420,//1520
+    FULL_SCREEN: 1570,//1520
     ACCORDION: 800
 }
 
@@ -47,7 +54,7 @@ function getCalibCryoFridgeTab() {
 
 function TabPage(props) {
     const theme = useTheme();
-
+    const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -73,16 +80,18 @@ function TabPage(props) {
 
             <ColoredPaper elevation={0} color={theme.palette.backgroundLight} parentSize square>
                 <ColoredPaper color={theme.palette.primary} square elevation={0}>
-                    <Grid item container direction='row' justify="space-between" wrap="wrap-reverse">
-                        <Tabs
-                            value={value}
-                            onChange={handleChange}
-                            indicatorColor="secondary"
-                            textColor="inherit"
-                            centered>
-                            <Tab label="Calibration/Cryostat/Fridge"/>
-                            <Tab label="Data"/>
-                        </Tabs>
+                    <Grid item container direction='row' justify="space-between" wrap="wrap-reverse" alignItems={"stretch"}>
+                        {/*<Grid item container alignItems="flex-end">*/}
+                            <Tabs
+                                value={value}
+                                onChange={handleChange}
+                                indicatorColor="secondary"
+                                textColor="inherit"
+                                centered>
+                                <Tab label="Controls" className={classes.root}/>
+                                <Tab label="Data" className={classes.root}/>
+                            </Tabs>
+                        {/*</Grid>*/}
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
