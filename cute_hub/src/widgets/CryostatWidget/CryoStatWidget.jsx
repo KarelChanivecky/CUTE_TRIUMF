@@ -33,6 +33,9 @@ export default function CryoStatWidget(props) {
   const classes = useStyles();
   //let thing = (displayState == ModuleDisplayStates.OPEN) ?  <CryostatComp></CryostatComp> : <span></span>
 
+  const onHelp = () => {
+    window.open("https://karelchanivecky.github.io/CUTE_docs/cryostat");
+  };
   return (
     <Box className={classes.root}>
       <Paper>
@@ -40,6 +43,7 @@ export default function CryoStatWidget(props) {
           minimizable={props.minimizable}
           helpable={displayState !== ModuleDisplayStates.MINIMIZED}
           onToggle={props.onDisplayChange}
+          onHelp={onHelp}
           name={props.noName? null :WidgetNames.CRYOSTAT}
         />
         <CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange ?? null} cryostatWS={props.cryostatWS}/>
