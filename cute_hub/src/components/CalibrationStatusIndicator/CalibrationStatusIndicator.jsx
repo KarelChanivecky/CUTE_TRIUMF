@@ -22,10 +22,11 @@ function CalibrationStatusIndicator(props) {
     const classes = useStyles();
 
     const [show, setShow] = useState(false);
-    const [reserved, setReserved] = useState(false); //update it according to the data type of incoming data
+    const [reserved, setReserved] = useState(false); //TODO: update it according to the data type of incoming data, e.g. true/false if boolean, 0/1 if number
     const [time, setTime] = useState("few");
 
-    //TODO:  for the following function to work please update setReserved to whatever fields are coming as the response e.g. ".data" ?
+    //TODO:  for the following function to work please update setReserved within the try block
+    // to whatever fields are coming in as the response, e.g. ".data" and then uncomment the code below
 
     // const getData = async () => {
     //     try {
@@ -52,13 +53,22 @@ function CalibrationStatusIndicator(props) {
 
 
     const handleClose = () => setShow(false);
+
     const handleReserve = () => {
         setReserved(true);
     }
+
+    const handleRelease = () => {
+        setReserved(false);
+        setShow(false);
+    }
+
     const handleShow = () => setShow(true);
     const title = reserved == true ? "System Unavailable" : "System Available";
     const color = reserved == true ? "warning" : "success";
     const subtext = reserved == true ? "System reserved for " : "Reserve system for: ";
+    const reserve_btn = reserved == true ? "Release Control" : "Reserve Now";
+    const clickHandler = reserved == true ? handleRelease : handleReserve;
     const time_hrs = reserved == true ? time + " hours" : 
     <FormControl
     placeholder="Hours"
@@ -67,7 +77,6 @@ function CalibrationStatusIndicator(props) {
     onChange={e => setTime(e.target.value)}
     type="text"
     />;
-    const reserve_btn = reserved ? <></> : <Button variant="primary" onClick={handleReserve}>Reserve Now</Button>;
 
     return (
         <>
@@ -82,10 +91,12 @@ function CalibrationStatusIndicator(props) {
             <Modal.Body>{subtext} {time_hrs}
             </Modal.Body>
             <Modal.Footer>
+            <Button variant="primary" onClick={clickHandler}>
+                {reserve_btn}
+            </Button>
             <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
-            {reserve_btn}
             </Modal.Footer>
         </Modal>
         </>
