@@ -12,7 +12,7 @@ import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 //position of source for the AVR board to use
 //real physical source position, in centimeters
 var source_position = 0.01*-1000;//TODO get this -1000 value from a file and then be able to update the file
-var source_position = 40;
+// var source_position = 40;
 
 var moving = false;
 
