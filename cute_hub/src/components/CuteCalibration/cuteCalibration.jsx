@@ -2,10 +2,19 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './cuteCalibration.css';
 import Grid from '@material-ui/core/Grid'
-import Slider from '@material-ui/core/Slider';
+// import Slider from '@material-ui/core/Slider';
+import Slider from '@material-ui/lab/Slider';
 import Button from '@material-ui/core/Button';
 import { makeStyles, OutlinedInput, TextField, ThemeProvider, Typography, withStyles } from '@material-ui/core';
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
+import Chip from '@material-ui/core/Chip';
+
+
+import IconButton from '@material-ui/core/IconButton';
+import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
+import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import { grid } from '@material-ui/system';
 
 ////////////////////////////////////////////////////////// Data Source ////////////////////////////////////////////////////////
 // The source postion slider looks at this value and adjusts according to it
@@ -58,7 +67,7 @@ const sliderStyles = {
    root: {
       color: 'primary',
       height: 8,
-      width: 1000,
+      width: 1200,
    },
    vertical: {
       color: 'primary',
@@ -91,7 +100,9 @@ const sliderStyles = {
    },
    active: {},
    valueLabel: {
+      width: 100,
       left: 'calc(-50% + 2px)',
+      fontSize: 15
    },
    track: {
       display: 'none',
@@ -115,6 +126,10 @@ const buttonStyle = makeStyles({
       maxwidth : 100,
    }
 });
+
+function customValueLabel(props){
+   return <Chip label={props.value}/>
+}
 
 // This slider displays the current source position
 function SourcePositionSlider(props) {
@@ -208,54 +223,80 @@ function CalibrationSlider(props) {
    // const getGridOrientation = () => {return(props.screenwidth < props.screenheight) ? "column" : "row";}
 
    return (      
-      <div  
-         className="calibration_widget">
-         <Grid container justify="center" spacing={4} direction={getGridOrientation()}>
-         <Grid item><div  
-            className={getCalibDivClass(props.displayState)}
-            id="calibration_slider">
-            <StyledMovementSlider
-               value={values[1]}
-               orientation={getSliderOrientation()}
-               aria-labelledby="range-slider"
-               onChange={handleChange}
-               marks={marks()}
-               // Steps controls the values the slider can have,
-               // 1 means it will have values 1,2,3,4, etc.
-               // .5 means it have have values .5,1,1.5,2
-               step={0.1}
-               /////////////////////////////
-               min={-10}
-               max={150}
-               valueLabelDisplay="auto"
-            />
-            <SourcePositionSlider
-               orientation={getSliderOrientation()}
-            />
-         </div></Grid>
-         
-         <Grid item><div className="inputDiv">
-            <OutlinedInput
-               className="calibration_input"
-               id="calibration_input"
-               value={values[1]} 
-               type="number"
-               max={150}
-               step={0.1}
-               inputProps={{ min: "-10", max: "150"}}
-               size='small'
-               onChange={handleInputChange}
-            />
-            <Button 
-               variant="contained" 
-               color="primary"
-               // Plug in function to change data here and hand it the same variable
-               onClick={()=>{move_source(values[1], props.ws)}}>
-                  Move
-            </Button>
-         </div></Grid>
+      <Grid className="calibration_main" container direction={getGridOrientation()}>
+         <Grid container item justify="center" spacing={4} direction={getGridOrientation()}>
+            <Grid item>
+               <div  
+               className={getCalibDivClass(props.displayState)}
+               id="calibration_slider">
+                  <StyledMovementSlider
+                     value={values[1]}
+                     orientation={getSliderOrientation()}
+                     aria-labelledby="range-slider"
+                     onChange={handleChange}
+                     marks={marks()}
+                     // Steps controls the values the slider can have,
+                     // 1 means it will have values 1,2,3,4, etc.
+                     // .5 means it have have values .5,1,1.5,2
+                     step={0.1}
+                     /////////////////////////////
+                     min={-10}
+                     max={150}
+                     valueLabelDisplay="auto"
+                     // ValueLabelComponent={customValueLabel}
+                  />
+                  <SourcePositionSlider
+                     orientation={getSliderOrientation()}
+                  />
+               </div>
+            </Grid>
+            
+            <Grid item>
+               <div className="inputDiv">
+                  <OutlinedInput
+                     className="calibration_input"
+                     id="calibration_input"
+                     value={values[1]} 
+                     type="number"
+                     max={150}
+                     step={0.1}
+                     inputProps={{ min: "-10", max: "150"}}
+                     size='small'
+                     onChange={handleInputChange}
+                  />
+                  <Button 
+                     variant="contained" 
+                     color="primary"
+                     // Plug in function to change data here and hand it the same variable
+                     onClick={()=>{move_source(values[1], props.ws)}}>
+                        Move
+                  </Button>
+               </div>
+            </Grid>
          </Grid>
-      </div>
+         {/* <Grid item>
+            <IconButton id="droveSrcUp">
+               <ArrowBackIosOutlinedIcon/>
+            </IconButton>
+            <IconButton id="stopSrc">
+               <NotInterestedIcon/>
+            </IconButton>
+            <IconButton id="driveSrcDown">
+               <ArrowForwardIosOutlinedIcon/>
+            </IconButton>
+         </Grid> */}
+         {/* <Grid container direction="column" justify="center" >
+            <Grid item xs={1}>
+               <Button variant="outlined" color="primary" startIcon={<ArrowBackIosOutlinedIcon/>}>Up</Button>
+            </Grid>
+            <Grid item xs={1}>
+               <Button variant="contained" color="primary" >Stop</Button>
+            </Grid>
+            <Grid item xs={1}>
+               <Button variant="outlined" color="primary" endIcon={<ArrowForwardIosOutlinedIcon/>}>Down</Button>
+            </Grid>
+         </Grid> */}
+      </Grid>
    );
 }
 

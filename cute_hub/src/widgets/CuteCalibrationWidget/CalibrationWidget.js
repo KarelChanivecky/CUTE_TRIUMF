@@ -40,13 +40,14 @@ export default function CalibrationWidget(props) {
         <Box className={classes.root}>
             <Paper>
                 <ToggleHeader
-                              helpable={displayState !== ModuleDisplayStates.MINIMIZED}
-                              onHelp={onHelp}
-                              name={props.noName? null :WidgetNames.CALIBRATION}
+                    helpable={displayState !== ModuleDisplayStates.MINIMIZED}
+                    onHelp={onHelp}
+                    name={props.noName? null :WidgetNames.CALIBRATION}
 
                 />
-                <CalibrationControl calibWebSock={props.calibWebSock}
-                                    displayState={props.displayState}
+                <CalibrationControl 
+                    calibWebSock={props.calibWebSock}
+                    displayState={props.displayState}
                 />
             </Paper>
         </Box>
