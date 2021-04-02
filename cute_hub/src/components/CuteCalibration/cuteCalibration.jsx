@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './cuteCalibration.css';
 import Grid from '@material-ui/core/Grid'
-// import Slider from '@material-ui/core/Slider';
-import Slider from '@material-ui/lab/Slider';
+import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import { makeStyles, OutlinedInput, TextField, ThemeProvider, Typography, withStyles } from '@material-ui/core';
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
