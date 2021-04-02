@@ -3,6 +3,7 @@ import {Box, Container, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
 import CalibratorInProgressIndicator from "../../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
+import ValuesRibbon from "../../components/ValuesRibbon/ValuesRibbon";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const WindowBreakpoints = {
-    FULL_SCREEN: 1570,//1520
+    FULL_SCREEN: 1420,//1520
     ACCORDION: 800
 }
 
@@ -108,7 +109,7 @@ function TabPage(props) {
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
-
+                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />
                 {ActiveTab}
             </ColoredPaper>
         </Box>
