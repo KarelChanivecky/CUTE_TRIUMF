@@ -9,6 +9,7 @@ import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWi
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
 import {makeStyles} from "@material-ui/core/styles";
+import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Calibration Websocket
@@ -66,6 +67,13 @@ function getCalibCryoFridgeTab() {
     }
 }
 
+
+
+function getIframeTabs(){
+    return {tabs: [<IframeWidget url={"https://material-ui.com/"} noName={true}/>],
+            names:["Mat-UI"]}
+}
+
 function TabPage(props) {
     const theme = useTheme();
     const classes = useStyles();
@@ -75,7 +83,7 @@ function TabPage(props) {
         setValue(newValue);
     };
 
-    const [tabs, setTabs] = useState([getCalibCryoFridgeTab(), <PlottingTab/>]);
+    const [tabs, setTabs] = useState([getCalibCryoFridgeTab(), <PlottingTab/>, ...getIframeTabs().tabs]);
 
     // This handles detecting the changing width of the screen and show the appropriate CalibCryoFridgeTabVersion
     // Currently, changing the screen size may result in loosing the log of commands sent
@@ -104,6 +112,9 @@ function TabPage(props) {
                                 centered>
                                 <Tab label="Controls" className={classes.root}/>
                                 <Tab label="Data" className={classes.root}/>
+                                {getIframeTabs().names.map((c) => (
+                                    <Tab label={c} className={classes.root}></Tab>
+                                ))}
                             </Tabs>
                         {/*</Grid>*/}
                         <CalibratorInProgressIndicator/>

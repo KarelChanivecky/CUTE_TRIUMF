@@ -12,10 +12,17 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     "& div": {
-      marginLeft: 10}
+      marginLeft: 8}
   },
   numbers: {
-    fontSize: "30px"
+    fontSize: "20px"
+  },
+  letters: {
+    fontSize: "10px"
+  },
+  labels: {
+    fontSize: "15px",
+    marginLeft: (-30)
   }
 }));
 
@@ -69,16 +76,30 @@ export default function MotorSpeed(props) {
 
   return (
     <div className={classes.paperroot}>
-    <Grid container direction="row" alignContent="center">
-      <Grid item xs={3}>
-      <Typography className={classes.numbers}>{speeds[0]}</Typography>
-      </Grid>
-      <Grid item  xs={3}>
-      <Typography className={classes.numbers}>{speeds[1]}</Typography>
-      </Grid>
-      <Grid item xs={3}>
-      <Typography className={classes.numbers}>{speeds[2]}</Typography>
-      </Grid>
+      <Grid container direction="column">
+        <Grid item><Typography className={classes.labels}>Motor Speed</Typography></Grid>
+        <Grid item container direction="row" alignContent="center">
+          <Grid item xs={3}>
+            <Typography className={classes.letters}>A</Typography>
+          </Grid>
+          <Grid item  xs={3}>
+            <Typography className={classes.letters}>B</Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography className={classes.letters}>C</Typography>
+          </Grid>
+        </Grid>
+        <Grid item container direction="row" alignContent="center">
+          <Grid item xs={3}>
+            <Typography className={classes.numbers}>{speeds[0]}</Typography>
+          </Grid>
+          <Grid item  xs={3}>
+            <Typography className={classes.numbers}>{speeds[1]}</Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography className={classes.numbers}>{speeds[2]}</Typography>
+          </Grid>
+        </Grid>
     </Grid>
   </div>
   );
