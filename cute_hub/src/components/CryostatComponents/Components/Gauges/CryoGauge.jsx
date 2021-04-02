@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     "& div": {
-      margin: 19}
+      margin: 23}
   },
 }));
 

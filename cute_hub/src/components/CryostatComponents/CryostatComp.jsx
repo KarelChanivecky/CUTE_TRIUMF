@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperbig: {
     maxWidth: 333,
-    height: 500,
+    height: 475,
     backgroundColor: "white",
     border: "solid",
     borderWidth: 0.5,
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   papersliver: {
     maxWidth: 333,
-    height: 50,
+    height: 75,
     backgroundColor: "white",
     border: "solid",
     borderWidth: 0.5,
