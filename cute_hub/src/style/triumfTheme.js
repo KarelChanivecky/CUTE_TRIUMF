@@ -15,6 +15,10 @@ const triumfPalette = {
     secondary: {
         main: "#666666"
     },
+    tertiary: {
+        main: "#dffdff", // 2f6690
+        contrastText: "#000"
+    },
     error: {
         main: "#DE163D"
     },
