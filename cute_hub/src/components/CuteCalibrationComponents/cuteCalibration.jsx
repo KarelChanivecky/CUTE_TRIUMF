@@ -9,12 +9,6 @@ import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 import Chip from '@material-ui/core/Chip';
 
 
-import IconButton from '@material-ui/core/IconButton';
-import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
-import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
-import NotInterestedIcon from '@material-ui/icons/NotInterested';
-import { grid } from '@material-ui/system';
-
 ////////////////////////////////////////////////////////// Data Source ////////////////////////////////////////////////////////
 // The source postion slider looks at this value and adjusts according to it
 //position of source for the AVR board to use
@@ -218,17 +212,15 @@ function CalibrationSlider(props) {
    const getSliderOrientation = () => {return(props.displayState === ModuleDisplayStates.MINIMIZED) ? "vertical" : "horizontal";}
    const getGridOrientation = () => {return(props.displayState === ModuleDisplayStates.MINIMIZED) ? "column" : "row";}
 
-   // const getSliderOrientation = () => {return(props.screenwidth < props.screenheight) ? "vertical" : "horizontal";}
-   // const getGridOrientation = () => {return(props.screenwidth < props.screenheight) ? "column" : "row";}
-
    return (      
-      <Grid className="calibration_main" container direction={getGridOrientation()}>
+      <Grid className="calibration_main" container direction="row">
          <Grid container item justify="center" spacing={4} direction={getGridOrientation()}>
             <Grid item>
                <div  
                className={getCalibDivClass(props.displayState)}
                id="calibration_slider">
                   <StyledMovementSlider
+                     order="flipped"
                      value={values[1]}
                      orientation={getSliderOrientation()}
                      aria-labelledby="range-slider"
@@ -273,28 +265,6 @@ function CalibrationSlider(props) {
                </div>
             </Grid>
          </Grid>
-         {/* <Grid item>
-            <IconButton id="droveSrcUp">
-               <ArrowBackIosOutlinedIcon/>
-            </IconButton>
-            <IconButton id="stopSrc">
-               <NotInterestedIcon/>
-            </IconButton>
-            <IconButton id="driveSrcDown">
-               <ArrowForwardIosOutlinedIcon/>
-            </IconButton>
-         </Grid> */}
-         {/* <Grid container direction="column" justify="center" >
-            <Grid item xs={1}>
-               <Button variant="outlined" color="primary" startIcon={<ArrowBackIosOutlinedIcon/>}>Up</Button>
-            </Grid>
-            <Grid item xs={1}>
-               <Button variant="contained" color="primary" >Stop</Button>
-            </Grid>
-            <Grid item xs={1}>
-               <Button variant="outlined" color="primary" endIcon={<ArrowForwardIosOutlinedIcon/>}>Down</Button>
-            </Grid>
-         </Grid> */}
       </Grid>
    );
 }

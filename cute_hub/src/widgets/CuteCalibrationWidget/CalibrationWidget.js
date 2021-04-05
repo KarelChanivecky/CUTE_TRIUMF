@@ -1,8 +1,10 @@
 import React from 'react'
+import { Grid } from '@material-ui/core';
 import {Box, makeStyles, Paper} from "@material-ui/core";
 import ToggleHeader from "../../components/ToggleHeader/ToggleHeader";
 import {ModuleDisplayStates} from "../../constants/moduleDisplayStates";
-import CalibrationControl from "../../components/CuteCalibration/cuteCalibration.jsx";
+import CalibrationControl from "../../components/CuteCalibrationComponents/cuteCalibration.jsx";
+import ExtraCalibrationControls from "../../components/CuteCalibrationComponents/modularButtons";
 import {WidgetNames} from "../../constants/widgetNames";
 
 
@@ -36,6 +38,11 @@ export default function CalibrationWidget(props) {
     const onHelp = () => {
         window.open("https://karelchanivecky.github.io/CUTE_docs/calibration");
     };
+
+    const getDirection = () => {
+        return (props.displayState !== ModuleDisplayStates.MINIMIZED) ? "column" : "row"
+    }
+
     return (
         <Box className={classes.root}>
             <Paper>
@@ -45,10 +52,20 @@ export default function CalibrationWidget(props) {
                     name={props.noName? null :WidgetNames.CALIBRATION}
 
                 />
-                <CalibrationControl 
-                    calibWebSock={props.calibWebSock}
-                    displayState={props.displayState}
-                />
+                <Grid container direction={getDirection()}>
+                    <Grid item>
+                        <CalibrationControl 
+                            calibWebSock={props.calibWebSock}
+                            displayState={props.displayState}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <ExtraCalibrationControls
+                            calibWebSock={props.calibWebSock}
+                            vertical={props.displayState !== ModuleDisplayStates.MINIMIZED}
+                        />
+                    </Grid>
+                </Grid>
             </Paper>
         </Box>
     )
