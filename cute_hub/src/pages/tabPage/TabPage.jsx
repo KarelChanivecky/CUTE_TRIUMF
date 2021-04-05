@@ -13,7 +13,8 @@ import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Calibration Websocket
-const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
+// const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
+const calibrationWebsocket = new WebSocket('wss://echo.websocket.org');
 calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
 calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -23,7 +24,6 @@ const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
 cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
 cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
