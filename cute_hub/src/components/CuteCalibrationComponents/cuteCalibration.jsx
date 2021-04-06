@@ -8,13 +8,16 @@ import { makeStyles, OutlinedInput, TextField, ThemeProvider, Typography, withSt
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 import Chip from '@material-ui/core/Chip';
 
+// NOTE: The vertical slider has some funny properties, 
+// it's actually a slider with values 10 to -150
+// we hide that with labels and a label formatter that appear as -10 to 150 as well as 
+// Doing this makes the slider properly represent the machine it controls
 
 ////////////////////////////////////////////////////////// Data Source ////////////////////////////////////////////////////////
 // The source postion slider looks at this value and adjusts according to it
-//position of source for the AVR board to use
-//real physical source position, in centimeters
+// position of source for the AVR board to use
+// real physical source position, in centimeters
 var source_position = 0.01*-1000;//TODO get this -1000 value from a file and then be able to update the file
-// var source_position = 40;
 
 var moving = false;
 
@@ -37,6 +40,7 @@ function move_source(pos, ws) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // This creates an array of JSON objects that will be called at line ## to mark the values of a slider
+// If the slider is vertical we the actual values to be inverted.
 const marks = (vertical)=>{
    let f = (vertical) ? -1 : 1;
    let marks = []
@@ -63,6 +67,7 @@ const sliderStyles = {
       height: 8,
       width: 1200,
    },
+   // css vertical sliders
    vertical: {
       color: 'primary',
       width: 8,
@@ -127,8 +132,9 @@ function customValueLabel(props){
 
 // This slider displays the current source position
 function SourcePositionSlider(props) {
-
+   const verticalBool = props.vertical
    // The Source Slider Position is based on whatever variable you hand to this function...
+   const getSrcPos = () => { return (verticalBool) ? source_position * -1: source_position;}
    const [srcPos, setSrcPos] = useState(source_position);
    
    React.useEffect(()=>{
@@ -151,18 +157,21 @@ function SourcePositionSlider(props) {
    // Creates a new Slider object with specific styling
    const StyledSourceSlider = withStyles(sourceStyles)(Slider);
 
+   const getMin = () => { return(verticalBool) ? -150 : -10;} 
+   const getMax = () => { return(verticalBool) ? 10 : 150;} 
+   const orientValue = (value) => { return(verticalBool) ? value * -1: value ;}
+
    return (
       <StyledSourceSlider
                orientation={props.orientation}
-               value={srcPos}
-               min={-10}
-               max={150}
+               value={orientValue(srcPos)}
+               min={getMin()}
+               max={getMax()}
+               valueLabelFormat={(x)=>{return (verticalBool) ? -1 * x: x;}}
                valueLabelDisplay="on"
             />
    )
 }
-
-
 
 function CalibrationSlider(props) {
 
@@ -206,11 +215,12 @@ function CalibrationSlider(props) {
    });
 
    const handleChange = (_event, newValue) => {
-      setValues([values[0],  newValue]);
+      let value = (verticalBool) ? -1 * newValue : newValue;
+      setValues([values[0],  value]);
    }
    
    const handleInputChange = (event) => {
-      setValues( [values[0], event.target.value === '' ? '' : Number(event.target.value)]);
+      setValues([values[0], event.target.value === '' ? '' : Number(event.target.value)]);
    }; 
 
    const getSliderOrientation = () => {return(verticalBool) ? "vertical" : "horizontal";}
@@ -219,6 +229,7 @@ function CalibrationSlider(props) {
    const getMin = () => { return(verticalBool) ? -150 : -10;} 
    const getMax = () => { return(verticalBool) ? 10 : 150;} 
    const orientValue = (value) => { return(verticalBool) ? value  : value ;}
+
    return (      
       <Grid className="calibration_main" container direction="row">
          <Grid container item justify="center" spacing={4} direction={getGridOrientation()}>
@@ -228,11 +239,12 @@ function CalibrationSlider(props) {
                id="calibration_slider">
                   <StyledMovementSlider
                      order="flipped"
-                     value={values[1]}
+                     value={(verticalBool) ? values[1] * -1: values[1]}
                      orientation={getSliderOrientation()}
                      aria-labelledby="range-slider"
                      onChange={handleChange}
                      marks={marks(verticalBool)}
+                     valueLabelFormat={(x)=>{return (verticalBool) ? -1 * x: x;}}
                      // Steps controls the values the slider can have,
                      // 1 means it will have values 1,2,3,4, etc.
                      // .5 means it have have values .5,1,1.5,2
@@ -244,6 +256,7 @@ function CalibrationSlider(props) {
                      // ValueLabelComponent={customValueLabel}
                   />
                   <SourcePositionSlider
+                     vertical={verticalBool}
                      orientation={getSliderOrientation()}
                   />
                </div>
@@ -266,8 +279,9 @@ function CalibrationSlider(props) {
                      variant="contained" 
                      color="primary"
                      // Plug in function to change data here and hand it the same variable
-                     onClick={()=>{move_source(values[1], props.ws)}}>
-                        Move
+                     onClick={()=>{move_source(values[1], props.ws)}}
+                  >
+                     Move
                   </Button>
                </div>
             </Grid>
@@ -279,9 +293,9 @@ function CalibrationSlider(props) {
 // 
 export default function CalibrationControl(props) {
    return (
-         <CalibrationSlider 
-            ws={props.calibWebSock}
-            displayState={props.displayState}
-            />    
+      <CalibrationSlider 
+         ws={props.calibWebSock}
+         displayState={props.displayState}
+         />    
    );
 }
