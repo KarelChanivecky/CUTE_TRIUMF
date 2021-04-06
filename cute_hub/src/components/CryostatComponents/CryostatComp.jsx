@@ -175,8 +175,8 @@ export default function CryostatComp(props) {
   }) 
 
   return (
-    <Grid item container xs={colsWidth} spacing={2} justify="center">
-      <Grid item xs={7} container direction="column" spacing={3}>
+    <Grid item container xs={colsWidth} spacing={1} justify="center">
+      <Grid item xs={8} container direction="column" spacing={3}>
         <Grid item>
           <Paper className={classes.paperbig}>
             <CryoGauge cryostatWS={props.cryostatWS}/>
