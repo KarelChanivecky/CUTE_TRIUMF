@@ -71,7 +71,7 @@ export default function ExtraCalibrationControls(props) {
    const getDirection = () => {return (props.vertical) ? "row" : "column"}
 
    const Controls = controls.map((button, index)=> {
-      return <Grid item> {button} </Grid>
+      return <Grid key={index} item> {button} </Grid>
    });
 
    return (
