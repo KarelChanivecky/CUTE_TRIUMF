@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
 import Grid from "@material-ui/core/Grid";
+import { Paper, Typography } from "@material-ui/core";
 
 //TODO I added the websocket module here
 // import {w3cwebsocket as WebSocket} from "websocket"; //import the websocket module
@@ -25,13 +26,21 @@ function changeTestValues() {
 
 const useStyles = makeStyles((theme) => ({
   paperroot: {
-    height: "100%",
+    height: 425,
     width: "100%",
     display: "flex",
     justifyContent: "space-around",
     "& div": {
       margin: 23}
   },
+  letters: {
+    fontSize: "20px",
+    marginLeft: -15,
+    marginBottom:  -15
+  },
+  labels: {
+    fontSize: "15px",
+  }
 }));
 
 const marks = ()=>{
@@ -50,6 +59,7 @@ const StyledSlider = withStyles({
      color: 'primary',
      height: 8,
      width: 860,
+     
   },
   vertical: {
      color: 'primary',
@@ -174,8 +184,21 @@ export default function CryoGauge(props) {
   //});
 
   return (
-    <div className={classes.paperroot}>
-      <Grid container direction="row">
+      <Grid container direction="column">
+        <Grid item><Typography className={classes.labels}>Gauges</Typography></Grid>
+        <Grid item container direction="row" alignContent="center" spacing={7} justify="center">
+          <Grid item xs={3}>
+            <Typography className={classes.letters}>A</Typography>
+          </Grid>
+          <Grid item  xs={3}>
+            <Typography className={classes.letters}>B</Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography className={classes.letters}>C</Typography>
+          </Grid>
+        </Grid>
+        <div className={classes.paperroot}>
+      <Grid item container direction="row">
         <Grid item xs={2}>
           <StyledSlider
             value={damperPositions.a}
@@ -209,7 +232,8 @@ export default function CryoGauge(props) {
             max={2}
           />
         </Grid>
+        </Grid>
+        </div>
       </Grid>
-    </div>
   );
 }

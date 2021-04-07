@@ -69,9 +69,13 @@ function getCalibCryoFridgeTab() {
 
 
 
-function getIframeTabs(){
-    return {tabs: [<IframeWidget url={"https://material-ui.com/"} noName={true}/>],
-            names:["Mat-UI"]}
+function getTabs(){
+    return {tabs: [getCalibCryoFridgeTab()
+                , <PlottingTab/>
+                , <IframeWidget url={"https://material-ui.com/"} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
+            names:["Controls"
+                , "Data"
+                , "Mat-UI"]}
 }
 
 function TabPage(props) {
@@ -83,13 +87,13 @@ function TabPage(props) {
         setValue(newValue);
     };
 
-    const [tabs, setTabs] = useState([getCalibCryoFridgeTab(), <PlottingTab/>, ...getIframeTabs().tabs]);
+    const [tabs, setTabs] = useState([ ...getTabs().tabs]);
 
     // This handles detecting the changing width of the screen and show the appropriate CalibCryoFridgeTabVersion
     // Currently, changing the screen size may result in loosing the log of commands sent
     window.onresize =
         () => {
-            setTabs([getCalibCryoFridgeTab(), tabs[1]]);
+            setTabs(getTabs().tabs);
         };
 
     const ActiveTab = tabs[value];
@@ -110,10 +114,8 @@ function TabPage(props) {
                                 indicatorColor="secondary"
                                 textColor="inherit"
                                 centered>
-                                <Tab label="Controls" className={classes.root}/>
-                                <Tab label="Data" className={classes.root}/>
-                                {getIframeTabs().names.map((c) => (
-                                    <Tab label={c} className={classes.root}></Tab>
+                                {getTabs().names.map((c) => (
+                                    <Tab key={c} label={c} className={classes.root}></Tab>
                                 ))}
                             </Tabs>
                         {/*</Grid>*/}
