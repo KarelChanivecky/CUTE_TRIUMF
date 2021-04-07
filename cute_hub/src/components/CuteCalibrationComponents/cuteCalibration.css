@@ -1,25 +1,27 @@
 
-.calibration_widget {
-   margin: 10px;
-   padding: 20px;
+.calibration_main {
+   /* margin: 10px; */
+   padding-top: 10px;
    border-radius: 5px;
    width: fit-content;
-}
+}  
 
 .calibration_input {
-   width: 75px;
+   width: 100px;
 }
 
 .calib_control_horizontal {
    margin-top: 10px;
    height: fit-content;
-   width: 1000px;
+   width: 1325px;
 }
 
 .calib_control_vertical {
    justify-content: center;
+   margin-left: 10px;
+   margin-top: 10px;
    width: 100px;
-   height: 800px;
+   height: 700px;
 }
 
 .inputDiv {

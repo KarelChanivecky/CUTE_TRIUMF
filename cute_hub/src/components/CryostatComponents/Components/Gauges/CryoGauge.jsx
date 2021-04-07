@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     "& div": {
-      margin: 19}
+      margin: 23}
   },
 }));
 
@@ -83,6 +83,7 @@ const StyledSlider = withStyles({
   active: {},
   valueLabel: {
      left: 'calc(-50% + 2px)',
+     fontSize: 20,
   },
   track: {
      display: 'none',
@@ -211,37 +212,4 @@ export default function CryoGauge(props) {
       </Grid>
     </div>
   );
-
-
-//   <div className={classes.paperroot}>
-//   <div className=".container">
-//     <StyledSlider
-//       value={damperPositions.a}
-//       valueLabelDisplay="on"
-//       orientation="vertical"
-//       step={0.1}
-//       marks={marks()}
-//       min={0}
-//       max={2}
-//     />
-//     <StyledSlider
-//       valueLabelDisplay="on"
-//       value={damperPositions.b}
-//       orientation="vertical"
-//       step={0.1}
-//       marks={marks()}
-//       min={0}
-//       max={2}
-//     />
-//     <StyledSlider
-//       valueLabelDisplay="on"
-//       value={damperPositions.c}
-//       orientation="vertical"
-//       step={0.1}
-//       marks={marks()}
-//       min={0}
-//       max={2}
-//     />
-//   </div>
-// </div>
 }

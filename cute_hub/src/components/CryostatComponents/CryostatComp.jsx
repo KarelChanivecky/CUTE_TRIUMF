@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperbig: {
     maxWidth: 333,
-    height: 500,
+    height: 475,
     backgroundColor: "white",
     border: "solid",
     borderWidth: 0.5,
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   papersliver: {
     maxWidth: 333,
-    height: 50,
+    height: 75,
     backgroundColor: "white",
     border: "solid",
     borderWidth: 0.5,
@@ -67,21 +67,48 @@ export default function CryostatComp(props) {
 
   const expanded = props.expanded;
   const colsWidth = expanded ? 5 : 10;
-  const consoleComponent = expanded ? (
-    <Expand
-      onclick={props.onDisplayChange ?? null}
-      buttons={buttons}
-      commands={consoleLog}
-      sendCommand={sendCommand}
-    />
-  ) : (
-    <Closed
-      onclick={props.onDisplayChange ?? null}
-      buttons={buttons}
-      commands={consoleLog}
-      sendCommand={sendCommand}
-    />
-  );
+
+  const [consoleComponent, setConsoleComponent] = useState((<Closed
+                                                                  onclick={props.onDisplayChange ?? null}
+                                                                  buttons={buttons}
+                                                                  commands={consoleLog}
+                                                                  sendCommand={sendCommand}
+                                                                  />))
+  // const consoleComponent = expanded ? (
+    // <Expand
+    //   onclick={props.onDisplayChange ?? null}
+    //   buttons={buttons}
+    //   commands={consoleLog}
+    //   sendCommand={sendCommand}
+    // />
+  // ) : (
+  //   <Closed
+  //     onclick={props.onDisplayChange ?? null}
+  //     buttons={buttons}
+  //     commands={consoleLog}
+  //     sendCommand={sendCommand}
+  //   />
+  // );
+
+
+  React.useEffect(() => {
+    console.log(consoleLog)
+    if(!expanded){
+      setConsoleComponent((<Closed
+                                  onclick={props.onDisplayChange ?? null}
+                                  buttons={buttons}
+                                  commands={consoleLog}
+                                  sendCommand={sendCommand}
+        />))
+    } else {
+      setConsoleComponent((<Expand
+                                  onclick={props.onDisplayChange ?? null}
+                                  buttons={buttons}
+                                  commands={consoleLog}
+                                  sendCommand={sendCommand}
+      />))
+    }
+  }, [consoleLog, expanded])
 
 
   // A function to hand to components that need to send commands to the server.
@@ -106,6 +133,7 @@ export default function CryostatComp(props) {
     } else {
       Send('log:"' + msg + '"');
     }
+    return consoleLog
   }
 
   // A function which logs the message given to it into the command prompt
@@ -147,8 +175,8 @@ export default function CryostatComp(props) {
   }) 
 
   return (
-    <Grid item container xs={colsWidth} spacing={2} justify="center">
-      <Grid item xs={7} container direction="column" spacing={3}>
+    <Grid item container xs={colsWidth} spacing={1} justify="center">
+      <Grid item xs={8} container direction="column" spacing={3}>
         <Grid item>
           <Paper className={classes.paperbig}>
             <CryoGauge cryostatWS={props.cryostatWS}/>

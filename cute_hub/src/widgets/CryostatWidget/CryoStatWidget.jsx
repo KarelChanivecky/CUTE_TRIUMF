@@ -24,20 +24,30 @@ export default function CryoStatWidget(props) {
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
+      maxWidth: 1310,
       flexWrap: "wrap",
       "& > *": {
         margin: theme.spacing(1),
       },
+            
     },
+    rootSmall: {
+        display: "flex",
+        maxWidth: 830,
+        flexWrap: "wrap",
+        "& > *": {
+          margin: theme.spacing(1),
+        },
+      }
   }));
   const classes = useStyles();
-  //let thing = (displayState == ModuleDisplayStates.OPEN) ?  <CryostatComp></CryostatComp> : <span></span>
+  let chosenWidth = (displayState == ModuleDisplayStates.OPEN) ? classes.rootSmall : classes.root
 
   const onHelp = () => {
     window.open("https://karelchanivecky.github.io/CUTE_docs/cryostat");
   };
   return (
-    <Box className={classes.root}>
+    <Box className={chosenWidth}>
       <Paper>
         <ToggleHeader
           minimizable={props.minimizable}

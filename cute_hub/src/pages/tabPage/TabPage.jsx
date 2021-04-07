@@ -3,24 +3,27 @@ import {Box, Container, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
 import CalibratorInProgressIndicator from "../../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
+import ValuesRibbon from "../../components/ValuesRibbon/ValuesRibbon";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
 import {makeStyles} from "@material-ui/core/styles";
+import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Calibration Websocket
-const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
+// const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
+const calibrationWebsocket = new WebSocket('wss://echo.websocket.org');
 calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
 calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
 // Cryostat Websocket
+//const cryostatWebsocket = new WebSocket("ws://192.168.44.30:8080", "cute");
 const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
 cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
 cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const WindowBreakpoints = {
-    FULL_SCREEN: 1570,//1520
+    FULL_SCREEN: 1420,//1520
     ACCORDION: 800
 }
 
@@ -64,6 +67,13 @@ function getCalibCryoFridgeTab() {
     }
 }
 
+
+
+function getIframeTabs(){
+    return {tabs: [<IframeWidget url={"https://material-ui.com/"} noName={true}/>],
+            names:["Mat-UI"]}
+}
+
 function TabPage(props) {
     const theme = useTheme();
     const classes = useStyles();
@@ -73,7 +83,7 @@ function TabPage(props) {
         setValue(newValue);
     };
 
-    const [tabs, setTabs] = useState([getCalibCryoFridgeTab(), <PlottingTab/>]);
+    const [tabs, setTabs] = useState([getCalibCryoFridgeTab(), <PlottingTab/>, ...getIframeTabs().tabs]);
 
     // This handles detecting the changing width of the screen and show the appropriate CalibCryoFridgeTabVersion
     // Currently, changing the screen size may result in loosing the log of commands sent
@@ -102,12 +112,15 @@ function TabPage(props) {
                                 centered>
                                 <Tab label="Controls" className={classes.root}/>
                                 <Tab label="Data" className={classes.root}/>
+                                {getIframeTabs().names.map((c) => (
+                                    <Tab label={c} className={classes.root}></Tab>
+                                ))}
                             </Tabs>
                         {/*</Grid>*/}
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
-
+                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />
                 {ActiveTab}
             </ColoredPaper>
         </Box>
