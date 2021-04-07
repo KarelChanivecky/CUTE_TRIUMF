@@ -15,3 +15,5 @@ diagram_app/src/.DS_Store
 karel_work_env/node_modules/
 
 johnny_work_env/
+/calibration_slider/node_modules/
+/calibration_slider/package-lock.json
