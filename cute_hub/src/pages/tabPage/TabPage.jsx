@@ -11,6 +11,7 @@ import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
 import {makeStyles} from "@material-ui/core/styles";
 import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
 
+// TODO uncomment the websockets you want and comment out or delete the test sockets
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Calibration Websocket
 // const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
