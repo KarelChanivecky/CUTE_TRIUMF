@@ -19,6 +19,7 @@ import Chip from '@material-ui/core/Chip';
 // real physical source position, in centimeters
 var source_position = 0.01*-1000;//TODO get this -1000 value from a file and then be able to update the file
 
+// never got a moving indicator working
 var moving = false;
 
 // This function is called when the move button is clicked 
@@ -40,9 +41,8 @@ function move_source(pos, ws) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // This creates an array of JSON objects that will be called at line ## to mark the values of a slider
-// If the slider is vertical we the actual values to be inverted.
-const marks = (vertical)=>{
-   let f = (vertical) ? -1 : 1;
+const marks = (verticalBool)=>{
+   let f = (verticalBool) ? -1 : 1;
    let marks = []
    for (let i = 0, m = -10; i < 17; ++i, m += 10) {
       marks[i] = {
@@ -56,7 +56,6 @@ const marks = (vertical)=>{
 // This sets the class of the div the slider is sitting in, 
 // the classes width and heights are found in the cuteCalibration.css file
 function getCalibDivClass(displayState) {
-   // return (window.innerWidth < window.innerHeight) ? "calib_control_vertical" : "calib_control_horizontal";
    return (displayState === ModuleDisplayStates.MINIMIZED) ? "calib_control_vertical" : "calib_control_horizontal";
 }
 
@@ -125,10 +124,6 @@ const buttonStyle = makeStyles({
       maxwidth : 100,
    }
 });
-
-function customValueLabel(props){
-   return <Chip label={props.value}/>
-}
 
 // This slider displays the current source position
 function SourcePositionSlider(props) {
@@ -202,6 +197,8 @@ function CalibrationSlider(props) {
                var real_pos = 0.01*act_pos; //real position of source in cm
                console.log(real_pos);
                //TODO this part here I don't know if it's right, but it sometimes works
+               // Note from Sean: The source_position variable is what the source 
+               // position slider checks every second to update its value. This should work fine.
                source_position = real_pos;
             }
          break;
@@ -219,10 +216,20 @@ function CalibrationSlider(props) {
       setValues([values[0],  value]);
    }
    
+   // Handles text input for new source position, sets a min and max for that input.
+   const minInput = -10
+   const maxInput = 150
    const handleInputChange = (event) => {
-      setValues([values[0], event.target.value === '' ? '' : Number(event.target.value)]);
+      let newValue = event.target.value === '' ? '' : Number(event.target.value)
+      if (newValue > maxInput) {
+         newValue = maxInput;
+      } else if (newValue < minInput) {
+         newValue = minInput;
+      }
+      setValues([values[0], newValue]);
    }; 
 
+   // handle logic for displaying the vertical slider
    const getSliderOrientation = () => {return(verticalBool) ? "vertical" : "horizontal";}
    const getGridOrientation = () => {return(verticalBool) ? "column" : "row";}
 
@@ -271,7 +278,6 @@ function CalibrationSlider(props) {
                      type="number"
                      max={150}
                      step={0.1}
-                     inputProps={{ min: "-10", max: "150"}}
                      size='small'
                      onChange={handleInputChange}
                   />

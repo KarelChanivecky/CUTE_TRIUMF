@@ -4,19 +4,28 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import ActiveControl from "../ActiveControl/ActiveControl";
 import CommandLine from "../CommandLine";
+import Dampers from "../Dampers/Dampers"
 const useStyles = makeStyles((theme) => ({
   rootGrid: { width: 1000 },
-  papersliver: {
+  paperActiveControl: {
     maxWidth: 333,
     height: 50,
-    backgroundColor: "white",
+    backgroundColor: 'primary',
     border: "solid",
     borderColor: '#009fdf',
     borderWidth: 0.5,
   },
+  paperDampers: {
+    maxWidth: 333,
+    height: 75,
+    backgroundColor: "white",
+    border: "solid",
+    borderWidth: 0.5,
+    borderColor: "#009fdf",
+  },
   paperbig: {
     maxWidth: 333,
-    height: 505,
+    height: 415,
     backgroundColor: "white",
     border: "solid",
     borderColor: '#009fdf',
@@ -42,10 +51,15 @@ export default function Expand(props) {
       >
         <Grid item xs={9} container direction="column" spacing={2}>
           <Grid item>
-            <Paper className={classes.papersliver}>
+            <Paper className={classes.paperActiveControl}>
               <ActiveControl onActive={props.sendCommand}/>
             </Paper>
           </Grid>
+          <Grid item>
+          <Paper className={classes.paperDampers}>
+            <Dampers speeds={[0, 0, 0]} cryostatWS={props.cryostatWS} />
+          </Paper>
+        </Grid>
           <Grid item>
             <Paper className={classes.paperbig}>{props.buttons}</Paper>
           </Grid>

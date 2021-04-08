@@ -15,7 +15,7 @@ export default function IframeWidget(props) {
           innerHeight: window.innerHeight,
         });
       }
-      console.log("this is running iframe")
+      console.log(window)
     // Add event listener
     window.addEventListener("resize", handleResize);
     
@@ -24,7 +24,7 @@ export default function IframeWidget(props) {
     
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [window]);
 
 
     const displayState = props.displayState;
@@ -54,18 +54,13 @@ export default function IframeWidget(props) {
             },
         },
     }));
-    const classes = useStyles()
 
-
-    const onHelp = () => {
-        window.open("https://karelchanivecky.github.io/CUTE_docs/fridge");
-    };
 
     return (
         <Box>
             <Paper>
                 <Grid container alignItems="center" justify="center">
-                    <IframeTab url={props.url} innerWidth={dimensions.innerWidth} innerHeight={dimensions.innerHeight}></IframeTab>
+                    <IframeTab url={props.url} innerWidth={props.width} innerHeight={props.height}></IframeTab>
                 </Grid>
             </Paper>
         </Box>

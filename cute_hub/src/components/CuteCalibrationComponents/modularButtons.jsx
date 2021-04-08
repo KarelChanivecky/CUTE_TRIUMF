@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 import {ModuleDisplayStates} from "../../constants/moduleDisplayStates";
 import { Grid, makeStyles } from '@material-ui/core';
 
-
-
+// Extra Calibration Controls has the same websocket as the rest of the Calibration widget and can be used to control the source
+// The Component uses an array of React Elements to dynamically build a list of interactable controls.
 export default function ExtraCalibrationControls(props) {
 
+   // Styles
+   // -------------------------------------------------------
    const buttonStyles = makeStyles((theme) => ({
       root: {
          '& > *': {
@@ -19,7 +22,16 @@ export default function ExtraCalibrationControls(props) {
          },
       },
    }));
-   
+   const btnStyles = buttonStyles();
+
+   const textFieldStyles = makeStyles((theme) => ({
+      root: 
+           { '& > *': {
+            width: 100,
+         },}
+   }));
+   const tFStyles = textFieldStyles();
+
    const mainGridStyles = makeStyles((theme) => ({
       root: {
          border: "1px solid primary",
@@ -29,6 +41,9 @@ export default function ExtraCalibrationControls(props) {
          },
       },
    }));
+   const mainGrid = mainGridStyles();
+   // React Hooks for holding states such as motorspeed or a reference to the websocket
+   // ----------------------------------------------------------------------------------
 
    // Set up the websocket
    const ws = props.calibWebSock
@@ -43,35 +58,57 @@ export default function ExtraCalibrationControls(props) {
       return () => { ws.removeEventListener('message', handleWSMessage, true); }
    });
 
-   const btnStyles = buttonStyles();
+
+   // Setup motorSpeed
+   // TODO set min and max motor speed 
+   const minSpeed = 0
+   const maxSpeed = 10
+   const [motorSpeed, setMotorSpeed] = React.useState(2);
+   const adjustSpeed = (event) => {
+      let newValue = event.target.value === '' ? '' : Number(event.target.value)
+      if (newValue > maxSpeed) {
+         newValue = maxSpeed;
+      } else if (newValue < minSpeed) {
+         newValue = minSpeed;
+      }
+      setMotorSpeed(newValue);
+   }
 
    const controls = 
    [
       // Label controls
-      <Typography variant="h3">Drive:</Typography>,
-      // Drive source up
-      <Button className={btnStyles.root} variant="outlined" color="primary" startIcon={<ArrowBackIosOutlinedIcon/>}
+      // <Typography variant="h3">Drive Source:</Typography>
+      // Drive source up 
+      // TODO send whatever you like to the web socket
+      <Button className={btnStyles.root} variant="outlined" color="primary" 
+         startIcon={<ArrowBackIosOutlinedIcon/>}
          onClick={()=>{
-            ws.send("up")
+            ws.send(`Up @ ${motorSpeed}`)
          }}>Up</Button>,
-      // Stop Driving Source
-      <Button className={btnStyles.root} variant="contained" color="primary" startIcon={<NotInterestedIcon/>}
+      // Stop Driving Source 
+      // TODO send whatever you like to the web socket
+      <Button className={btnStyles.root} variant="contained" color="primary" 
+         startIcon={<NotInterestedIcon/>}
          onClick={()=>{
-            ws.send("stop")
+            ws.send(`Stop`)
          }}>Stop</Button>,
-      // Drive source down
-      <Button className={btnStyles.root} variant="outlined" color="primary" endIcon={<ArrowForwardIosOutlinedIcon/>}
+      // Drive source down 
+      // TODO send whatever you like to the web socket
+      <Button className={btnStyles.root} variant="outlined" color="primary" 
+         endIcon={<ArrowForwardIosOutlinedIcon/>}
          onClick={()=>{
-            ws.send("down")
-         }}>Down</Button>
+            ws.send(`Down @ ${motorSpeed}`)
+         }}>Down</Button>,
+      // Set desired motorspeed  
+      <TextField className={tFStyles.root} type="number"
+         step={0.1} onChange={adjustSpeed} 
+         value={motorSpeed} label="MotorSpeed" />,
    ]
-
-   const mainGrid = mainGridStyles();
 
    const getDirection = () => {return (props.vertical) ? "row" : "column"}
 
    const Controls = controls.map((button, index)=> {
-      return <Grid item> {button} </Grid>
+      return <Grid key={index} item> {button} </Grid>
    });
 
    return (

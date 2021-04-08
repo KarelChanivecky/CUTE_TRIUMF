@@ -73,6 +73,7 @@ export default function CryostatComp(props) {
                                                                   buttons={buttons}
                                                                   commands={consoleLog}
                                                                   sendCommand={sendCommand}
+                                                                  cryostatWS={props.cryostatWS}
                                                                   />))
   // const consoleComponent = expanded ? (
     // <Expand
@@ -99,6 +100,8 @@ export default function CryostatComp(props) {
                                   buttons={buttons}
                                   commands={consoleLog}
                                   sendCommand={sendCommand}
+                                  cryostatWS={props.cryostatWS}
+                                  
         />))
     } else {
       setConsoleComponent((<Expand
@@ -106,6 +109,7 @@ export default function CryostatComp(props) {
                                   buttons={buttons}
                                   commands={consoleLog}
                                   sendCommand={sendCommand}
+                                  cryostatWS={props.cryostatWS}
       />))
     }
   }, [consoleLog, expanded])
@@ -166,7 +170,10 @@ export default function CryostatComp(props) {
   }
 
   //function used to relay message when recieved from dummy websocket
-  const relay = (event) => console.log("recieved command = " +  event.data)
+  const relay = (event) => {
+    //TODO add code to parse incoming messages that are supposed to be displayed in the consle
+    LogMsg(event.data);
+  }
 
   //adds an event listener to the websocket and acts when it recieves a response.
   React.useEffect(() => {
