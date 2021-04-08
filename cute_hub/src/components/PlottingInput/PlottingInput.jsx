@@ -16,7 +16,7 @@ import ColoredPaper from "../ColoredPaper/ColoredPaper";
 import ToggleHeader from "../ToggleHeader/ToggleHeader";
 
 
-const getHandleToggle = (checked, setChecked, notifier) => (value) => () => {
+const getHandleToggle = (checked, setChecked) => (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -25,7 +25,6 @@ const getHandleToggle = (checked, setChecked, notifier) => (value) => () => {
     } else {
         newChecked.splice(currentIndex, 1);
     }
-    notifier(newChecked);
     setChecked(newChecked);
 };
 
@@ -69,10 +68,10 @@ function PlottingInput(props) {
     const defaultTime = "00:00:00";
 
     const [checkedThermo, setCheckedThermo] = useState([]);
-    const checkedThermoHandler = getHandleToggle(checkedThermo, setCheckedThermo, props.notifyCheckedThermoState);
+    const checkedThermoHandler = getHandleToggle(checkedThermo, setCheckedThermo);
 
     const [checkedPressure, setCheckedPressure] = useState([]);
-    const checkedPressureHandler = getHandleToggle(checkedPressure, setCheckedPressure, props.notifyCheckedPressureState);
+    const checkedPressureHandler = getHandleToggle(checkedPressure, setCheckedPressure);
 
     const [startDateTime, setStartDateTime] = useState({
         date: defaultDate,
@@ -129,8 +128,9 @@ function PlottingInput(props) {
         window.open("https://karelchanivecky.github.io/CUTE_docs/cryostat");
     };
     return (
+
         <Grid container>
-            <Grid item xs={6} sm={4} md={4} lg={3} xl={2} zeroMinWidth>
+            <Grid item xs={11} zeroMinWidth>
                 <ColoredPaper elevation={0}>
                     <ToggleHeader
                     onHelp={onHelp}
@@ -178,8 +178,7 @@ function PlottingInput(props) {
                                 <Box p={2}>
                                     <Grid container direction="row" justify="space-between" >
                                         <Button color="primary" variant="outlined" m={4} onClick={downloadHandler}>Download</Button>
-                                        {/*// TODO uncomment for plotting button to show up*/}
-                                        {/*<Button color="primary" variant="outlined" onClick={plotHandler} >Plot</Button>*/}
+                                        <Button color="primary" variant="outlined" onClick={plotHandler} >Plot</Button>
                                     </Grid>
                                 </Box>
                             </Grid>
