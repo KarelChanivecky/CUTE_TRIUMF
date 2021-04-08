@@ -151,14 +151,7 @@ export default function CryoGauge(props) {
               //var loads = v.splice(0,3); //starting at position 0, remove 3 elements
           }
           // proves that this is successfully communicates with server when it recieves a message.
-          default : {
-            setDamperPositions({
-              a: 1,
-              b: 1,
-              c: 1
-          });
-          } 
-          break;
+
       }
   }
 

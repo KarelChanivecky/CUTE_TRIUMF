@@ -58,7 +58,7 @@ function makeDateTimeString(startDateTime, endDateTime) {
 }
 
 function makeQuery(sensorBoolString, dateTimeString) {
-    return `/query_db.php?q=${sensorBoolString}&${dateTimeString}`;
+    return `/query_db.php?${sensorBoolString}&${dateTimeString}`;
 }
 
 export default async function fetchData(startDateTime, endDateTime ,checkedThermo, checkedPressure) {

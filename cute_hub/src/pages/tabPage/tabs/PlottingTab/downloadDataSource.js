@@ -57,10 +57,10 @@ function makeDateTimeString(startDateTime, endDateTime) {
 }
 
 function makeQuery(sensorBoolString, dateTimeString) {
-    return `/make_csv.php?q=${sensorBoolString}&${dateTimeString}`;
+    return `/make_csv.php?${sensorBoolString}&${dateTimeString}`;
 }
 
-export default function download(checkedThermo, checkedPressure, startDateTime, endDateTime) {
+export default function download(startDateTime, endDateTime, checkedThermo, checkedPressure) {
     const sensorBoolString = buildSensorBoolString(checkedThermo, checkedPressure);
     const dateTimeString = makeDateTimeString(startDateTime, endDateTime);
     const query = makeQuery(sensorBoolString, dateTimeString);

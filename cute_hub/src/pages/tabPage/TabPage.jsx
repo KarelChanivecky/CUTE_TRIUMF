@@ -73,10 +73,10 @@ function getCalibCryoFridgeTab() {
 function getTabs(){
     return {tabs: [getCalibCryoFridgeTab()
                 , <PlottingTab/>
-                , <IframeWidget url={"https://material-ui.com/"} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
+                , <IframeWidget url={"http://192.168.44.61/www/device.htm"} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
             names:["Controls"
                 , "Data"
-                , "Mat-UI"]}
+                , "Thermometers"]}
 }
 
 function TabPage(props) {
@@ -116,14 +116,14 @@ function TabPage(props) {
                                 textColor="inherit"
                                 centered>
                                 {getTabs().names.map((c) => (
-                                    <Tab key={c} label={c} className={classes.root}></Tab>
+                                    <Tab key={c} label={c} className={classes.root}/>
                                 ))}
                             </Tabs>
                         {/*</Grid>*/}
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
-                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />
+                {/*<ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />*/}
                 {ActiveTab}
             </ColoredPaper>
         </Box>

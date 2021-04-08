@@ -64,7 +64,7 @@ function PlottingInput(props) {
         "K8"
     ];
 
-    const defaultDate = "2000-01-01";
+    const defaultDate = "2021-01-01";
     const defaultTime = "00:00:00";
 
     const [checkedThermo, setCheckedThermo] = useState([]);
@@ -119,7 +119,7 @@ function PlottingInput(props) {
     };
 
     const downloadHandler = () => {
-        other.download(startDateTime, endDateTime, checkedPressure, checkedThermo);
+        other.download(startDateTime, endDateTime, checkedThermo, checkedPressure);
     };
 
     const withSeconds = {step: 1};
@@ -156,7 +156,8 @@ function PlottingInput(props) {
 
                                             <TextField label="start date" type="date"
                                                        value={startDateTime.date}
-                                                       onChange={handleDateChange(startDateTime, setStartDateTime)}/>
+                                                       onChange={handleDateChange(startDateTime, setStartDateTime)}
+                                            />
                                             <TextField label="start time" type="time"
                                                        value={startDateTime.time}
                                                        onChange={handleTimeChange(startDateTime, setStartDateTime)}
@@ -175,7 +176,7 @@ function PlottingInput(props) {
 
                                     </Grid>
 
-                                <Box p={2}>
+                                <Box py={2}>
                                     <Grid container direction="row" justify="space-between" >
                                         <Button color="primary" variant="outlined" m={4} onClick={downloadHandler}>Download</Button>
                                         <Button color="primary" variant="outlined" onClick={plotHandler} >Plot</Button>
