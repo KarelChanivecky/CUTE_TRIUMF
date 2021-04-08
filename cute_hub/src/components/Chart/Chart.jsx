@@ -63,7 +63,7 @@ function initiLegend(chart) {
 class CustomFormatter extends am4core.NumberFormatter{
     format(value, format=null, precision=null) {
         const formatter = new am4core.NumberFormatter();
-        if (value < 1e-3 || 1000 < value) {
+        if ((value < 1e-3 && value !== 0) || 1000 < value ) {
             return formatter.format(value, "#e");
         }
         if (typeof value === "number") {
@@ -95,7 +95,6 @@ function initAxes(chart, chartData) {
     valueAxis.tooltip.disabled = true;
     valueAxis.renderer.minWidth = 35;
     valueAxis.title.text = chartData.unit;
-    valueAxis.logarithmic = true;
 
     valueAxis.numberFormatter = new CustomFormatter()
 
@@ -121,7 +120,7 @@ function initScaleSwitch(chart, valueAxis) {
     scaleSwitch.leftLabel.text = "Linear";
     scaleSwitch.rightLabel.text = "Logarithmic";
     scaleSwitch.verticalCenter = "top";
-
+    scaleSwitch.isActive = false;
     scaleSwitch.fill = am4core.color("#000");
     scaleSwitch.events.on("toggled", () => {
         if (scaleSwitch.isActive) { // from the docs it seems that left is active
@@ -139,7 +138,7 @@ function initScaleSwitch(chart, valueAxis) {
  * @constructor
  */
 function Chart(props) {
-    const chart = useRef(null);
+    const chartRef = useRef(null);
     const chartData = props.chartData;
     useLayoutEffect(() => {
 
@@ -167,7 +166,7 @@ function Chart(props) {
         title.marginBottom = 10;
 
         // Needed for react hooks
-        chart.current = chart;
+        chartRef.current = chart;
 
         return () => {
             chart.dispose();
