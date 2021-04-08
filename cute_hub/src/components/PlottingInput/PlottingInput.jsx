@@ -150,7 +150,7 @@ function PlottingInput(props) {
                                 <Typography variant="h2" align={"left"}>Timeframe</Typography>
 
 
-                                    <Grid container direction="column" spacing={2} zeroMinWidth xs={12} md={12} lg={11} xl={11} >
+                                    <Grid container item direction="column" spacing={2} zeroMinWidth xs={12} md={12} lg={11} xl={11} >
 
                                         <Grid  item container direction="row" justify="space-between"  >
 

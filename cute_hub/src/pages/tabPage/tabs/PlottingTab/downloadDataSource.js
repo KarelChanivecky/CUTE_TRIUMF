@@ -69,7 +69,7 @@ export default function download(checkedThermo, checkedPressure, startDateTime, 
         .then(() => {
             const a = document.createElement("a");
             // TODO Add url to csv file
-            a.href = "URL TO FILE HERE";
+            a.href = `${baseDataURL}/fridge.csv`;
             a.download = "data.csv";
             a.click();
             URL.revokeObjectURL(a.href);

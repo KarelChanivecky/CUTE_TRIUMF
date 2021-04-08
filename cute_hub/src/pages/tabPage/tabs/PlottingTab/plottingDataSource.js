@@ -70,8 +70,7 @@ export default async function fetchData(startDateTime, endDateTime ,checkedTherm
     const url = `${baseDataURL}${query}`;
     return axios.get(url)
         .then(res => {
-            const dataStr = res.data;
-           return JSON.parse(dataStr);
+            return res.data;
         })
         .catch(err => {
             window.alert(`It was not possible to load data from db: ${err.response.status}`)

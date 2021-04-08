@@ -117,7 +117,7 @@ export default function DiagramSVG() {
 
     // const [posts, setPosts]=useState([]) 'https://jsonplaceholder.typicode.com/posts'
     const getData = async () => {
-        try {
+        try { // TODO change url for diagram
             const fridge = await axios.get("https://cdms-webapp.slac.stanford.edu/www/cute/fridge/status.php")
             setData(fridge.data);  // set State
 
