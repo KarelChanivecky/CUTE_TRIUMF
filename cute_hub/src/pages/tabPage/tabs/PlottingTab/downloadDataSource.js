@@ -39,7 +39,7 @@ const thermoPressureIds = [
 ];
 
 // TODO point to right url
-const baseDataURL = "https://www.mydomain.com";
+const baseDataURL = "http://192.168.44.30/viewer";
 
 /*
 This builds the string to add to query to get sensor data from server. The order of the id's was taken from the old page

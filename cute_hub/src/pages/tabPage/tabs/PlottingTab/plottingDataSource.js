@@ -20,7 +20,7 @@ k8_bool];
  */
 
 import axios from "axios";
-import {allData, data1} from "./testData";
+// import {allData, data1} from "./testData";
 
 const thermoPressureIds = [
     "MC - RuO2",
@@ -41,7 +41,7 @@ const thermoPressureIds = [
 ];
 
 // TODO point to right url
-const baseDataURL = "https://www.mydomain.com";
+const baseDataURL = "http://192.168.44.30/viewer";
 
 
 
@@ -63,7 +63,7 @@ function makeQuery(sensorBoolString, dateTimeString) {
 
 export default async function fetchData(startDateTime, endDateTime ,checkedThermo, checkedPressure) {
     // return data1;
-    return allData;
+    // return allData;
     const sensorBoolString = buildSensorBoolString(checkedThermo, checkedPressure);
     const dateTimeString = makeDateTimeString(startDateTime, endDateTime);
     const query = makeQuery(sensorBoolString, dateTimeString);

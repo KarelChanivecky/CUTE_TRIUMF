@@ -60,7 +60,7 @@ function initiLegend(chart) {
  * https://www.amcharts.com/docs/v4/concepts/formatters/formatting-numbers/
  * @constructor
  */
-class CustomFormatter extends am4core.NumberFormatter{
+class CustomFormatter extends am4core.NumberFormatter {
     format(value, format=null, precision=null) {
         const formatter = new am4core.NumberFormatter();
         if ((value < 1e-3 && value !== 0) || 1000 < value ) {
