@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import { Box, Container, Grid, Tab, Tabs, useTheme } from "@material-ui/core";
+import { Box, Container, Grid, Tab, Tabs, useTheme, Typography } from "@material-ui/core";
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
+import Divider from '@material-ui/core/Divider';
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        
-        fontSize: '0.8rem',
+
+        fontSize: '1.0 rem',
+        color: '#ffffff'
     }
 }));
 
@@ -37,7 +39,16 @@ export default function ValuesRibbon(props) {
         let mapped = []
         let key = 1
         for (let element in arr) {
-            mapped.push(<Tab label={`${element}: ${arr[element]}`} key={key.toString()}  className={classes.root} disabled={true}/>)
+            mapped.push(
+                <div key={key}>
+                    
+                    <Typography variant="body1" component="h2">
+                        &nbsp;&nbsp;&nbsp;{element}: {arr[element]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </Typography>
+                    <Divider orientation="vertical" flexItem />
+                    
+                </div>
+            )
             key++;
         };
         return mapped;
@@ -68,13 +79,13 @@ export default function ValuesRibbon(props) {
 
     // get-set all values from websocket1
     const updateValues2 = async (message) => {
-        console.log("message : " + message.data)
+        // console.log("message : " + message.data)
         const temp = values
 
         //TODO: replace message.data on next line with whatever specific
         // information we need from this received data. example message.data.temperatue
         // // also update "Lab Area Pressure" with whatever name you want to be shown (also used in arr1 on top)
-        temp["Lab Area Pressure"] = message.data 
+        temp["Lab Area Pressure"] = message.data
         setValues(temp);
         setTabs(makeTabs(values))
 
@@ -105,19 +116,11 @@ export default function ValuesRibbon(props) {
 
     return (
         <ColoredPaper color={theme.palette.tertiary} square variant={'outlined'} elevation={0}>
-            <Grid item container direction='row' justify="center" wrap="wrap" alignItems="stretch">
+            <Grid item container direction='row' justify="flex-start" wrap="wrap" alignItems="stretch">
                 {/*<Grid item container alignItems="flex-end">*/}
-                <Tabs
-                    value={0}
-                    TabIndicatorProps={{  
-                        style: {
-                            display: "none",
-                        },
-                      }}
-                    textColor="inherit"
-                    centered>
-                    {tabs}
-                </Tabs>
+
+                {tabs}
+
                 {/*</Grid>*/}
             </Grid>
         </ColoredPaper>
