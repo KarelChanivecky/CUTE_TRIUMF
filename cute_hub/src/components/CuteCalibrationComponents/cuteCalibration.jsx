@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import './cuteCalibration.css';
 import Grid from '@material-ui/core/Grid'
-import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
-import { makeStyles, OutlinedInput, TextField, ThemeProvider, Typography, withStyles } from '@material-ui/core';
+import { makeStyles, OutlinedInput} from '@material-ui/core';
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
-import Chip from '@material-ui/core/Chip';
-
+import { StyledMovementSlider, StyledSourceSlider } from './sliderStyles/sStyle.jsx'
+// console.log(userSliderStyles, srcPosSliderStyles);
 // NOTE: The vertical slider has some funny properties, 
 // it's actually a slider with values 10 to -150
 // we hide that with labels and a label formatter that appear as -10 to 150 as well as 
@@ -59,65 +57,6 @@ function getCalibDivClass(displayState) {
    return (displayState === ModuleDisplayStates.MINIMIZED) ? "calib_control_vertical" : "calib_control_horizontal";
 }
 
-// This JSON object sets the style properties of the sliders
-const sliderStyles = {
-   root: {
-      color: 'primary',
-      height: 8,
-      width: 1200,
-   },
-   // css vertical sliders
-   vertical: {
-      color: 'primary',
-      width: 8,
-      height: 800,
-      '& $rail': {
-         marginLeft: -8,
-         width: 20
-      },
-      '& $track': {
-        width: 8
-      },
-      '& $thumb': {
-        marginLeft: -8,
-        marginBottom: -11
-      }
-
-   },
-   thumb: {
-      height: 20,
-      width: 20,
-      borderRadius: 0,
-      backgroundColor: 'currentColor',
-      border: '1px solid currentColor',
-      marginTop: -8,
-      marginLeft: -12,
-      '&:focus, &:hover, &$active': {
-         boxShadow: 'inherit',
-      },
-   },
-   active: {},
-   valueLabel: {
-      width: 100,
-      left: 'calc(-50% + 2px)',
-      fontSize: 15
-   },
-   track: {
-      display: 'none',
-      height: 8,
-      borderRadius: 4,
-   },
-   rail: {
-      marginTop: -8,
-      height: 20,
-      borderRadius: 4,
-   },
-}
-
-// Creates a styled slider object that can be called like a regular slider with <StyledMovementSlider/>
-// Used in the return value of CalibrationSlider
-const StyledMovementSlider = withStyles(sliderStyles)(Slider);
-
 // Sets the styles of the move button.
 const buttonStyle = makeStyles({
    root:{
@@ -141,16 +80,6 @@ function SourcePositionSlider(props) {
        return () => clearInterval(secTimer);
    });
 
-   // Applies some extra style to the source slider, starting with the original sliderStyle object.
-   let sourceStyles = sliderStyles;
-   sourceStyles.root.color = '#52af77';
-   sourceStyles.vertical.color = '#52af77';
-   sourceStyles.rail.display = 'none';
-   sourceStyles.thumb.marginTop = -68;
-   sourceStyles.vertical["& $thumb"].marginLeft = -56;
-
-   // Creates a new Slider object with specific styling
-   const StyledSourceSlider = withStyles(sourceStyles)(Slider);
 
    const getMin = () => { return(verticalBool) ? -150 : -10;} 
    const getMax = () => { return(verticalBool) ? 10 : 150;} 

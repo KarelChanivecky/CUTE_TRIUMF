@@ -44,6 +44,7 @@ export default function ExtraCalibrationControls(props) {
       },
    }));
    const mainGrid = mainGridStyles();
+
    // React Hooks for holding states such as motorspeed or a reference to the websocket
    // ----------------------------------------------------------------------------------
 
@@ -60,7 +61,6 @@ export default function ExtraCalibrationControls(props) {
       ws.addEventListener('message', handleWSMessage, true);
       return () => { ws.removeEventListener('message', handleWSMessage, true); }
    });
-
 
    // Setup motorSpeed
    // TODO set min and max motor speed 
