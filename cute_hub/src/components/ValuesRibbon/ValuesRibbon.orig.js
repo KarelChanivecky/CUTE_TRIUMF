@@ -36,10 +36,6 @@ export default function ValuesRibbon(props) {
         "MC bottom": "  0.00000"
     })
 
-    const [scaleData, setScaleData] = useState({
-        "Weight": "0",
-    })
-
     const makeTabs = (arr) => {
         let mapped = []
         let key = 1
@@ -73,30 +69,12 @@ export default function ValuesRibbon(props) {
         }
     };
 
-    const getLN2Data = async () => {
-        try {
-            const scale = await axios.get("http://192.168.44.30/LN2weight.php")
-            setScaleData(scale.data);  // set State
-
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
-
     // get-set all values from fridge data
     const updateValues1 = async () => {
         const temp = values
         // TODO: update "Liquid Nitrogen Level" with whatever name you want to be shown (also used in arr1 on top)
         temp["Lab Temperature (C)"] = data["PT 100 Bidon C"]
-        setValues(temp);
-        setTabs(makeTabs(values))
-    };
-    //
-    // get-set all values from LN2 data
-    const updateValuesLN2 = async () => {
-        const temp = values
-        // TODO: update "Liquid Nitrogen Level" with whatever name you want to be shown (also used in arr1 on top)
-        temp["Liquid Nitrogen Level (kg)"] = scaleData["Weight"]
+        temp["Liquid Nitrogen Level"] = data["4K STAGE"]
         setValues(temp);
         setTabs(makeTabs(values))
     };
@@ -120,7 +98,6 @@ export default function ValuesRibbon(props) {
 
     };
 
-    //setup the fridge data
     useEffect(() => {
         getData().then((res) => {
             updateValues1()
@@ -130,24 +107,6 @@ export default function ValuesRibbon(props) {
         const interval = setInterval(() => {
             getData().then((res) => {
                 updateValues1()
-            })
-
-        }, 10000)
-
-
-        return () => clearInterval(interval)
-    }, [data])  // includes empty dependency array
-
-    //setup the LN2 scale data
-    useEffect(() => {
-        getLN2Data().then((res) => {
-            updateValuesLN2()
-        })
-
-
-        const interval = setInterval(() => {
-            getLN2Data().then((res) => {
-                updateValuesLN2()
             })
 
         }, 10000)

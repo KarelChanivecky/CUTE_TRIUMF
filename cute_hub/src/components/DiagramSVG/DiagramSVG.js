@@ -23,9 +23,15 @@ function scaleTemp(temp) {
 
 function parseFloatPrecision(value) {
     // comment next 3 lines and uncomment the 4th line to just get raw decimal values
-    let precision = Math.floor(Math.log10(value, 10))
+    if (value>0)
+    {
+    let precision = Math.floor(Math.log10(value, 10));
     if (precision < 3) precision = 3;
-    return parseFloat(parseFloat(value).toPrecision(precision)).toExponential()
+    return parseFloat(parseFloat(value).toPrecision(precision)).toExponential();
+    }
+    else {
+        return parseFloat(value);
+    }
     // return parseFloat(value);
 }
 
@@ -118,7 +124,7 @@ export default function DiagramSVG() {
     // const [posts, setPosts]=useState([]) 'https://jsonplaceholder.typicode.com/posts'
     const getData = async () => {
         try { // TODO change url for diagram
-            const fridge = await axios.get("https://cdms-webapp.slac.stanford.edu/www/cute/fridge/status.php")
+            const fridge = await axios.get("http://192.168.44.30/status.php")
             setData(fridge.data);  // set State
 
         } catch (err) {

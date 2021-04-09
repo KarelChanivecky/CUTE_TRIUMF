@@ -58,7 +58,7 @@ export default function AlignItemsList() {
   // const [posts, setPosts]=useState([]) 'https://jsonplaceholder.typicode.com/posts'
   const getData = async () => {
     try {
-      const fridge = await axios.get("https://cdms-webapp.slac.stanford.edu/www/cute/fridge/status.php")
+      const fridge = await axios.get("http://192.168.44.30/status.php")
       setData(fridge.data);  // set State
 
     } catch (err) {
