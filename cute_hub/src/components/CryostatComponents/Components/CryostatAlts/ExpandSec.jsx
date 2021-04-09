@@ -57,7 +57,7 @@ export default function Expand(props) {
           </Grid>
           <Grid item>
           <Paper className={classes.paperDampers}>
-            <Dampers speeds={[0, 0, 0]} cryostatWS={props.cryostatWS} />
+            <Dampers cryostatWS={props.cryostatWS} />
           </Paper>
         </Grid>
           <Grid item>

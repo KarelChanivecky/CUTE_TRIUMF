@@ -33,12 +33,7 @@ theme.overrides = {
       borderRadius: 0,
       textTransform: "none",
     },
-    containedPrimary: {
-      "&:hover": {
-        backgroundColor: "#a5a1ac",
-        color: deepPurple[900],
-      },
-    },
+
   },
 };
 export default theme;

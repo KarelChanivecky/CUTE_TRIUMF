@@ -8,13 +8,11 @@ function AppHeader(props) {
     return (
         <Box width={1}>
             <ColoredPaper color={theme.palette.primary} square elevation={0}>
-                <Grid container direction="row">
-                    <img id="triumf-logo" src={"https://www.triumf.ca/sites/all/themes/custom/triumf2016/logo.png"}
-                         alt="TRIUMF logo"/>
+                <Grid container direction="row" justify={"flex-start"} alignItems={"flex-start"}>
                     <Hidden smDown>
-                        <Typography variant="h1">Cryogenic Underground Test Facility</Typography>
+                        <Typography variant="h1" style={{paddingLeft: 22}}>Cryogenic Underground Test Facility</Typography>
                     </Hidden>
-                </Grid>
+                    </Grid>
                 <Box width={1} height={10}/>
             </ColoredPaper>
         </Box>

@@ -4,6 +4,7 @@ import theme from "./theme";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import OutputLine from "./OutputLine";
 
+// This is the component which puts together all of the smaller command line components
 class CommandLine extends Component {
     state = {
         display: this.props.init,

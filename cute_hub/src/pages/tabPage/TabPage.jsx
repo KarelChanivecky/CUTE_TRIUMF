@@ -32,8 +32,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+// Values which dictate at what width the screen will change form
 const WindowBreakpoints = {
-    FULL_SCREEN: 1420,//1520
+    FULL_SCREEN: 1585,
     ACCORDION: 800
 }
 
@@ -42,6 +44,7 @@ const WindowStates = {
     ACCORDION: 1,
     FULL_SCREEN: 2,
 }
+
 
 function evaluateWindowWidth() {
     const width = window.innerWidth;
@@ -57,6 +60,8 @@ function evaluateWindowWidth() {
     return WindowStates.NARROW;
 }
 
+// This function checks what width the screen is currently
+// and returns the appropriate Calibration/Crostat component
 function getCalibCryoFridgeTab() {
     switch (evaluateWindowWidth()) {
         case WindowStates.NARROW:
@@ -69,7 +74,10 @@ function getCalibCryoFridgeTab() {
 }
 
 
-
+// Function which controls the displayed tabs
+// to add a new tab enter a component into the 'tabs' list
+// then enter the name of the tab you wish to be displayed on the 
+// top bar
 function getTabs(){
     return {tabs: [getCalibCryoFridgeTab()
                 , <PlottingTab/>
@@ -91,7 +99,6 @@ function TabPage(props) {
     const [tabs, setTabs] = useState([ ...getTabs().tabs]);
 
     // This handles detecting the changing width of the screen and show the appropriate CalibCryoFridgeTabVersion
-    // Currently, changing the screen size may result in loosing the log of commands sent
     window.onresize =
         () => {
             setTabs(getTabs().tabs);
@@ -108,7 +115,6 @@ function TabPage(props) {
             <ColoredPaper elevation={0} color={theme.palette.backgroundLight} parentSize square>
                 <ColoredPaper color={theme.palette.primary} square elevation={0}>
                     <Grid item container direction='row' justify="space-between" wrap="wrap-reverse" alignItems={"stretch"}>
-                        {/*<Grid item container alignItems="flex-end">*/}
                             <Tabs
                                 value={value}
                                 onChange={handleChange}
@@ -119,7 +125,6 @@ function TabPage(props) {
                                     <Tab key={c} label={c} className={classes.root}/>
                                 ))}
                             </Tabs>
-                        {/*</Grid>*/}
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
