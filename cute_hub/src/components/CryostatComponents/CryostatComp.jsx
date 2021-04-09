@@ -60,7 +60,7 @@ export default function CryostatComp(props) {
     />
   );
 
-  //Previous log stored in local storage
+  //Retrieves the previous command line log from local storage
   let prevLog = localStorage.getItem("consoleLog")
     ? JSON.parse(localStorage.getItem("consoleLog"))
     : [];
