@@ -79,7 +79,9 @@ export default function ExtraCalibrationControls(props) {
 
    const getDirection = () => {return (props.vertical) ? "row" : "column"}
 
-   const controls = 
+   // An array of controls to render to the calibration control, 
+   // you can add any extra controls you want to this.
+   const controlArray = 
    [
       // Label controls
       // <Typography variant="h3">Drive Source:</Typography>
@@ -113,7 +115,7 @@ export default function ExtraCalibrationControls(props) {
 
    
 
-   const Controls = controls.map((button, index)=> {
+   const Controls = controlArray.map((button, index)=> {
       return <Grid key={index} item> {button} </Grid>
    });
 
