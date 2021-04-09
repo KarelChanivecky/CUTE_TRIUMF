@@ -1,7 +1,7 @@
 import { Typography } from "@material-ui/core";
-import { display } from "@material-ui/system";
 import React, { Component } from "react";
 
+// This is the output box of the command line which displays the commands.
 class OutputLine extends Component {
   //Scrolls the command line to the bottom always
   scrollToBottom = () => {

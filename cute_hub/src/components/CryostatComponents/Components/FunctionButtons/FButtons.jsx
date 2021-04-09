@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   button: { width: "100%"},
 }));
 
+// The singular function button used to create custom commands buttons
 export default function FButton(props) {
   const classes = useStyles();
   return (

@@ -7,12 +7,8 @@ import CryoGauge from "./Components/Gauges/CryoGauge";
 import MotorSpeed from "./Components/MotorSpeed/MotorSpeed";
 import Closed from "./Components/CryostatAlts/ClosedSec";
 import Expand from "./Components/CryostatAlts/ExpandSec";
-import { render } from "react-dom";
 
-// KNOWN ISSUE:
-// Command display does not actively render, must be closed then opened to show responses from the LogMsg function,
-// this only happens on button pushes/active command switch,
-// typing into the console is fine.
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,9 +34,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+// This is the complete cryostat component which puts together cryostat related components
 export default function CryostatComp(props) {
   const classes = useStyles();
 
+  // Custom function buttons 
+  // add new buttons to the list in the form of
+  // {command: [new command], name: [name of command]}
   const buttons = (
     <FunctionButtons
       commands={[
@@ -68,6 +69,7 @@ export default function CryostatComp(props) {
   const expanded = props.expanded;
   const colsWidth = expanded ? 5 : 10;
 
+  // initializes the command line to the closed position
   const [consoleComponent, setConsoleComponent] = useState((<Closed
                                                                   onclick={props.onDisplayChange ?? null}
                                                                   buttons={buttons}
@@ -75,25 +77,9 @@ export default function CryostatComp(props) {
                                                                   sendCommand={sendCommand}
                                                                   cryostatWS={props.cryostatWS}
                                                                   />))
-  // const consoleComponent = expanded ? (
-    // <Expand
-    //   onclick={props.onDisplayChange ?? null}
-    //   buttons={buttons}
-    //   commands={consoleLog}
-    //   sendCommand={sendCommand}
-    // />
-  // ) : (
-  //   <Closed
-  //     onclick={props.onDisplayChange ?? null}
-  //     buttons={buttons}
-  //     commands={consoleLog}
-  //     sendCommand={sendCommand}
-  //   />
-  // );
 
-
+  //This function handles the expanding and contracting of the command line
   React.useEffect(() => {
-    console.log(consoleLog)
     if(!expanded){
       setConsoleComponent((<Closed
                                   onclick={props.onDisplayChange ?? null}
@@ -140,6 +126,8 @@ export default function CryostatComp(props) {
     return consoleLog
   }
 
+
+
   // A function which logs the message given to it into the command prompt
   // Use this to log responses or anything else you need into the commmand line
   // Command display does not actively render, must be closed then opened to show responses from the LogMsg function
@@ -156,23 +144,24 @@ export default function CryostatComp(props) {
 
   // A function which sends the given command to the server.
   // the parameter cmd will be the correctly formatted command to send.
-  // needs to be implemented with the server
   function Send(cmd) {
-    console.log(cmd);
-    // try {
-    //     if (cuteServer) cuteServer.send(cmd);
-    // }
-    // catch (err) {
-    //     // (string was split to avoid messing up BBEdit colour syntax highlighting)
-    //     LogMsg('<span class=res>Error sending command to server<'+'/span><br/>');
-    // }
-    props.cryostatWS.send(cmd) 
+    try {
+        if (props.cryostatWS)  props.cryostatWS.send(cmd) 
+    }
+    catch (err) {
+        LogMsg("Error sending command to server");
+    }
+ 
   }
+
+
+
 
   //function used to relay message when recieved from dummy websocket
   const relay = (event) => {
-    //TODO add code to parse incoming messages that are supposed to be displayed in the consle
-    LogMsg(event.data);
+    //TODO add code to parse incoming messages that are supposed to be displayed in the console
+    //TODO uncomment the bit of code below this when your ready to log messages
+    //LogMsg(event.data);
   }
 
   //adds an event listener to the websocket and acts when it recieves a response.
@@ -191,7 +180,7 @@ export default function CryostatComp(props) {
         </Grid>
         <Grid item>
           <Paper className={classes.papersliver}>
-            <MotorSpeed speeds={[0, 0, 0]} cryostatWS={props.cryostatWS} />
+            <MotorSpeed cryostatWS={props.cryostatWS} />
           </Paper>
         </Grid>
       </Grid>
