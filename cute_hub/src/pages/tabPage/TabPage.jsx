@@ -128,7 +128,7 @@ function TabPage(props) {
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
-                {/*<ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />*/}
+                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />
                 {ActiveTab}
             </ColoredPaper>
         </Box>
