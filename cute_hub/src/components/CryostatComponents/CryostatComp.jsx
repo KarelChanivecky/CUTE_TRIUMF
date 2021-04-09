@@ -7,7 +7,7 @@ import CryoGauge from "./Components/Gauges/CryoGauge";
 import MotorSpeed from "./Components/MotorSpeed/MotorSpeed";
 import Closed from "./Components/CryostatAlts/ClosedSec";
 import Expand from "./Components/CryostatAlts/ExpandSec";
-import { render } from "react-dom";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+// This is the complete cryostat component which puts together cryostat related components
 export default function CryostatComp(props) {
   const classes = useStyles();
 
@@ -154,7 +156,7 @@ export default function CryostatComp(props) {
 
   //function used to relay message when recieved from dummy websocket
   const relay = (event) => {
-    //TODO add code to parse incoming messages that are supposed to be displayed in the consle
+    //TODO add code to parse incoming messages that are supposed to be displayed in the console
     //TODO uncomment the bit of code below this when your ready to log messages
     //LogMsg(event.data);
   }

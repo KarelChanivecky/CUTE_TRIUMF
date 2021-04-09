@@ -36,26 +36,26 @@ export default function MotorSpeed(props) {
     //TODO FILL THIS IN WITH THE PROPER SWITCH CASE IN ORDER TO RECIEVE THE MESSAGES FOR THE MOTOR SPEEDS
     //break the message up into a switch (c) and a msg 
 
-    var c = message.data.substr(0,1);
-    var msg = message.data.substr(2);
-    switch (c) {
+    // var c = message.data.substr(0,1);
+    // var msg = message.data.substr(2);
+    // switch (c) {
   
-        case 'F': { // digital readouts (time, 3 x pos, 3 x weight, pressure, water level) //water level isn't here
-            var v = msg.split(' ').map(Number);
-            //console.log(v);
-            var t = v.shift(); //removes first element of the array (time is not very useful)
-            //var pos = v.splice(0,3); //starting at position 0, remove 3 elements
-            setSpeeds({
-                a: v[0].toFixed(2),
-                b: v[1].toFixed(2),
-                c: v[2].toFixed(2),
-            });
-            //var airPressure = v[0];
-            //var airPressure = v.shift();
-            //var loads = v.splice(0,3); //starting at position 0, remove 3 elements
-        }
-        break;
-    }
+    //     case 'F': { // digital readouts (time, 3 x pos, 3 x weight, pressure, water level) //water level isn't here
+    //         var v = msg.split(' ').map(Number);
+    //         //console.log(v);
+    //         var t = v.shift(); //removes first element of the array (time is not very useful)
+    //         //var pos = v.splice(0,3); //starting at position 0, remove 3 elements
+    //         setSpeeds({
+    //             a: v[0].toFixed(2),
+    //             b: v[1].toFixed(2),
+    //             c: v[2].toFixed(2),
+    //         });
+    //         //var airPressure = v[0];
+    //         //var airPressure = v.shift();
+    //         //var loads = v.splice(0,3); //starting at position 0, remove 3 elements
+    //     }
+    //     break;
+    // }
   }
   
   // Function that adds and removes a listener to the websocket

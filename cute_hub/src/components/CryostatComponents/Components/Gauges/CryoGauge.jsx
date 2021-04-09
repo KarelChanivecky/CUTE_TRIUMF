@@ -4,25 +4,6 @@ import Slider from "@material-ui/core/Slider";
 import Grid from "@material-ui/core/Grid";
 import { Paper, Typography } from "@material-ui/core";
 
-//TODO I added the websocket module here
-// import {w3cwebsocket as WebSocket} from "websocket"; //import the websocket module
-////////////////////////// TEST VALUES
-// var testValues = [1,1,1];
-
-// function changeTestValues() {
-//   setTimeout(()=>{
-//     testValues = [
-//       parseFloat((Math.random() * .4 + .8).toFixed(1)),
-//       parseFloat((Math.random() * .4 + .8).toFixed(1)),
-//       parseFloat((Math.random() * .4 + .8).toFixed(1)),
-//     ]
-//     // console.log(testValues)
-//     changeTestValues()
-//   }, 2000)
-// }
-
-//changeTestValues();
-/////////////////////////////////////////
 
 const useStyles = makeStyles((theme) => ({
   paperroot: {
@@ -38,8 +19,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: -15,
     marginBottom:  -15
   },
+  lettersB: {
+    fontSize: "20px",
+    marginLeft: -20,
+    marginBottom:  -15
+  },
+  lettersC: {
+    fontSize: "20px",
+    marginLeft: -25,
+    marginBottom:  -15
+  },
   labels: {
     fontSize: "15px",
+    marginLeft: -10
   }
 }));
 
@@ -107,9 +99,6 @@ const StyledSlider = withStyles({
   },
 })(Slider);
 
-function valuetext(value) {
-  return `${value}°C`;
-}
 
 // Draw the 3 damper position
 export default function CryoGauge(props) {
@@ -165,10 +154,10 @@ export default function CryoGauge(props) {
             <Typography className={classes.letters}>A</Typography>
           </Grid>
           <Grid item  xs={3}>
-            <Typography className={classes.letters}>B</Typography>
+            <Typography className={classes.lettersB}>B</Typography>
           </Grid>
           <Grid item xs={3}>
-            <Typography className={classes.letters}>C</Typography>
+            <Typography className={classes.lettersC}>C</Typography>
           </Grid>
         </Grid>
         <div className={classes.paperroot}>
