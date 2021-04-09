@@ -195,7 +195,7 @@ function CalibrationSlider(props) {
                var act_pos = temp_msg.substr(4);
                act_pos = act_pos.substring(0,act_pos.indexOf("<"));
                var real_pos = 0.01*act_pos; //real position of source in cm
-               console.log(real_pos);
+               // console.log(real_pos);
                //TODO this part here I don't know if it's right, but it sometimes works
                // Note from Sean: The source_position variable is what the source 
                // position slider checks every second to update its value. This should work fine.

@@ -49,7 +49,8 @@ export default function ExtraCalibrationControls(props) {
    const ws = props.calibWebSock
 
    const handleWSMessage = (event) => {
-      console.log(event.data);
+      // TODO handle websocket event
+      // console.log(event.data);
    }
    
    React.useEffect(()=>{
