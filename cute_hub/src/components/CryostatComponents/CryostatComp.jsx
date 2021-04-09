@@ -126,6 +126,8 @@ export default function CryostatComp(props) {
     return consoleLog
   }
 
+
+
   // A function which logs the message given to it into the command prompt
   // Use this to log responses or anything else you need into the commmand line
   // Command display does not actively render, must be closed then opened to show responses from the LogMsg function
@@ -142,17 +144,18 @@ export default function CryostatComp(props) {
 
   // A function which sends the given command to the server.
   // the parameter cmd will be the correctly formatted command to send.
-  // needs to be implemented with the server
   function Send(cmd) {
-    // try {
-    //     if (cuteServer) cuteServer.send(cmd);
-    // }
-    // catch (err) {
-    //     // (string was split to avoid messing up BBEdit colour syntax highlighting)
-    //     LogMsg('<span class=res>Error sending command to server<'+'/span><br/>');
-    // }
-    props.cryostatWS.send(cmd) 
+    try {
+        if (props.cryostatWS)  props.cryostatWS.send(cmd) 
+    }
+    catch (err) {
+        LogMsg("Error sending command to server");
+    }
+ 
   }
+
+
+
 
   //function used to relay message when recieved from dummy websocket
   const relay = (event) => {
