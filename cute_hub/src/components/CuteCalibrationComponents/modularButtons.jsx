@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
-import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
-import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 import {ModuleDisplayStates} from "../../constants/moduleDisplayStates";
 import { Grid, makeStyles } from '@material-ui/core';
@@ -75,6 +77,8 @@ export default function ExtraCalibrationControls(props) {
       setMotorSpeed(newValue);
    }
 
+   const getDirection = () => {return (props.vertical) ? "row" : "column"}
+
    const controls = 
    [
       // Label controls
@@ -82,7 +86,8 @@ export default function ExtraCalibrationControls(props) {
       // Drive source up 
       // TODO send whatever you like to the web socket
       <Button className={btnStyles.root} variant="outlined" color="primary" 
-         startIcon={<ArrowBackIosOutlinedIcon/>}
+         startIcon={getDirection()==="row" ? <KeyboardArrowLeftIcon/> : <></>}
+         endIcon={getDirection()==="row" ? <></>: <KeyboardArrowUpIcon/>}
          onClick={()=>{
             ws.send(`Up @ ${motorSpeed}`)
          }}>Up</Button>,
@@ -96,7 +101,7 @@ export default function ExtraCalibrationControls(props) {
       // Drive source down 
       // TODO send whatever you like to the web socket
       <Button className={btnStyles.root} variant="outlined" color="primary" 
-         endIcon={<ArrowForwardIosOutlinedIcon/>}
+         endIcon={getDirection()==="row" ? <KeyboardArrowRightIcon/> : <KeyboardArrowDownIcon/>}
          onClick={()=>{
             ws.send(`Down @ ${motorSpeed}`)
          }}>Down</Button>,
@@ -106,7 +111,7 @@ export default function ExtraCalibrationControls(props) {
          value={motorSpeed} label="MotorSpeed" />,
    ]
 
-   const getDirection = () => {return (props.vertical) ? "row" : "column"}
+   
 
    const Controls = controls.map((button, index)=> {
       return <Grid key={index} item> {button} </Grid>
@@ -116,6 +121,7 @@ export default function ExtraCalibrationControls(props) {
       <Grid 
          className={mainGrid.root}  
          container
+         justify="center"
          direction={getDirection()}>
          {Controls}
       </Grid>
