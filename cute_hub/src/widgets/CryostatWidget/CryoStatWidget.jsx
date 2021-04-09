@@ -29,7 +29,6 @@ export default function CryoStatWidget(props) {
       "& > *": {
         margin: theme.spacing(1),
       },
-            
     },
     rootSmall: {
         display: "flex",
@@ -56,7 +55,7 @@ export default function CryoStatWidget(props) {
           onHelp={onHelp}
           name={props.noName? null :WidgetNames.CRYOSTAT}
         />
-        {/*<CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange ?? null} cryostatWS={props.cryostatWS}/>*/}
+        <CryostatComp expanded={displayState === ModuleDisplayStates.EXPANDED} onDisplayChange={props.onDisplayChange ?? null} cryostatWS={props.cryostatWS}/>
       </Paper>
     </Box>
   );

@@ -89,21 +89,21 @@ export default function ExtraCalibrationControls(props) {
          startIcon={getDirection()==="row" ? <KeyboardArrowLeftIcon/> : <></>}
          endIcon={getDirection()==="row" ? <></>: <KeyboardArrowUpIcon/>}
          onClick={()=>{
-            ws.send(`Up @ ${motorSpeed}`)
+            // ws.send(`Up @ ${motorSpeed}`)
          }}>Up</Button>,
       // Stop Driving Source 
       // TODO send whatever you like to the web socket
       <Button className={btnStyles.root} variant="contained" color="primary" 
          startIcon={<NotInterestedIcon/>}
          onClick={()=>{
-            ws.send(`Stop`)
+            // ws.send(`Stop`)
          }}>Stop</Button>,
       // Drive source down 
       // TODO send whatever you like to the web socket
       <Button className={btnStyles.root} variant="outlined" color="primary" 
          endIcon={getDirection()==="row" ? <KeyboardArrowRightIcon/> : <KeyboardArrowDownIcon/>}
          onClick={()=>{
-            ws.send(`Down @ ${motorSpeed}`)
+            // ws.send(`Down @ ${motorSpeed}`)
          }}>Down</Button>,
       // Set desired motorspeed  
       <TextField className={tFStyles.root} type="number"
