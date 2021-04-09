@@ -14,14 +14,14 @@ import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
 // TODO uncomment the websockets you want and comment out or delete the test sockets
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Calibration Websocket
-// const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
-const calibrationWebsocket = new WebSocket('wss://echo.websocket.org');
+const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
+// const calibrationWebsocket = new WebSocket('wss://echo.websocket.org');
 calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
 calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
 // Cryostat Websocket
-//const cryostatWebsocket = new WebSocket("ws://192.168.44.30:8080", "cute");
-const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
+const cryostatWebsocket = new WebSocket("ws://192.168.44.30:8080", "cute");
+// const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
 cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
 cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -73,10 +73,10 @@ function getCalibCryoFridgeTab() {
 function getTabs(){
     return {tabs: [getCalibCryoFridgeTab()
                 , <PlottingTab/>
-                , <IframeWidget url={"https://material-ui.com/"} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
+                , <IframeWidget url={"http://192.168.44.61/www/device.htm"} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
             names:["Controls"
                 , "Data"
-                , "Mat-UI"]}
+                , "Thermometers"]}
 }
 
 function TabPage(props) {
@@ -116,14 +116,14 @@ function TabPage(props) {
                                 textColor="inherit"
                                 centered>
                                 {getTabs().names.map((c) => (
-                                    <Tab key={c} label={c} className={classes.root}></Tab>
+                                    <Tab key={c} label={c} className={classes.root}/>
                                 ))}
                             </Tabs>
                         {/*</Grid>*/}
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
-                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />
+                {/*<ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />*/}
                 {ActiveTab}
             </ColoredPaper>
         </Box>

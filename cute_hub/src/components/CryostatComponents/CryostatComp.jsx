@@ -132,7 +132,7 @@ export default function CryostatComp(props) {
       LogMsg(msg);
     }
     let cmd = msg.split(" ", 1)[0];
-    if (cmd && cmd.length > 1 && cmd.substr(0, 1) == "/") {
+    if (cmd && cmd.length > 1 && cmd.substr(0, 1) === "/") {
       Send(cmd.substr(1) + ":" + msg.substr(msg.indexOf(cmd) + cmd.length + 1));
     } else {
       Send('log:"' + msg + '"');

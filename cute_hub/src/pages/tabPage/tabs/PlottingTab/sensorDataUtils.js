@@ -47,6 +47,7 @@ function AMDataPoint(name, timeStamp, value) {
 function mapObjectsToDataPoint(dataObjects) {
     return dataObjects.map(dataObj => {
         const {ts, ...values} = dataObj;
+
         return new DataPointSet(ts, values);
     });
 }
@@ -69,6 +70,7 @@ function takeSamples(dataPoints, count) {
     const samples = [];
     let i = 0;
     while (i < dataPoints.length) {
+
         samples.push(dataPoints[i]);
         i += spread;
         if (0 < spreadRemainder) {

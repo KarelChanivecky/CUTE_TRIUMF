@@ -60,7 +60,7 @@ export default function IframeWidget(props) {
         <Box>
             <Paper>
                 <Grid container alignItems="center" justify="center">
-                    <IframeTab url={props.url} innerWidth={props.width} innerHeight={props.height}></IframeTab>
+                    <IframeTab url={props.url} innerWidth={props.width} innerHeight={props.height}/>
                 </Grid>
             </Paper>
         </Box>
