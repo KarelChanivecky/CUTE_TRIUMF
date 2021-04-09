@@ -29,7 +29,6 @@ export default function CryoStatWidget(props) {
       "& > *": {
         margin: theme.spacing(1),
       },
-            
     },
     rootSmall: {
         display: "flex",
