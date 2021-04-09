@@ -56,7 +56,32 @@ const AccordionDetails = withStyles((theme) => ({
 
 
 function CalibCryoDiagWideTab(props) {
+
+    const expandedModules = {
+        NONE: "none",
+        FRIDGE: "fridge",
+        CRYO: "cryo",
+        BOTH: "both",
+      };
+    
+      const [displayState, setDisplayState] = React.useState(expandedModules.BOTH);
+    
+      const cryoModuleState =
+        (displayState === expandedModules.CRYO) ? ModuleDisplayStates.EXPANDED : 
+          (displayState === expandedModules.BOTH) ? ModuleDisplayStates.OPEN : ModuleDisplayStates.MINIMIZED;
+
+
     const [expanded, setExpanded] = React.useState(WidgetNames.CALIBRATION);
+
+    const handleExpandedChange = (module) => () => {
+
+        if (displayState === expandedModules.BOTH) {
+            setDisplayState(expandedModules.CRYO);
+            return;
+        }
+    
+        setDisplayState(expandedModules.BOTH);
+      };
 
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
@@ -77,7 +102,12 @@ function CalibCryoDiagWideTab(props) {
                     <Typography variant="h3">{WidgetNames.CRYOSTAT}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <CryoStatWidget noName cryostatWS={props.cryostatWS}/>
+                <CryoStatWidget
+                    displayState={cryoModuleState}
+                    minimizable
+                    onDisplayChange={handleExpandedChange(expandedModules.CRYO)}
+                    cryostatWS={props.cryostatWS}
+                />
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === WidgetNames.CALIBRATION} onChange={handleChange(WidgetNames.CALIBRATION)}>
