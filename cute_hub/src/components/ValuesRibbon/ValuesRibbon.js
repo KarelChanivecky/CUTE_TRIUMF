@@ -136,7 +136,7 @@ export default function ValuesRibbon(props) {
 
 
         return () => clearInterval(interval)
-    }, [data])  // includes empty dependency array
+    }, [])  // keep empty dependency array
 
     //setup the LN2 scale data
     useEffect(() => {
@@ -154,7 +154,7 @@ export default function ValuesRibbon(props) {
 
 
         return () => clearInterval(interval)
-    }, [data])  // includes empty dependency array
+    }, [])  // keep empty dependency array
 
     //adds an event listener to the websocket and acts when it recieves a response.
     useEffect(() => {
