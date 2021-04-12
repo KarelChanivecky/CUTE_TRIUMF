@@ -4,7 +4,7 @@ import { Box, Container, Grid, Tab, Tabs, useTheme, Typography } from "@material
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from "@material-ui/core/styles";
-
+//change
 const useStyles = makeStyles((theme) => ({
     root: {
 
@@ -33,11 +33,8 @@ export default function ValuesRibbon(props) {
         "60K STAGE": "  0.00000",
         "dffsf": "  0.00000",
         "Still bottom": "  0.00000",
-        "MC bottom": "  0.00000"
-    })
-
-    const [scaleData, setScaleData] = useState({
-        "Weight": "0",
+        "MC bottom": "  0.00000",
+        "Weight": "0"
     })
 
     const makeTabs = (arr) => {
@@ -73,30 +70,12 @@ export default function ValuesRibbon(props) {
         }
     };
 
-    const getLN2Data = async () => {
-        try {
-            const scale = await axios.get("http://192.168.44.30/LN2weight.php")
-            setScaleData(scale.data);  // set State
-
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
-
     // get-set all values from fridge data
     const updateValues1 = async () => {
         const temp = values
         // TODO: update "Liquid Nitrogen Level" with whatever name you want to be shown (also used in arr1 on top)
         temp["Lab Temperature (C)"] = data["PT 100 Bidon C"]
-        setValues(temp);
-        setTabs(makeTabs(values))
-    };
-    //
-    // get-set all values from LN2 data
-    const updateValuesLN2 = async () => {
-        const temp = values
-        // TODO: update "Liquid Nitrogen Level" with whatever name you want to be shown (also used in arr1 on top)
-        temp["Liquid Nitrogen Level (kg)"] = scaleData["Weight"]
+        temp["Liquid Nitrogen Level (kg)"] = data["Weight"]
         setValues(temp);
         setTabs(makeTabs(values))
     };
@@ -136,25 +115,7 @@ export default function ValuesRibbon(props) {
 
 
         return () => clearInterval(interval)
-    }, [data])  // includes empty dependency array
-
-    //setup the LN2 scale data
-    useEffect(() => {
-        getLN2Data().then((res) => {
-            updateValuesLN2()
-        })
-
-
-        const interval = setInterval(() => {
-            getLN2Data().then((res) => {
-                updateValuesLN2()
-            })
-
-        }, 10000)
-
-
-        return () => clearInterval(interval)
-    }, [data])  // includes empty dependency array
+    }, [])  // includes empty dependency array
 
     //adds an event listener to the websocket and acts when it recieves a response.
     useEffect(() => {
