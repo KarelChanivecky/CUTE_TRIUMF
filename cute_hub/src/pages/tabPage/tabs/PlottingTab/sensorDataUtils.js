@@ -143,7 +143,7 @@ function discriminateSensors(series) {
  * @param {Number}dataPointResolution How many points will be rendered from all the available in the data
  * @return {Object<ChartData, ChartData>}
  */
-export function convertToChartData(dataObjects, dataPointResolution=400) {
+export function convertToChartData(dataObjects, dataPointResolution=500) {
     const mapped = mapObjectsToDataPoint(dataObjects);
     const sampled = takeSamples(mapped, dataPointResolution);
     const series = toSeriesData(sampled);

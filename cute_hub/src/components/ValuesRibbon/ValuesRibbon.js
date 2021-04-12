@@ -4,7 +4,7 @@ import { Box, Container, Grid, Tab, Tabs, useTheme, Typography } from "@material
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from "@material-ui/core/styles";
-//change
+
 const useStyles = makeStyles((theme) => ({
     root: {
 
