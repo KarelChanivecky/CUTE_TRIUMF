@@ -18,7 +18,7 @@ import ToggleHeader from "../ToggleHeader/ToggleHeader";
 
 function todaysDate() {
     const date = new Date();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const day = date.getDate();
     const monthStr = month < 10 ? `0${month}` : month.toString();
     const dayStr = day < 10 ? `0${day}` : day.toString();
