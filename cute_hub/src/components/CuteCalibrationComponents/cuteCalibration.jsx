@@ -78,8 +78,7 @@ function SourcePositionSlider(props) {
        }, 1000)
    
        return () => clearInterval(secTimer);
-   });
-
+   }, []);
 
    const getMin = () => { return(verticalBool) ? -150 : -10;} 
    const getMax = () => { return(verticalBool) ? 10 : 150;} 

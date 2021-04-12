@@ -64,12 +64,12 @@ function CalibrationStatusIndicator(props) {
     }
 
     const handleShow = () => setShow(true);
-    const title = reserved == true ? "System Unavailable" : "System Available";
-    const color = reserved == true ? "warning" : "success";
-    const subtext = reserved == true ? "System reserved for " : "Reserve system for: ";
-    const reserve_btn = reserved == true ? "Release Control" : "Reserve Now";
-    const clickHandler = reserved == true ? handleRelease : handleReserve;
-    const time_hrs = reserved == true ? time + " hours" : 
+    const title = reserved === true ? "System Unavailable" : "System Available";
+    const color = reserved === true ? "warning" : "success";
+    const subtext = reserved === true ? "System reserved for " : "Reserve system for: ";
+    const reserve_btn = reserved === true ? "Release Control" : "Reserve Now";
+    const clickHandler = reserved === true ? handleRelease : handleReserve;
+    const time_hrs = reserved === true ? time + " hours" :
     <FormControl
     placeholder="Hours"
     aria-label="Hours"
