@@ -122,14 +122,14 @@ export default function DiagramSVG() {
     })
 
     // const [posts, setPosts]=useState([]) 'https://jsonplaceholder.typicode.com/posts'
-    const getData = async () => {
-        try { // TODO change url for diagram
-            const fridge = await axios.get("http://192.168.44.30/status.php")
-            setData(fridge.data);  // set State
+    const getData =  () => {
 
-        } catch (err) {
-            console.error(err.message);
-        }
+            axios.get("http://192.168.44.30/status.php")
+                .then(res => {
+                    setData(res.data);
+                })
+                .catch(console.log);
+
     };
 
     useEffect(() => {
