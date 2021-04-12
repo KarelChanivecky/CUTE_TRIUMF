@@ -16,6 +16,11 @@ import ColoredPaper from "../ColoredPaper/ColoredPaper";
 import ToggleHeader from "../ToggleHeader/ToggleHeader";
 
 
+function todaysDate() {
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+}
+
 const getHandleToggle = (checked, setChecked) => (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -64,7 +69,8 @@ function PlottingInput(props) {
         "K8"
     ];
 
-    const defaultDate = "2021-01-01";
+
+    const defaultDate = todaysDate();
     const defaultTime = "00:00:00";
 
     const [checkedThermo, setCheckedThermo] = useState([]);
