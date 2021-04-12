@@ -18,7 +18,11 @@ import ToggleHeader from "../ToggleHeader/ToggleHeader";
 
 function todaysDate() {
     const date = new Date();
-    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    const month = date.getMonth();
+    const day = date.getDate();
+    const monthStr = month < 10 ? `0${month}` : month.toString();
+    const dayStr = day < 10 ? `0${day}` : day.toString();
+    return `${date.getFullYear()}-${monthStr}-${dayStr}`;
 }
 
 const getHandleToggle = (checked, setChecked) => (value) => () => {
