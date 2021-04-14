@@ -78,13 +78,18 @@ function getCalibCryoFridgeTab() {
 // to add a new tab enter a component into the 'tabs' list
 // then enter the name of the tab you wish to be displayed on the 
 // top bar
+var thermoPages = ["http://192.168.44.61/www/device.htm", "http://192.168.44.62/www/device.htm"];
+var heaterPages = ["http://192.168.44.64/www/device.htm"];
 function getTabs(){
     return {tabs: [getCalibCryoFridgeTab()
                 , <PlottingTab/>
-                , <IframeWidget url={"http://192.168.44.61/www/device.htm"} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
+                , <IframeWidget urls={thermoPages} noName={true} width={window.innerWidth} height={window.innerHeight/3}/>
+                , <IframeWidget urls={heaterPages} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
+
             names:["Controls"
                 , "Data"
-                , "Thermometers"]}
+                , "Thermometers"
+                , "Heaters"]}
 }
 
 function TabPage(props) {
