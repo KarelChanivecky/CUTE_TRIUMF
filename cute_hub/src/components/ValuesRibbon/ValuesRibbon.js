@@ -9,7 +9,8 @@ import Divider from '@material-ui/core/Divider';
 const initialDataState = {
     "Lab Air Pressure (hPa)": "1000",
     "Lab Temperature (C)": "20",
-    "Liquid Nitrogen Level (kg)": "xyz"
+    "Liquid Nitrogen Level (kg)": "xyz",
+    "Tank Water Level (m)": "xyz"
 };
 
 function makeTabs(arr) {
@@ -55,7 +56,7 @@ export default function ValuesRibbon(props) {
 
         setValues(prevState => {
             return {
-                ...prevState, "Liquid Nitrogen Level (kg)": scaleData["Weight"],
+                ...prevState, "Liquid Nitrogen Level (kg)": scaleData["Weight"].substring(0, scaleData["Weight"].length-2), 
             };
         });
     };
@@ -70,7 +71,7 @@ export default function ValuesRibbon(props) {
             const message_arr = message.data.split(" ")
             setValues(prevState => ({
 
-                ...prevState, "Lab Air Pressure (hPa)": message_arr[8],
+                ...prevState, "Lab Air Pressure (hPa)": message_arr[8],"Tank Water Level (m)":message_arr[9],
             }));
         }
 
