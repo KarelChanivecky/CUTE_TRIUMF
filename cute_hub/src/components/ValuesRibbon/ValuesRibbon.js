@@ -38,8 +38,14 @@ export default function ValuesRibbon(props) {
     const [values, setValues] = useState(initialDataState)
 
 
+
+
     // get-set all values from fridge data
     const updateFridgeData = (frigeData) => {
+
+        const temp = {...values};
+
+        temp.thing = "blablalb"
         // TODO if more values need to be added from fridge data, add the values to the object as
         //  the third line ahead(line numbers may change).
         setValues(prevState => ({
