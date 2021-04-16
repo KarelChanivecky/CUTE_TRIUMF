@@ -40,15 +40,13 @@ export default function MotorSpeed(props) {
      var msg = message.data.substr(2);
      switch (c) {
   
-         case 'F': { // digital readouts (time, 3 x pos, 3 x weight, pressure, water level) //water level isn't here
+         case 'E': { // digital readouts (time, 3 x pos, 3 x weight, pressure, water level) //water level isn't here
              var v = msg.split(' ').map(Number);
-             //console.log(v);
-             var t = v.shift(); //removes first element of the array (time is not very useful)
-             //var pos = v.splice(0,3); //starting at position 0, remove 3 elements
+             console.log(v);
              setSpeeds({
-                 a: v[0].toFixed(2),
-                 b: v[1].toFixed(2),
-                 c: v[2].toFixed(2),
+                 a: v[0].toFixed(1),
+                 b: v[1].toFixed(1),
+                 c: v[2].toFixed(1),
              });
              //var airPressure = v[0];
              //var airPressure = v.shift();

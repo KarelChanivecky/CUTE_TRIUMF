@@ -15,7 +15,7 @@ export default function IframeWidget(props) {
           innerHeight: window.innerHeight,
         });
       }
-      console.log(window)
+      //console.log(window)
     // Add event listener
     window.addEventListener("resize", handleResize);
     
@@ -55,13 +55,16 @@ export default function IframeWidget(props) {
         },
     }));
 
-
+    var iframeList = props.urls.map(function(link){
+                return <IframeTab url={link} innerWidth={props.width} innerHeight={props.height}/>
+        //console.log(link);
+    });
     return (
         <Box>
             <Paper>
-                <Grid container alignItems="center" justify="center">
-                    <IframeTab url={props.url} innerWidth={props.width} innerHeight={props.height}/>
-                </Grid>
+            <Grid container direction="column" alignItems="center" justify="center">
+                {iframeList}
+            </Grid>
             </Paper>
         </Box>
 

@@ -1,0 +1,3 @@
+npm run build --prefix ~/source/CUTE_TRIUMF/cute_hub
+rm -rf /Library/WebServer/Documents/cute_hub
+cp -r ~/source/CUTE_TRIUMF/cute_hub/build /Library/WebServer/Documents/cute_hub

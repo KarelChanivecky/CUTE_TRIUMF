@@ -91,20 +91,26 @@ export default function ExtraCalibrationControls(props) {
          startIcon={getDirection()==="row" ? <KeyboardArrowLeftIcon/> : <></>}
          endIcon={getDirection()==="row" ? <></>: <KeyboardArrowUpIcon/>}
          onClick={()=>{
-            // ws.send(`Up @ ${motorSpeed}`)
+            ws.send(`avr1: m0 dir 1`);
+            ws.send(`avr1: m0 on 1`)
+            ws.send(`avr1: m0 ramp ${motorSpeed}`);
          }}>Up</Button>,
       // Stop Driving Source 
       // TODO send whatever you like to the web socket
       <Button className={btnStyles.root} variant="contained" color="primary" 
          startIcon={<NotInterestedIcon/>}
          onClick={()=>{
-            // ws.send(`Stop`)
+            ws.send(`avr1: m0 stop`);
+            ws.send(`avr1: m0 on 0`);
          }}>Stop</Button>,
       // Drive source down 
       // TODO send whatever you like to the web socket
       <Button className={btnStyles.root} variant="outlined" color="primary" 
          endIcon={getDirection()==="row" ? <KeyboardArrowRightIcon/> : <KeyboardArrowDownIcon/>}
          onClick={()=>{
+                ws.send(`avr1: m0 dir 0`);
+                ws.send(`avr1: m0 on 1`);
+                ws.send(`avr1: m0 ramp ${motorSpeed}`);
             // ws.send(`Down @ ${motorSpeed}`)
          }}>Down</Button>,
       // Set desired motorspeed  

@@ -85,7 +85,7 @@ const StyledSlider = withStyles({
   active: {},
   valueLabel: {
      left: 'calc(-50% + 2px)',
-     fontSize: 20,
+     fontSize: 16,
   },
   track: {
      display: 'none',
@@ -150,20 +150,12 @@ export default function CryoGauge(props) {
 
   return (
       <Grid container direction="column">
+
         <Grid item><Typography className={classes.labels}>Dampers</Typography></Grid>
-        <Grid item container direction="row" alignContent="center" spacing={7} justify="center">
-          <Grid item xs={3}>
-            <Typography className={classes.letters}>A</Typography>
-          </Grid>
-          <Grid item  xs={3}>
-            <Typography className={classes.lettersB}>B</Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <Typography className={classes.lettersC}>C</Typography>
-          </Grid>
-        </Grid>
+
         <div className={classes.paperroot}>
       <Grid item container direction="row">
+
         <Grid item xs={2}>
           <StyledSlider
             value={damperPositions.a}
@@ -198,7 +190,19 @@ export default function CryoGauge(props) {
           />
         </Grid>
         </Grid>
+
         </div>
+        <Grid item container direction="row" alignContent="center" spacing={7} justify="center">
+          <Grid item xs={3}>
+            <Typography className={classes.letters}>A</Typography>
+          </Grid>
+          <Grid item  xs={3}>
+            <Typography className={classes.lettersB}>B</Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography className={classes.lettersC}>C</Typography>
+          </Grid>
+        </Grid>
       </Grid>
   );
 }
