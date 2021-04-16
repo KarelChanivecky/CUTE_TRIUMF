@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import ColoredPaper from "../../../../components/ColoredPaper/ColoredPaper";
+import ColoredPaper from "../../../components/ColoredPaper/ColoredPaper";
 import {Divider, Grid, useTheme} from "@material-ui/core";
-import PlottingInput from "../../../../components/PlottingInput/PlottingInput";
+import PlottingInput from "../../../components/PlottingInput/PlottingInput";
 import download, {buildSensorBoolString, makeDateTimeString, makeQuery} from "./downloadDataSource";
 import fetchData from "./plottingDataSource";
 import {convertToChartData} from "./sensorDataUtils";
-import Chart from '../../../../components/Chart/Chart'
+import Chart from '../../../components/Chart/Chart'
 
 
 function PlottingTab(props) {

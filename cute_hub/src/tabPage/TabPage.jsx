@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {Box, Container, Grid, Tab, Tabs, useTheme} from "@material-ui/core";
 import CalibCryoFridgeWideTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeWideTab";
-import CalibratorInProgressIndicator from "../../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
-import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
-import ValuesRibbon from "../../components/ValuesRibbon/ValuesRibbon";
+import CalibratorInProgressIndicator from "../components/CalibrationStatusIndicator/CalibrationStatusIndicator";
+import ColoredPaper from "../components/ColoredPaper/ColoredPaper";
+import ValuesRibbon from "../components/ValuesRibbon/ValuesRibbon";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
-import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
+import CalibrationWidget from "../widgets/CuteCalibrationWidget/CalibrationWidget";
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
-import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
+import {ModuleDisplayStates} from '../constants/moduleDisplayStates';
 import {makeStyles} from "@material-ui/core/styles";
-import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
+import IframeWidget from "../widgets/IframeWidget/IframeWidget";
+import IframeData from "../components/iframeList/IframeData";
 
 // TODO uncomment the websockets you want and comment out or delete the test sockets
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +73,12 @@ function getCalibCryoFridgeTab() {
             return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket}/>;
     }
 }
-
+const thermoIframes = [
+    IframeData("thermometerThing", "url", "helpUrl"),
+    IframeData("thermometerThing", "url", "helpUrl"),
+    IframeData("thermometerThing", "url", "helpUrl"),
+    IframeData("thermometerThing", "url", "helpUrl"),
+];
 
 // Function which controls the displayed tabs
 // to add a new tab enter a component into the 'tabs' list

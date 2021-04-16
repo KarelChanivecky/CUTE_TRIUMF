@@ -1,15 +1,15 @@
 import React from 'react'
-import PlaceholderWidget from "../../../../widgets/placeholder/placeholderWidget";
+import PlaceholderWidget from "../../../widgets/placeholder/placeholderWidget";
 import {Grid, Typography, withStyles} from "@material-ui/core";
-import DiagramWidget from "../../../../widgets/DiagramWidget/DiagramWidget";
+import DiagramWidget from "../../../widgets/DiagramWidget/DiagramWidget";
 
-import CryoStatWidget from "../../../../widgets/CryostatWidget/CryoStatWidget";
-import CalibrationWidget from "../../../../widgets/CuteCalibrationWidget/CalibrationWidget";
+import CryoStatWidget from "../../../widgets/CryostatWidget/CryoStatWidget";
+import CalibrationWidget from "../../../widgets/CuteCalibrationWidget/CalibrationWidget";
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
-import {WidgetNames} from "../../../../constants/widgetNames";
-import {ModuleDisplayStates} from "../../../../constants/moduleDisplayStates";
+import {WidgetNames} from "../../../constants/widgetNames";
+import {ModuleDisplayStates} from "../../../constants/moduleDisplayStates";
 
 
 // Styles from example in Material UI docs: https://material-ui.com/components/accordion/

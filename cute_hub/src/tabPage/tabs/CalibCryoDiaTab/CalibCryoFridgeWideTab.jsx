@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import PlaceholderWidget from "../../../../widgets/placeholder/placeholderWidget";
-import DiagramWidget from "../../../../widgets/DiagramWidget/DiagramWidget";
-import { ModuleDisplayStates } from "../../../../constants/moduleDisplayStates";
+import PlaceholderWidget from "../../../widgets/placeholder/placeholderWidget";
+import DiagramWidget from "../../../widgets/DiagramWidget/DiagramWidget";
+import { ModuleDisplayStates } from "../../../constants/moduleDisplayStates";
 import { Grid } from "@material-ui/core";
-import CryoStatWidget from "../../../../widgets/CryostatWidget/CryoStatWidget";
-import CalibrationWidget from "../../../../widgets/CuteCalibrationWidget/CalibrationWidget";
+import CryoStatWidget from "../../../widgets/CryostatWidget/CryoStatWidget";
+import CalibrationWidget from "../../../widgets/CuteCalibrationWidget/CalibrationWidget";
 
 function CalibCryoFridgeWideTab(props) {
   const expandedModules = {

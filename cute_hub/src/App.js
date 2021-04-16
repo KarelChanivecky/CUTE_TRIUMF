@@ -1,6 +1,6 @@
 import './style/App.css';
 import './components/ToggleHeader/ToggleHeader';
-import TabPage from "./pages/tabPage/TabPage";
+import TabPage from "./tabPage/TabPage";
 import {Grid} from "@material-ui/core";
 import {ThemeProvider} from '@material-ui/core/styles';
 import triumfTheme from './style/triumfTheme'
