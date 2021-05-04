@@ -49,7 +49,7 @@ export default function DiagramWidget(props) {
         },
     }));
     const classes = useStyles()
-    let thing = displayState === ModuleDisplayStates.OPEN ? <DiagramSVG className={classes.diag}/> : <DiagramList/>
+    let dataDisplay = displayState === ModuleDisplayStates.OPEN ? <DiagramSVG className={classes.diag}/> : <DiagramList/>
 
     const onHelp = () => {
         window.open("https://karelchanivecky.github.io/CUTE_docs/fridge");
@@ -65,7 +65,7 @@ export default function DiagramWidget(props) {
                               onHelp={onHelp}
                 />
                 <Grid container alignItems="center" justify="center">
-                    {thing}
+                    {dataDisplay}
                 </Grid>
             </Paper>
         </Box>
