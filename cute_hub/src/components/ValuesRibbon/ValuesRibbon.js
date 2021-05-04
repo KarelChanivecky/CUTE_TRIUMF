@@ -10,7 +10,9 @@ const initialDataState = {
     "Lab Air Pressure (hPa)": "1000",
     "Lab Temperature (C)": "20",
     "Liquid Nitrogen Level (kg)": "xyz",
-    "Tank Water Level (m)": "xyz"
+    "Tank Water Level (m)": "xyz",
+    "Peltier Cooler (C)": "xyz",
+    "Fast Pumping Line (C)": "xyz"
 };
 
 function makeTabs(arr) {
@@ -46,6 +48,19 @@ export default function ValuesRibbon(props) {
         setValues(prevState => ({
             ...prevState,
             "Lab Temperature (C)": frigeData["PT 100 Bidon C"],
+        }));
+    };
+    //
+    // get-set values from Peltier controller
+    const updatePeltierValues = (message) => {
+        // TODO if more values need to be added from fridge data, add the values to the object as
+        //  the third line ahead(line numbers may change).
+        //console.log(message.data);
+        var obj = JSON.parse(message.data);
+        setValues(prevState => ({
+            ...prevState,
+            "Peltier Cooler (C)": obj["peltier_T"].toFixed(1),
+            "Fast Pumping Line (C)": obj["fpline_T"].toFixed(1),
         }));
     };
 
@@ -94,20 +109,27 @@ export default function ValuesRibbon(props) {
             })
             .catch(console.log);
     };
+    const getPeltierData = () => {
+        //request the data from the Peltier websocket
+        props.peltierWS.send("/read");
+    };
 
 
     //setup the fridge data
     useEffect(() => {
         props.cryostatWS.addEventListener('message', updateCryoSocketValues);
+        props.peltierWS.addEventListener('message', updatePeltierValues);
         getLN2Data();
         getFridgeData();
         const interval = setInterval(() => {
             getLN2Data();
             getFridgeData();
+            getPeltierData();
         }, 10000);
 
         return () => {
             props.cryostatWS.removeEventListener('message', updateCryoSocketValues);
+            props.peltierWS.removeEventListener('message', updatePeltierValues);
             clearInterval(interval);
         };
     }, [])  // includes empty dependency array
