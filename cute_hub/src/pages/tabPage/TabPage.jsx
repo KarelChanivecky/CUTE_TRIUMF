@@ -10,13 +10,16 @@ import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMedi
 import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
 import {makeStyles} from "@material-ui/core/styles";
 import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
+import IframeList from "../../components/IframeList/IframeList"
+import IframeData from "../../components/IframeList/IframeData"
 
 // TODO uncomment the websockets you want and comment out or delete the test sockets
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Calibration Websocket
 const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
 // const calibrationWebsocket = new WebSocket('wss://echo.websocket.org');
-calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
+//calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
+calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected"); calibrationWebsocket.send("avr1: m0 pos")};
 calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
 // Cryostat Websocket
@@ -25,6 +28,10 @@ const cryostatWebsocket = new WebSocket("ws://192.168.44.30:8080", "cute");
 cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
 cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
+const peltierWebsocket = new WebSocket("ws://192.168.44.30:8096", "cute");
+// const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
+peltierWebsocket.onopen = (event)=>{console.log("TabPage.js: Peltier Websocket Connected")};
+peltierWebsocket.onclose = () => {console.log("Peltier websocket connection closed")};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,19 +85,34 @@ function getCalibCryoFridgeTab() {
 // to add a new tab enter a component into the 'tabs' list
 // then enter the name of the tab you wish to be displayed on the 
 // top bar
-var thermoPages = ["http://192.168.44.61/www/device.htm", "http://192.168.44.62/www/device.htm"];
-var heaterPages = ["http://192.168.44.64/www/device.htm"];
+//var thermoPages = ["http://192.168.44.61/www/device.htm", "http://192.168.44.62/www/device.htm"];
+//var heaterPages = ["http://192.168.44.64/www/device.htm"];
+const thermoPages = [new IframeData("Low Temperature", "http://192.168.44.61/www/device.htm", "snolab.ca"),
+                     new IframeData("High Temperature", "http://192.168.44.62/www/device.htm", "snolab.ca")];
+
+const heaterPages = [new IframeData("Heaters", "http://192.168.44.64/www/device.htm", "snolab.ca")];
 function getTabs(){
     return {tabs: [getCalibCryoFridgeTab()
                 , <PlottingTab/>
-                , <IframeWidget urls={thermoPages} noName={true} width={window.innerWidth} height={window.innerHeight/3}/>
-                , <IframeWidget urls={heaterPages} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
+                , <IframeList iframeData={thermoPages} width={window.innerWidth} height={window.innerHeight/3}/>
+                , <IframeList iframeData={heaterPages} width={window.innerWidth} height={window.innerHeight}/>],
 
             names:["Controls"
                 , "Data"
                 , "Thermometers"
                 , "Heaters"]}
 }
+//function getTabs(){
+//    return {tabs: [getCalibCryoFridgeTab()
+//                , <PlottingTab/>
+//                , <IframeWidget url={thermoPages[0]} noName={true} width={window.innerWidth} height={window.innerHeight}/>
+//                , <IframeWidget url={heaterPages} noName={true} width={window.innerWidth} height={window.innerHeight}/>],
+//
+//            names:["Controls"
+//                , "Data"
+//                , "Thermometers"
+//                , "Heaters"]}
+//}
 
 function TabPage(props) {
     const theme = useTheme();
@@ -133,7 +155,7 @@ function TabPage(props) {
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
-                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} />
+                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket}/>
                 {ActiveTab}
             </ColoredPaper>
         </Box>
