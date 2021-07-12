@@ -52,7 +52,7 @@ export default function DiagramWidget(props) {
     let dataDisplay = displayState === ModuleDisplayStates.OPEN ? <DiagramSVG className={classes.diag}/> : <DiagramList/>
 
     const onHelp = () => {
-        window.open("https://karelchanivecky.github.io/CUTE_docs/fridge");
+        window.open("http://192.168.44.30/CUTE_docs/fridge");
     };
 
     return (

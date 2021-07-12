@@ -36,7 +36,7 @@ export default function CalibrationWidget(props) {
     const classes = useStyles()
 
     const onHelp = () => {
-        window.open("https://karelchanivecky.github.io/CUTE_docs/calibration");
+        window.open("http://192.168.44.30/CUTE_docs/calibration");
     };
 
     const getDirection = () => {

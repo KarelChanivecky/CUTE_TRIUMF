@@ -9,18 +9,20 @@ import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWi
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
 import {makeStyles} from "@material-ui/core/styles";
-import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
+//import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
 import IframeList from "../../components/IframeList/IframeList"
 import IframeData from "../../components/IframeList/IframeData"
 
 // TODO uncomment the websockets you want and comment out or delete the test sockets
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Calibration Websocket
-const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
+// TODO: commented out all the stuff about calibration Websocket, am just going to pass in cryostatWebsocket
+// TODO: maybe rename cryostatWebsocket > AVRWebsocket
+//const calibrationWebsocket = new WebSocket("ws://192.168.44.30:8081", "cute");
 // const calibrationWebsocket = new WebSocket('wss://echo.websocket.org');
 //calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected")};
-calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected"); calibrationWebsocket.send("avr1: m0 pos")};
-calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
+//calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected"); calibrationWebsocket.send("avr1: m0 pos")};
+//calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
 // Cryostat Websocket
 const cryostatWebsocket = new WebSocket("ws://192.168.44.30:8080", "cute");
@@ -32,6 +34,11 @@ const peltierWebsocket = new WebSocket("ws://192.168.44.30:8096", "cute");
 // const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
 peltierWebsocket.onopen = (event)=>{console.log("TabPage.js: Peltier Websocket Connected")};
 peltierWebsocket.onclose = () => {console.log("Peltier websocket connection closed")};
+
+const compressorWebsocket = new WebSocket("ws://192.168.44.30:8097", "cute");
+// const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
+compressorWebsocket.onopen = (event)=>{console.log("TabPage.js: Compressor Websocket Connected")};
+compressorWebsocket.onclose = () => {console.log("Compressor websocket connection closed")};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,9 +81,9 @@ function getCalibCryoFridgeTab() {
         case WindowStates.NARROW:
             return <CalibrationWidget calibWebSock={calibrationWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED} cryostatWS={cryostatWebsocket}/>;
         case WindowStates.ACCORDION:
-            return <CalibCryoFridgeMediumTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket}/>;
+            return <CalibCryoFridgeMediumTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket}/>;
         default:
-            return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket}/>;
+            return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket}/>;
     }
 }
 
@@ -87,10 +94,10 @@ function getCalibCryoFridgeTab() {
 // top bar
 //var thermoPages = ["http://192.168.44.61/www/device.htm", "http://192.168.44.62/www/device.htm"];
 //var heaterPages = ["http://192.168.44.64/www/device.htm"];
-const thermoPages = [new IframeData("Low Temperature", "http://192.168.44.61/www/device.htm", "snolab.ca"),
-                     new IframeData("High Temperature", "http://192.168.44.62/www/device.htm", "snolab.ca")];
+const thermoPages = [new IframeData("Low Temperature", "http://192.168.44.61/www/device.htm", "http://192.168.44.30/CUTE_docs/thermometry/LT_thermo"),
+                     new IframeData("High Temperature", "http://192.168.44.62/www/device.htm", "http://192.168.44.30/CUTE_docs/thermometry/HT_thermo")];
 
-const heaterPages = [new IframeData("Heaters", "http://192.168.44.64/www/device.htm", "snolab.ca")];
+const heaterPages = [new IframeData("Heaters", "http://192.168.44.64/www/device.htm", "http://192.168.44.30/CUTE_docs/thermometry/heater")];
 function getTabs(){
     return {tabs: [getCalibCryoFridgeTab()
                 , <PlottingTab/>
@@ -155,7 +162,7 @@ function TabPage(props) {
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
-                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket}/>
+                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket} compressorWS={compressorWebsocket}/>
                 {ActiveTab}
             </ColoredPaper>
         </Box>

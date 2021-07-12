@@ -8,8 +8,6 @@ import MotorSpeed from "./Components/MotorSpeed/MotorSpeed";
 import Closed from "./Components/CryostatAlts/ClosedSec";
 import Expand from "./Components/CryostatAlts/ExpandSec";
 
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -153,9 +151,6 @@ export default function CryostatComp(props) {
     }
  
   }
-
-
-
 
   //function used to relay message when recieved from dummy websocket
   const relay = (event) => {

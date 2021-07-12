@@ -5,14 +5,17 @@ import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import Divider from '@material-ui/core/Divider';
 
 
+const degC= "<span>&deg;C</span>";
 //TODO: update this array with the name of the variable to be shown and its placeholder value
 const initialDataState = {
     "Lab Air Pressure (hPa)": "1000",
     "Lab Temperature (C)": "20",
     "Liquid Nitrogen Level (kg)": "xyz",
     "Tank Water Level (m)": "xyz",
-    "Peltier Cooler (C)": "xyz",
-    "Fast Pumping Line (C)": "xyz"
+    "Peltier Cooler (\u00b0C)": "xyz", //the \u00b0 let's us put the degree symbol into our string and have it show up as a degree in HTML
+    "Fast Pumping Line (\u00b0C)": "xyz",
+    "Cooling Water In (\u00b0C)": "xyz",
+    "Helium Temp (\u00b0C)": "xyz",
 };
 
 function makeTabs(arr) {
@@ -28,7 +31,7 @@ function makeTabs(arr) {
                 <Divider orientation="vertical" flexItem/>
 
             </div>
-        )
+        );
         key++;
     }
     return mapped;
@@ -37,18 +40,12 @@ function makeTabs(arr) {
 export default function ValuesRibbon(props) {
     const theme = useTheme();
 
-
     const [values, setValues] = useState(initialDataState)
-
-
-
-
     // get-set all values from fridge data
     const updateFridgeData = (frigeData) => {
 
         const temp = {...values};
 
-        temp.thing = "blablalb"
         // TODO if more values need to be added from fridge data, add the values to the object as
         //  the third line ahead(line numbers may change).
         setValues(prevState => ({
@@ -65,8 +62,21 @@ export default function ValuesRibbon(props) {
         var obj = JSON.parse(message.data);
         setValues(prevState => ({
             ...prevState,
-            "Peltier Cooler (C)": obj["peltier_T"].toFixed(1),
-            "Fast Pumping Line (C)": obj["fpline_T"].toFixed(1),
+            "Peltier Cooler (\u00b0C)": obj["peltier_T"].toFixed(1),
+            "Fast Pumping Line (\u00b0C)": obj["fpline_T"].toFixed(1),
+        }));
+    };
+    // get-set values from Compressor controller
+    const updateCompressorValues = (message) => {
+        // TODO if more values need to be added from fridge data, add the values to the object as
+        //  the third line ahead(line numbers may change).
+        //console.log(message.data);
+        var obj = JSON.parse(message.data);
+        setValues(prevState => ({
+            ...prevState,
+            "Cooling Water In (\u00b0C)": obj["coolant_in_temp"].toFixed(1),
+            "Oil Temp (\u00b0C)": obj["oil_temp"].toFixed(1),
+            "Helium Temp (\u00b0C)": obj["helium_temp"].toFixed(1),
         }));
     };
 
@@ -119,23 +129,29 @@ export default function ValuesRibbon(props) {
         //request the data from the Peltier websocket
         props.peltierWS.send("/read");
     };
+    const getCompressorData = () => {
+        //request the data from the Peltier websocket
+        props.compressorWS.send("/read");
+    };
 
 
     //setup the fridge data
     useEffect(() => {
         props.cryostatWS.addEventListener('message', updateCryoSocketValues);
         props.peltierWS.addEventListener('message', updatePeltierValues);
+        props.compressorWS.addEventListener('message', updateCompressorValues);
         getLN2Data();
         getFridgeData();
         const interval = setInterval(() => {
             getLN2Data();
             getFridgeData();
             getPeltierData();
-        }, 10000);
+        }, 6000);
 
         return () => {
             props.cryostatWS.removeEventListener('message', updateCryoSocketValues);
             props.peltierWS.removeEventListener('message', updatePeltierValues);
+            props.compressorWS.removeEventListener('message', updateCompressorValues);
             clearInterval(interval);
         };
     }, [])  // includes empty dependency array
@@ -152,6 +168,4 @@ export default function ValuesRibbon(props) {
             </Grid>
         </ColoredPaper>
     )
-
-
 }

@@ -43,7 +43,7 @@ export default function CryoStatWidget(props) {
   let chosenWidth = (displayState == ModuleDisplayStates.OPEN) ? classes.rootSmall : classes.root
 
   const onHelp = () => {
-    window.open("https://karelchanivecky.github.io/CUTE_docs/cryostat");
+    window.open("http://192.168.44.30/CUTE_docs/cryostat");
   };
   return (
     <Box className={chosenWidth}>

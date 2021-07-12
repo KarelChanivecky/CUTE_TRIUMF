@@ -4,6 +4,7 @@ import ToggleHeader from "../../components/ToggleHeader/ToggleHeader";
 import {ModuleDisplayStates} from "../../constants/moduleDisplayStates";
 import IframeTab from '../../components/IframeTab/IframeTab';
 
+//TODO: onclick isn't working properly
 export default function IframeBox(props) {
     return (
         <Box>

@@ -31,9 +31,9 @@ function move_source(pos, ws) {
    var motor_pos = pos*100;
    //TODO: test this function, be very careful with what is happening here
    ws.send("avr1: m0 on 1"); //get the motor ready
-   var txt = "avr1: m0 step " + motor_pos + " 500"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
+   var txt = "avr1: m0 step " + motor_pos.toString() + " 500"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
    ws.send(txt); //send the command, TODO: uncomment
-   //console.log(txt);
+   console.log(txt);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -114,7 +114,8 @@ function CalibrationSlider(props) {
       //get the position of the source
       switch (c) {
          case 'C': 
-            //console.log(msg); //also useful for debugging
+            console.log("case C"); //also useful for debugging
+            console.log("message from calibration ws:", msg); //also useful for debugging
             var temp_msg ="";
             var locate_pos = msg.search("POS");
             if (locate_pos != -1 ) {
@@ -122,12 +123,15 @@ function CalibrationSlider(props) {
                var act_pos = temp_msg.substr(4);
                act_pos = act_pos.substring(0,act_pos.indexOf("<"));
                var real_pos = 0.01*act_pos; //real position of source in cm
-               // console.log(real_pos);
+               console.log(real_pos);
                //TODO this part here I don't know if it's right, but it sometimes works
                // Note from Sean: The source_position variable is what the source 
                // position slider checks every second to update its value. This should work fine.
                source_position = real_pos;
             }
+         default: 
+            console.log("case default"); //also useful for debugging
+            console.log("message from calibration ws:", msg); //also useful for debugging
          break;
       }
    };

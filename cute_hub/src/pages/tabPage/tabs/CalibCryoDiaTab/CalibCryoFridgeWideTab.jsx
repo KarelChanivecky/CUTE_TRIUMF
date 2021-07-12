@@ -5,6 +5,7 @@ import { ModuleDisplayStates } from "../../../../constants/moduleDisplayStates";
 import { Grid } from "@material-ui/core";
 import CryoStatWidget from "../../../../widgets/CryostatWidget/CryoStatWidget";
 import CalibrationWidget from "../../../../widgets/CuteCalibrationWidget/CalibrationWidget";
+import PeltierWidget from "../../../../widgets/PeltierWidget/PeltierWidget";
 
 function CalibCryoFridgeWideTab(props) {
   const expandedModules = {
@@ -36,7 +37,9 @@ function CalibCryoFridgeWideTab(props) {
 
   return (
     <Grid container justify="center" alignItems="flex-start">
+
       <Grid item container lg={12} direction="column" >
+
         <Grid item container lg={12} justify="center">
           <DiagramWidget
             displayState={fridgeModuleState} 
@@ -50,8 +53,14 @@ function CalibCryoFridgeWideTab(props) {
             cryostatWS={props.cryostatWS}
           />
         </Grid>
+
+          <Grid item container justify="center" direction="column" alignItems="center">
+              <CalibrationWidget calibWebSock={props.calibWebSock} helpable />
+              <PeltierWidget peltierWS={props.peltierWS} helpable />
+          </Grid>
+
       </Grid>
-      <CalibrationWidget calibWebSock={props.calibWebSock} helpable />
+
     </Grid>
   );
 }

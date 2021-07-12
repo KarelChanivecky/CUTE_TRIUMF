@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import {Box, Grid, makeStyles, Paper} from "@material-ui/core";
 import ToggleHeader from "../../components/ToggleHeader/ToggleHeader";
 import {ModuleDisplayStates} from "../../constants/moduleDisplayStates";
-import {WidgetNames} from "../../constants/widgetNames";
-import IframeTab from '../../components/IframeTab/IframeTab';
-export default function IframeWidget(props) {
+import IframeBox from './IframeBox.jsx';
+
+
+export default function IframeList(props) {
     const [dimensions, setDimensions] = useState({innerWidth: window.innerWidth, innerHeight: window.innerHeight})
 
     React.useEffect(() => {
@@ -55,21 +56,17 @@ export default function IframeWidget(props) {
         },
     }));
 
-    //const iframeList = props.urls.map(function(link){
-    //            return <IframeTab url={link} innerWidth={props.width} innerHeight={props.height}/>
-    //    //console.log(link);
-    //});
-    //return (
-    //    <Box>
-    //        <Paper>
-    //        <Grid container direction="column" alignItems="center" justify="center">
-    //            {iframeList}
-    //        </Grid>
-    //        </Paper>
-    //    </Box>
-
-    //)
+    const iframeList = props.iframeData.map((obj, ind) => 
+        <IframeBox url={obj.url} name={obj.name} helpUrl={obj.helpUrl} height={props.height} width={props.width}/>
+    );
     return (
-        <IframeTab url={props.url} innerWidth={props.width} innerHeight={props.height}/>
+        <Box>
+            <Paper>
+            <Grid container direction="column" alignItems="center" justify="center">
+                {iframeList}
+            </Grid>
+            </Paper>
+        </Box>
+
     )
 }

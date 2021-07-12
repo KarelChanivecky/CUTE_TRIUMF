@@ -1,8 +1,9 @@
 
 const WidgetNames = {
     DIAGRAM: "Fridge diagram",
-    CRYOSTAT: "Cryostat",
+    CRYOSTAT: "Suspension System",
     CALIBRATION: "Calibration",
+    PELTIER: "Peltier Cooler",
 };
 
 export {WidgetNames};
