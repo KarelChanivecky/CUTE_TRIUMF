@@ -24,7 +24,7 @@ import IframeData from "../../components/IframeList/IframeData"
 //calibrationWebsocket.onopen = (event)=>{console.log("TabPage.js: Calibration Websocket Connected"); calibrationWebsocket.send("avr1: m0 pos")};
 //calibrationWebsocket.onclose = () => {console.log("Calibration websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
-// Cryostat Websocket
+// Cryostat/AVR Websocket
 const cryostatWebsocket = new WebSocket("ws://192.168.44.30:8080", "cute");
 // const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
 cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
@@ -79,11 +79,12 @@ function evaluateWindowWidth() {
 function getCalibCryoFridgeTab() {
     switch (evaluateWindowWidth()) {
         case WindowStates.NARROW:
-            return <CalibrationWidget calibWebSock={calibrationWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED} cryostatWS={cryostatWebsocket}/>;
+            //return <CalibrationWidget calibWebSock={calibrationWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED} cryostatWS={cryostatWebsocket}/>;
+            return <CalibrationWidget calibWebSock={cryostatWebsocket} helpable displayState={ModuleDisplayStates.MINIMIZED} cryostatWS={cryostatWebsocket}/>;
         case WindowStates.ACCORDION:
-            return <CalibCryoFridgeMediumTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket}/>;
+            return <CalibCryoFridgeMediumTab calibWebSock={cryostatWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket}/>;
         default:
-            return <CalibCryoFridgeWideTab calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket}/>;
+            return <CalibCryoFridgeWideTab calibWebSock={cryostatWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket}/>;
     }
 }
 
@@ -162,7 +163,7 @@ function TabPage(props) {
                         <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
-                <ValuesRibbon calibWebSock={calibrationWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket} compressorWS={compressorWebsocket}/>
+                <ValuesRibbon calibWebSock={cryostatWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket} compressorWS={compressorWebsocket}/>
                 {ActiveTab}
             </ColoredPaper>
         </Box>

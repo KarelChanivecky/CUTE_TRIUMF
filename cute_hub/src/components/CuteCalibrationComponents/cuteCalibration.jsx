@@ -116,22 +116,22 @@ function CalibrationSlider(props) {
          case 'C': 
             console.log("case C"); //also useful for debugging
             console.log("message from calibration ws:", msg); //also useful for debugging
+         case 'G': 
+            console.log("case G"); //also useful for debugging
+            console.log("message from calibration ws:", msg); //also useful for debugging
             var temp_msg ="";
             var locate_pos = msg.search("POS");
             if (locate_pos != -1 ) {
                temp_msg = msg.substr(locate_pos); 
                var act_pos = temp_msg.substr(4);
-               act_pos = act_pos.substring(0,act_pos.indexOf("<"));
+               //act_pos = act_pos.substring(0,act_pos.indexOf("<")); //uncommented this after changing the server command
                var real_pos = 0.01*act_pos; //real position of source in cm
-               console.log(real_pos);
+               console.log("gamma calibration source position:", real_pos);
                //TODO this part here I don't know if it's right, but it sometimes works
                // Note from Sean: The source_position variable is what the source 
                // position slider checks every second to update its value. This should work fine.
                source_position = real_pos;
             }
-         default: 
-            console.log("case default"); //also useful for debugging
-            console.log("message from calibration ws:", msg); //also useful for debugging
          break;
       }
    };

@@ -42,7 +42,7 @@ export default function MotorSpeed(props) {
   
          case 'E': { // digital readouts (time, 3 x pos, 3 x weight, pressure, water level) //water level isn't here
              var v = msg.split(' ').map(Number);
-             console.log(v);
+             //console.log(v); //TODO helps with debugging
              setSpeeds({
                  a: v[0].toFixed(1),
                  b: v[1].toFixed(1),
