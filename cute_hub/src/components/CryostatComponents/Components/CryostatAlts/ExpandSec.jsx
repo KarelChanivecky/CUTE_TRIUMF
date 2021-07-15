@@ -52,7 +52,7 @@ export default function Expand(props) {
         <Grid item xs={9} container direction="column" spacing={2}>
           <Grid item>
             <Paper className={classes.paperActiveControl}>
-              <ActiveControl onActive={props.sendCommand}/>
+              <ActiveControl cryostatWS={props.cryostatWS} activeState={props.activeOn} onActive={props.sendCommand}/>
             </Paper>
           </Grid>
           <Grid item>

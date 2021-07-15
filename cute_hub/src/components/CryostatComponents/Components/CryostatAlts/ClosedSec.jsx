@@ -45,7 +45,7 @@ export default function Closed(props) {
         <Grid item xs container direction="column" spacing={2} alignContent="flex-start">
           <Grid item>
             <Paper className={classes.paperActiveControl}>
-              <ActiveControl onActive={props.sendCommand}/>
+              <ActiveControl cryostatWS={props.cryostatWS} activeState={props.activeOn} onActive={props.sendCommand}/>
             </Paper>
           </Grid>
           <Grid item>

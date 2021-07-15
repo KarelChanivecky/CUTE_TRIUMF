@@ -85,7 +85,6 @@ export default function CryostatComp(props) {
                                   commands={consoleLog}
                                   sendCommand={sendCommand}
                                   cryostatWS={props.cryostatWS}
-                                  
         />))
     } else {
       setConsoleComponent((<Expand
@@ -116,10 +115,13 @@ export default function CryostatComp(props) {
       LogMsg(msg);
     }
     let cmd = msg.split(" ", 1)[0];
-    if (cmd && cmd.length > 1 && cmd.substr(0, 1) === "/") {
-      Send(cmd.substr(1) + ":" + msg.substr(msg.indexOf(cmd) + cmd.length + 1));
+    //if (cmd && cmd.length > 1 && cmd.substr(0, 1) === "/") {
+    if (cmd && cmd.length > 1){
+      //Send(cmd.substr(1) + ":" + msg.substr(msg.indexOf(cmd) + cmd.length + 1)); //original line
+      Send(msg.substr(1)); //we just want to send the exact command passed
     } else {
-      Send('log:"' + msg + '"');
+      //Send('log:"' + msg + '"');
+      console.log(msg);
     }
     return consoleLog
   }
@@ -157,6 +159,17 @@ export default function CryostatComp(props) {
     //TODO add code to parse incoming messages that are supposed to be displayed in the console
     //TODO uncomment the bit of code below this when your ready to log messages
     //LogMsg(event.data);
+    //console.log("cryostatComp", event.data);
+    var message = event.data;
+      ////break the message up into a switch (c) and a msg 
+      var c = message.substr(0,1);
+      var msg = message.substr(2);
+      ////get the position of the source
+      switch (c) {
+         case 'D': 
+            console.log("case D message:", msg); //also useful for debugging
+         break;
+      }
   }
 
   //adds an event listener to the websocket and acts when it recieves a response.
