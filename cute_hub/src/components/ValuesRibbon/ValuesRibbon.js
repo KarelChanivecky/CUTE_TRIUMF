@@ -14,8 +14,10 @@ const initialDataState = {
     "Tank Water Level (m)": "xyz",
     "Peltier Cooler (\u00b0C)": "xyz", //the \u00b0 let's us put the degree symbol into our string and have it show up as a degree in HTML
     "Fast Pumping Line (\u00b0C)": "xyz",
-    "Cooling Water In (\u00b0C)": "xyz",
-    "Helium Temp (\u00b0C)": "xyz",
+    "Compressor Low Pressure (psi)": "abc",
+    "Compressor High Pressure (psi)": "abc",
+    "Cooling Water In (\u00b0C)": "abc",
+    "Helium Temp (\u00b0C)": "abc",
 };
 
 function makeTabs(arr) {
@@ -70,10 +72,12 @@ export default function ValuesRibbon(props) {
     const updateCompressorValues = (message) => {
         // TODO if more values need to be added from fridge data, add the values to the object as
         //  the third line ahead(line numbers may change).
-        //console.log(message.data);
+        //console.log("compressor:",message.data);
         var obj = JSON.parse(message.data);
         setValues(prevState => ({
             ...prevState,
+            "Compressor Low Pressure (psi)": obj["low_pressure"].toFixed(1),
+            "Compressor High Pressure (psi)": obj["high_pressure"].toFixed(1),
             "Cooling Water In (\u00b0C)": obj["coolant_in_temp"].toFixed(1),
             "Oil Temp (\u00b0C)": obj["oil_temp"].toFixed(1),
             "Helium Temp (\u00b0C)": obj["helium_temp"].toFixed(1),
@@ -146,6 +150,7 @@ export default function ValuesRibbon(props) {
             getLN2Data();
             getFridgeData();
             getPeltierData();
+            getCompressorData();
         }, 6000);
 
         return () => {

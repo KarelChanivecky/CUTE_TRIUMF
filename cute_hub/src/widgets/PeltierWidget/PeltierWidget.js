@@ -20,7 +20,7 @@ export default function PeltierWidget(props) {
    //set up the setpoint control
    const [setPoint, setSetPoint] = React.useState(14);
    //set up the power button text
-   const [PwrBtnText, setBtnText] = React.useState("Enable Control");
+   const [PwrBtnText, setBtnText] = React.useState("Enable Output");
    //data points
    const [values, setValues] = useState(initialDataState);
    const adjustSetPoint = (event) => {
@@ -43,6 +43,13 @@ export default function PeltierWidget(props) {
             "output": obj["output"].toFixed(1)+"%", //add a percent sign
             "state": parseInt(obj["state"], 10),
         }));
+        var s = parseInt(obj["state"], 10); //state according to the most recent message
+        if (s > 0) {
+            setBtnText("Disable Output");
+        }
+        else {
+            setBtnText("Enable Output");
+        }
    }
    React.useEffect(()=>{
       // handle messages from server
@@ -91,7 +98,7 @@ export default function PeltierWidget(props) {
                 "state": 1,
             }));
             ws.send("/enable");
-            setBtnText("Disable Control");
+            setBtnText("Disable Output");
         }
         else {
             console.log("controller was on, sending disable command");
@@ -100,7 +107,7 @@ export default function PeltierWidget(props) {
                 "state": 0,
             }));
             ws.send("/disable");
-            setBtnText("Enable Control");
+            setBtnText("Enable Output");
         }
     };
 
@@ -111,7 +118,6 @@ export default function PeltierWidget(props) {
                     helpable={displayState !== ModuleDisplayStates.MINIMIZED}
                     onHelp={onHelp}
                     name={props.noName? null :WidgetNames.PELTIER}
-
                 />
                 <Grid container direction="column" justify="space-around" spacing={2}>
 
@@ -139,6 +145,8 @@ export default function PeltierWidget(props) {
                             <Button variant="contained" color="secondary" onClick={updateSPT}> Update Set Point </Button>
                             <Button variant="contained" color="primary" onClick={btnPwrCmd}> {PwrBtnText} </Button>
                       </Grid>
+                  </Grid>
+                  <Grid item xs={4}>
                   </Grid>
 
                 </Grid>
