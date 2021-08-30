@@ -5,6 +5,7 @@ import CalibratorInProgressIndicator from "../../components/CalibrationStatusInd
 import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import ValuesRibbon from "../../components/ValuesRibbon/ValuesRibbon";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
+import ServerTab from "./tabs/ServerTab/ServerTab";
 import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
@@ -103,12 +104,14 @@ function getTabs(){
     return {tabs: [getCalibCryoFridgeTab()
                 , <PlottingTab/>
                 , <IframeList iframeData={thermoPages} width={window.innerWidth} height={window.innerHeight/3}/>
-                , <IframeList iframeData={heaterPages} width={window.innerWidth} height={window.innerHeight}/>],
+                , <IframeList iframeData={heaterPages} width={window.innerWidth} height={window.innerHeight}/>
+                , <ServerTab/>],
 
             names:["Controls"
                 , "Data"
                 , "Thermometers"
-                , "Heaters"]}
+                , "Heaters"
+                , "Server Control"]}
 }
 //function getTabs(){
 //    return {tabs: [getCalibCryoFridgeTab()

@@ -8,16 +8,16 @@ import Divider from '@material-ui/core/Divider';
 const degC= "<span>&deg;C</span>";
 //TODO: update this array with the name of the variable to be shown and its placeholder value
 const initialDataState = {
-    "Lab Air Pressure (hPa)": "1000",
-    "Lab Temperature (C)": "20",
-    "Liquid Nitrogen Level (kg)": "xyz",
-    "Tank Water Level (m)": "xyz",
-    "Peltier Cooler (\u00b0C)": "xyz", //the \u00b0 let's us put the degree symbol into our string and have it show up as a degree in HTML
-    "Fast Pumping Line (\u00b0C)": "xyz",
-    "Compressor Low Pressure (psi)": "abc",
-    "Compressor High Pressure (psi)": "abc",
-    "Cooling Water In (\u00b0C)": "abc",
-    "Helium Temp (\u00b0C)": "abc",
+    "Lab Air Pressure (hPa)": "---",
+    "Lab Temperature (\u00b0C)": "---",
+    "Liquid Nitrogen Level (kg)": "---",
+    "Tank Water Level (m)": "---",
+    "Peltier Cooler (\u00b0C)": "---", //the \u00b0 let's us put the degree symbol into our string and have it show up as a degree in HTML
+    "Fast Pumping Line (\u00b0C)": "---",
+    "Compressor Low Pressure (psi)": "---",
+    "Compressor High Pressure (psi)": "---",
+    "Cooling Water In (\u00b0C)": "---",
+    "Helium Temp (\u00b0C)": "---",
 };
 
 function makeTabs(arr) {
@@ -52,7 +52,7 @@ export default function ValuesRibbon(props) {
         //  the third line ahead(line numbers may change).
         setValues(prevState => ({
             ...prevState,
-            "Lab Temperature (C)": frigeData["PT 100 Bidon C"],
+            "Lab Temperature (\u00b0C)": frigeData["PT 100 Bidon C"],
         }));
     };
     //
