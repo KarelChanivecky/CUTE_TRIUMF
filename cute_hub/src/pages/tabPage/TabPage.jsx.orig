@@ -11,9 +11,8 @@ import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMedi
 import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
 import {makeStyles} from "@material-ui/core/styles";
 //import IframeWidget from "../../widgets/IframeWidget/IframeWidget"
-import IframeList from "../../components/IframeList/IframeList";
-import IframeData from "../../components/IframeList/IframeData";
-import StatusWidget from "../../widgets/StatusWidget/StatusWidget";
+import IframeList from "../../components/IframeList/IframeList"
+import IframeData from "../../components/IframeList/IframeData"
 
 // TODO uncomment the websockets you want and comment out or delete the test sockets
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,7 +152,7 @@ function TabPage(props) {
 
             <ColoredPaper elevation={0} color={theme.palette.backgroundLight} parentSize square>
                 <ColoredPaper color={theme.palette.primary} square elevation={0}>
-                    <Grid item container direction='row' justify="space-between" wrap="nowrap" alignItems={"stretch"}>
+                    <Grid item container direction='row' justify="space-between" wrap="wrap-reverse" alignItems={"stretch"}>
                             <Tabs
                                 value={value}
                                 onChange={handleChange}
@@ -164,7 +163,7 @@ function TabPage(props) {
                                     <Tab key={c} label={c} className={classes.root}/>
                                 ))}
                             </Tabs>
-                        <StatusWidget/>
+                        <CalibratorInProgressIndicator/>
                     </Grid>
                 </ColoredPaper>
                 <ValuesRibbon calibWebSock={cryostatWebsocket} cryostatWS={cryostatWebsocket} peltierWS={peltierWebsocket} compressorWS={compressorWebsocket}/>

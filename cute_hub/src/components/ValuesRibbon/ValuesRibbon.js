@@ -131,11 +131,23 @@ export default function ValuesRibbon(props) {
     };
     const getPeltierData = () => {
         //request the data from the Peltier websocket
-        props.peltierWS.send("/read");
+        try{
+            //try to read from the websocket
+            props.peltierWS.send("/read");
+        }
+        catch {
+            //pass, sometimes we get errors thrown because of this, so we try-catch
+        }
     };
     const getCompressorData = () => {
-        //request the data from the Peltier websocket
-        props.compressorWS.send("/read");
+        //request the data from the compressor websocket
+        try {
+            //try to read from the websocket
+            props.compressorWS.send("/read");
+        }
+        catch {
+            //pass
+        }
     };
 
 

@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import LensIcon from '@material-ui/icons/Lens';
-import {green, red} from "@material-ui/core/colors";
+import {green, red, orange} from "@material-ui/core/colors";
 
 //axios
 import axios from "axios";
@@ -14,6 +14,7 @@ import axios from "axios";
 function ServerTab() {
     const onStyle = {color: green[500]}; //style that we will pass for on
     const offStyle = {color: red[500]};//style that we will pass for off
+    const orangeStyle = {color: orange[500]};//style that we will pass for off
 
     //base url for the query string
     //const BASE_URL = "http://192.168.44.30/test.php"; //test script
@@ -21,60 +22,60 @@ function ServerTab() {
     const CHECK_URL = "http://192.168.44.30/api/checkServerStatus.php";
 
     //state hook for the icon color
-    const [iconColor, setIconColor] = useState({"avr":offStyle, "peltier":offStyle, "comp":offStyle});
+    const [iconColor, setIconColor] = useState({"all":offStyle, "avr":offStyle, "peltier":offStyle, "comp":offStyle});
 
     //functions that start/stop the servers
     //TODO: set up the axios calls
     function startServer(serverName){
-        setIconColor(prevState => ({
-            ...prevState,
-            [serverName] : onStyle,
-        }));
-
         //make the GET request
         var queryURL = BASE_URL + "?server="+serverName + "&operation=start";
         axios.get(queryURL).then((response)=>{
             //console.log("got some kind of data");
             //console.log(response.data);
+            getServerStatus();
             alert("Started the "+serverName+" server");
         })
-        .catch(function(err){
-            console.log("get request error occured");
-            console.log(err.response.data);
-        });
+        .catch(console.log);
 
     }
     function stopServer(serverName){
-        setIconColor(prevState => ({
-            ...prevState,
-            [serverName] : offStyle,
-        }));
-
         //make the GET request
         var queryURL = BASE_URL + "?server="+serverName + "&operation=kill";
         axios.get(queryURL).then((response)=>{
-            console.log(response.data);
+            //console.log(response.data);
+            getServerStatus();
             alert("Stopped the "+serverName+" server");
         })
-        .catch(function(err){
-            console.log("get request error occured");
-            console.log(err.response.data);
-        });
+        .catch(console.log);
 
 
     }
-    //TODO: the restart functionality isn't actually implemented yet
     function restartServer(serverName){
-        console.log("this button doesn't do anything yet..");
+        //make the GET request
+        var startURL = BASE_URL + "?server="+serverName + "&operation=start";
+        var killURL = BASE_URL + "?server="+serverName + "&operation=kill";
+        //first kill the server
+        axios.get(killURL).then((response)=>{
+            //then restart the server
+            axios.get(startURL).then((response)=>{
+                getServerStatus();
+                alert("Restarted the "+serverName+" server");
+            })
+            .catch(console.log);
+        })
+        .catch(console.log);
     }
     // update the server status indicators
     const updateServerStatus = (serverStatus) => {
+        var numRunning = 0; //number of servers running
+        var totalServers = serverStatus.length; //number of servers
         serverStatus.forEach(function setIconCallback(element) { 
             var els = element.split(":");
             var srv = els[0];
             var stat = els[1];
             if (stat=="running") {
                 var sty = onStyle;
+                numRunning+=1; //increment the number of running servers
             }
             else if (stat=="stopped") {
                 var sty = offStyle;
@@ -84,6 +85,28 @@ function ServerTab() {
                 [srv] : sty,
             }));
         });
+        //if all the servers are running, set the all indicator to green
+        if (numRunning==totalServers){
+            //setIconColor(onStyle);
+            setIconColor(prevState => ({
+                ...prevState,
+                "all" : onStyle,
+            }));
+        }
+        //if none of the servers are running set the indicator to red
+        else if (numRunning==0){
+            //setIconColor(offStyle);
+            setIconColor(prevState => ({
+                ...prevState,
+                "all" : offStyle,
+            }));
+        }
+        else {
+            setIconColor(prevState => ({
+                ...prevState,
+                "all" : orangeStyle,
+            }));
+        }
     };
     //function that queries the server status
     const getServerStatus = () => {
@@ -134,6 +157,12 @@ function ServerTab() {
             Server Control
         </Typography>
         <Grid container spacing={3} direction="column">
+            <Grid item>
+                <Typography variant="h4" align="left" gutterBottom>
+                    All Servers
+                </Typography>
+            </Grid>
+                <FormRow serverName="all"/>
             <Grid item>
                 <Typography variant="h4" align="left" gutterBottom>
                     Suspension/Calibration
