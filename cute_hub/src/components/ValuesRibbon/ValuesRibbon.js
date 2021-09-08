@@ -88,12 +88,15 @@ export default function ValuesRibbon(props) {
     //
     // get-set all values from LN2 data
     const updateLiquidNitrogen = (scaleData) => {
+        //added this part that ignores null data
+        if (scaleData.Weight != null){
+            setValues(prevState => {
+                return {
+                    ...prevState, "Liquid Nitrogen Level (kg)": scaleData["Weight"].substring(0, scaleData["Weight"].length-2), 
+                };
+            });
 
-        setValues(prevState => {
-            return {
-                ...prevState, "Liquid Nitrogen Level (kg)": scaleData["Weight"].substring(0, scaleData["Weight"].length-2), 
-            };
-        });
+        }
     };
 
     // get-set all values from websocket1
@@ -125,7 +128,8 @@ export default function ValuesRibbon(props) {
     const getLN2Data = () => {
         axios.get("http://192.168.44.30/LN2weight.php")
             .then(res => {
-                updateLiquidNitrogen(res.data);
+                //console.log(res.data);
+                updateLiquidNitrogen(res.data); //try to update the liquid nitrogen data
             })
             .catch(console.log);
     };
