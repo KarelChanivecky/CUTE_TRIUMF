@@ -133,7 +133,7 @@ export default function PeltierWidget(props) {
                   </Grid>
 
                   <Grid item>
-                      <Grid container direction="row" justify="center" alignItems="center" spacing={4} >
+                      <Grid container direction="row" justify="center" alignItems="center" spacing={4} style={{alignItems:"baseline"}}>
 
                             <TextField
                               label="Set Point Temperature"
