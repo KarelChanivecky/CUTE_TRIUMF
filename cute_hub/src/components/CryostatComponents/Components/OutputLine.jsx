@@ -4,16 +4,17 @@ import React, { Component } from "react";
 // This is the output box of the command line which displays the commands.
 class OutputLine extends Component {
   //Scrolls the command line to the bottom always
+  //TODO: disabled the scrolling to bottom functionality
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
   componentDidMount() {
-    this.scrollToBottom();
+    //this.scrollToBottom();
   }
 
   componentDidUpdate() {
-    this.scrollToBottom();
+    //this.scrollToBottom();
   }
 
   render() {
@@ -26,7 +27,7 @@ class OutputLine extends Component {
           width: 530,
           height: 520,
           overflowY: "auto",
-          backgroundColor: "black",
+          backgroundColor: "#0a2654",
           float: "left"
         }}
       >
