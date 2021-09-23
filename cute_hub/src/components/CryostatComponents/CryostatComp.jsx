@@ -45,7 +45,7 @@ export default function CryostatComp(props) {
   const buttons = (
     <FunctionButtons
       commands={[
-        { command: "/avr0:halt", name: "Halt" },
+        { command: "/halt", name: "Halt" },
         { command: "/zeroStages", name: "Zero Stages" },
       ]}
        fieldCommands={[
