@@ -40,20 +40,18 @@ export default function CryostatComp(props) {
   // Custom function buttons 
   // add new buttons to the list in the form of
   // {command: [new command], name: [name of command]}
+  // TODO: add the actual commands for halt and zero stages
+  // TODO: test the halt functionality
   const buttons = (
     <FunctionButtons
       commands={[
-        { command: "Command1", name: "cmd1" },
-        { command: "Command2", name: "cmd2" },
-        { command: "Command3", name: "cmd3" },
-        { command: "Command4", name: "cmd4" },
-        { command: "Command5", name: "cmd5" },
-        { command: "Command6", name: "cmd6" },
-        { command: "Command7", name: "cmd7" },
-        { command: "Command8", name: "cmd8" },
-        { command: "Command9", name: "cmd9" },
-        { command: "/respond position", name: "cmd10" },
+        { command: "/avr0:halt", name: "Halt" },
+        { command: "/zeroStages", name: "Zero Stages" },
       ]}
+       fieldCommands={[
+           { command: "/ctrlPos", fieldText: "Control position", buttonText: "Update" },
+           { command: "/sendTo", fieldText: "Damper position", buttonText: "Move" },
+       ]}
       onclick={sendCommand}
     />
   );
@@ -118,7 +116,7 @@ export default function CryostatComp(props) {
     //if (cmd && cmd.length > 1 && cmd.substr(0, 1) === "/") {
     if (cmd && cmd.length > 1){
       //Send(cmd.substr(1) + ":" + msg.substr(msg.indexOf(cmd) + cmd.length + 1)); //original line
-      Send(msg.substr(1)); //we just want to send the exact command passed
+      Send(msg.substr(1)); //we just want to send the exact command passed, minus the / at the start
     } else {
       //Send('log:"' + msg + '"');
       console.log(msg);
