@@ -18,7 +18,10 @@ const initialDataState = {
     "Compressor Low Pressure (psi)": "---",
     "Compressor High Pressure (psi)": "---",
     "Cooling Water In (\u00b0C)": "---",
-    "Helium Temp (\u00b0C)": "---",
+    "Cooling Water Out (\u00b0C)": "---",
+    "Cooling Water Out (\u00b0C)": "---",
+    "Oil Temperature (\u00b0C)": "---",
+    "Helium Temperature (\u00b0C)": "---",
 };
 
 function makeTabs(arr) {
@@ -81,8 +84,9 @@ export default function ValuesRibbon(props) {
             "Compressor Low Pressure (psi)": obj["low_pressure"].toFixed(1),
             "Compressor High Pressure (psi)": obj["high_pressure"].toFixed(1),
             "Cooling Water In (\u00b0C)": obj["coolant_in_temp"].toFixed(1),
-            "Oil Temp (\u00b0C)": obj["oil_temp"].toFixed(1),
-            "Helium Temp (\u00b0C)": obj["helium_temp"].toFixed(1),
+            "Cooling Water Out (\u00b0C)": obj["coolant_out_temp"].toFixed(1),
+            "Oil Temperature (\u00b0C)": obj["oil_temp"].toFixed(1),
+            "Helium Temperature (\u00b0C)": obj["helium_temp"].toFixed(1),
         }));
     };
 
