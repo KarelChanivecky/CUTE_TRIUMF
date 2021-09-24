@@ -8,6 +8,11 @@ import MotorSpeed from "./Components/MotorSpeed/MotorSpeed";
 import Closed from "./Components/CryostatAlts/ClosedSec";
 import Expand from "./Components/CryostatAlts/ExpandSec";
 
+//regular expression for finding dates (doesn't validate)
+//in the format yyyy-mm-dd hh:mm:ss
+//actually doesn't care about how many digits but this is okay for our case generally
+const dateRegex = /[0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+/g;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -40,26 +45,30 @@ export default function CryostatComp(props) {
   // Custom function buttons 
   // add new buttons to the list in the form of
   // {command: [new command], name: [name of command]}
-  // TODO: add the actual commands for halt and zero stages
-  // TODO: test the halt functionality
+  // TODO: test the functionality
   const buttons = (
     <FunctionButtons
       commands={[
-        { command: "/halt", name: "Halt" },
-        { command: "/zeroStages", name: "Zero Stages" },
+        { command: "halt", name: "Halt" },
+        { command: "zeroStages", name: "Zero Stages" },
       ]}
        fieldCommands={[
-           { command: "/ctrlPos", fieldText: "Control position", buttonText: "Update" },
-           { command: "/sendTo", fieldText: "Damper position", buttonText: "Move" },
+           { command: "ctrlPos", fieldText: "Control position", buttonText: "Update" },
+           { command: "sendTo", fieldText: "Damper position", buttonText: "Move" },
        ]}
       onclick={sendCommand}
     />
   );
 
   //Retrieves the previous command line log from local storage
+  //original
+  //let prevLog = localStorage.getItem("consoleLog")
+   // ? JSON.parse(localStorage.getItem("consoleLog"))
+   // : [];
+  //updated with help message
   let prevLog = localStorage.getItem("consoleLog")
     ? JSON.parse(localStorage.getItem("consoleLog"))
-    : [];
+    : ["For a list of commands type 'help'\nTo clear the screen type 'cls'"];
   const [consoleLog, setConsoleLog] = useState(prevLog);
 
   const expanded = props.expanded;
@@ -106,17 +115,22 @@ export default function CryostatComp(props) {
         localStorage.removeItem("consoleLog");
         setConsoleLog([]);
       } else {
-        setConsoleLog(log);
-        setLocalStorage(log);
+        //setConsoleLog(log);
+        //setLocalStorage(log);
+          LogMsg("> "+msg);
       }
     } else {
-      LogMsg(msg);
+      LogMsg("> "+msg);
     }
     let cmd = msg.split(" ", 1)[0];
     //if (cmd && cmd.length > 1 && cmd.substr(0, 1) === "/") {
     if (cmd && cmd.length > 1){
       //Send(cmd.substr(1) + ":" + msg.substr(msg.indexOf(cmd) + cmd.length + 1)); //original line
-      Send(msg.substr(1)); //we just want to send the exact command passed, minus the / at the start
+      if (msg != "cls"){
+        //if it wasn't the clear screen message, send it to the server
+          //Send(msg.substr(1)); //we just want to send the exact command passed, minus the / at the start
+          Send(msg); //we just want to send the exact command passed
+      }
     } else {
       //Send('log:"' + msg + '"');
       console.log(msg);
@@ -157,7 +171,6 @@ export default function CryostatComp(props) {
     //TODO add code to parse incoming messages that are supposed to be displayed in the console
     //TODO uncomment the bit of code below this when your ready to log messages
     //LogMsg(event.data);
-    //console.log("cryostatComp", event.data);
     var message = event.data;
       ////break the message up into a switch (c) and a msg 
       var c = message.substr(0,1);
@@ -166,6 +179,22 @@ export default function CryostatComp(props) {
       switch (c) {
          case 'D': 
             console.log("case D message:", msg); //also useful for debugging
+         break;
+         case "C":
+         //TODO: parse the incoming html, strip it of the tags, dates
+         //TODO: figure out why some messages aren't showing up in the LogMsg
+            console.log("CryostatComp event.data:", event.data);
+            //console.log("msg", msg);
+            //replace the html tags with nothing, except some of the table rows which will make new lines
+            var strippedMsg = msg.replace(/<td class=nr>/g, "\n").replace(/<[^>]*>?/gm,"");//replace all the HTML tags with nothing
+            //var strippedMsg = msg.replace(/<[^>]*>?/gm,"");//replace all the HTML tags with nothing
+            //now strip the dates
+            var dt = strippedMsg.match(dateRegex);
+            if (dt){
+                //if there's a date in the string. replace all the instances and bring the date to the top with a new line
+                strippedMsg = dt[0]+"\n"+strippedMsg.replace(dt[0],"");
+            }
+            LogMsg(strippedMsg); //output this to the commandline
          break;
       }
   }

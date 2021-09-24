@@ -33,7 +33,7 @@ class OutputLine extends Component {
       >
         {this.props.output.map((text, index) => (
           <div key={text + index} style={{ color: "white", display: "flex", paddingLeft: 5}}>
-            <Typography>{text}</Typography>
+            <Typography style={{whiteSpace:"pre-line"}} display="inline" align="left">{text}</Typography>
           </div>
         ))}
         <div
