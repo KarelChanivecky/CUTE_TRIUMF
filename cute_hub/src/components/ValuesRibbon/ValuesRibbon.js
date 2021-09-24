@@ -13,7 +13,8 @@ const initialDataState = {
     "Liquid Nitrogen Level (kg)": "---",
     "Tank Water Level (m)": "---",
     "Peltier Cooler (\u00b0C)": "---", //the \u00b0 let's us put the degree symbol into our string and have it show up as a degree in HTML
-    "Fast Pumping Line (\u00b0C)": "---",
+    //"Fast Pumping Line (\u00b0C)": "---",
+    "Peltier Output (%)": "---",
     "Compressor Low Pressure (psi)": "---",
     "Compressor High Pressure (psi)": "---",
     "Cooling Water In (\u00b0C)": "---",
@@ -65,7 +66,8 @@ export default function ValuesRibbon(props) {
         setValues(prevState => ({
             ...prevState,
             "Peltier Cooler (\u00b0C)": obj["peltier_T"].toFixed(1),
-            "Fast Pumping Line (\u00b0C)": obj["fpline_T"].toFixed(1),
+            //"Fast Pumping Line (\u00b0C)": obj["fpline_T"].toFixed(1),
+            "Peltier Output (%)": obj["output"].toFixed(1),
         }));
     };
     // get-set values from Compressor controller
@@ -128,7 +130,7 @@ export default function ValuesRibbon(props) {
     const getLN2Data = () => {
         axios.get("http://192.168.44.30/LN2weight.php")
             .then(res => {
-                //console.log(res.data);
+                //console.log(res.data); //echo the data to the console
                 updateLiquidNitrogen(res.data); //try to update the liquid nitrogen data
             })
             .catch(console.log);
