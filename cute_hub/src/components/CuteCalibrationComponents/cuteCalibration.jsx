@@ -114,11 +114,11 @@ function CalibrationSlider(props) {
       //get the position of the source
       switch (c) {
          case 'C': 
-            console.log("case C"); //also useful for debugging
-            console.log("message from calibration ws:", msg); //also useful for debugging
+            //console.log("case C"); //also useful for debugging
+            //console.log("message from calibration ws:", msg); //also useful for debugging
          case 'G': 
-            console.log("case G"); //also useful for debugging
-            console.log("message from calibration ws:", msg); //also useful for debugging
+            //console.log("case G"); //also useful for debugging
+            //console.log("message from calibration ws:", msg); //also useful for debugging
             var temp_msg ="";
             var locate_pos = msg.search("POS");
             if (locate_pos != -1 ) {
