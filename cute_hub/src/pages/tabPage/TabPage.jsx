@@ -6,6 +6,7 @@ import ColoredPaper from "../../components/ColoredPaper/ColoredPaper";
 import ValuesRibbon from "../../components/ValuesRibbon/ValuesRibbon";
 import PlottingTab from "./tabs/PlottingTab/PlottingTab";
 import ServerTab from "./tabs/ServerTab/ServerTab";
+import DownloadTab from "./tabs/DownloadTab/DownloadTab";
 import CalibrationWidget from "../../widgets/CuteCalibrationWidget/CalibrationWidget";
 import CalibCryoFridgeMediumTab from "./tabs/CalibCryoDiaTab/CalibCryoFridgeMediumTab";
 import {ModuleDisplayStates} from '../../constants/moduleDisplayStates';
@@ -104,12 +105,14 @@ const heaterPages = [new IframeData("Heaters", "http://192.168.44.64/www/device.
 function getTabs(){
     return {tabs: [getCalibCryoFridgeTab()
                 , <PlottingTab/>
+                , <DownloadTab/>
                 , <IframeList iframeData={thermoPages} width={window.innerWidth} height={window.innerHeight/3}/>
                 , <IframeList iframeData={heaterPages} width={window.innerWidth} height={window.innerHeight}/>
                 , <ServerTab/>],
 
             names:["Controls"
-                , "Data"
+                , "Plotting"
+                , "Download"
                 , "Thermometers"
                 , "Heaters"
                 , "Server Control"]}
