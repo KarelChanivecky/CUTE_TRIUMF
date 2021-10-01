@@ -9,7 +9,6 @@ import axios from "axios";
 
 const BASE_URL = "http://192.168.44.30/api/"; //base url for requests
 const QUERY_URL = BASE_URL+"downloadData.php"; //data request
-const baseDataURL = "http://192.168.44.30/viewer";
 
 //dictionaries where the key is what we will be the value passed to the PHP script and the value is the label
 const thermo_dict = {"MC1":"Mixing Chamber (Cernox)","MC2":"Mixing Chamber (RuOx)", "CP":"Cold Plate", "ST":"Still", "4K":"4K", "60K":"60K"};
