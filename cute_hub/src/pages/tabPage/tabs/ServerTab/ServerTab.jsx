@@ -33,7 +33,12 @@ function ServerTab() {
             //console.log("got some kind of data");
             //console.log(response.data);
             getServerStatus();
-            alert("Started the "+serverName+" server");
+                if (serverName=="all"){
+                    alert("Started all servers. Refresh the page to connect.");
+                }
+                else {
+                    alert("Started the "+serverName+" server. Refresh the page to connect.");
+                }
         })
         .catch(console.log);
 
@@ -44,7 +49,12 @@ function ServerTab() {
         axios.get(queryURL).then((response)=>{
             //console.log(response.data);
             getServerStatus();
-            alert("Stopped the "+serverName+" server");
+                if (serverName=="all"){
+                    alert("Stopped all servers.");
+                }
+                else {
+                    alert("Stopped the "+serverName+" server");
+                }
         })
         .catch(console.log);
 
@@ -59,7 +69,12 @@ function ServerTab() {
             //then restart the server
             axios.get(startURL).then((response)=>{
                 getServerStatus();
-                alert("Restarted the "+serverName+" server");
+                if (serverName=="all"){
+                    alert("Restarted all servers. Refresh the page to reconnect.");
+                }
+                else {
+                    alert("Restarted the "+serverName+" server. Refresh the page to reconnect.");
+                }
             })
             .catch(console.log);
         })
