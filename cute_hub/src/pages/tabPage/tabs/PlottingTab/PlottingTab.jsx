@@ -28,7 +28,7 @@ function PlottingTab(props) {
     return (
         <Grid container wrap="nowrap">
 
-            <Grid item container xs={12} sm={12} md={4} lg={3} xl={2} zeroMinWidth>
+            <Grid item container xs={12} sm={12} md={4} lg={3} xl={3} zeroMinWidth>
                 <PlottingInput
                     plot={plot}
                 />

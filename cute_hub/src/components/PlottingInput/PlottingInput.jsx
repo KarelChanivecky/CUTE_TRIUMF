@@ -106,8 +106,7 @@ function PlottingInput(props) {
                     <ToggleHeader
                     onHelp={onHelp}
                     helpable/>
-                    <Grid container justify="center" spacing={2}>
-                        <Box width={0.95}>
+                    <Grid container justify="center" spacing={1}>
 
                              <Grid item>
                               <MultipleSelect oncheck={addToQuery} label="Thermometers" list={thermo_dict}/>
@@ -143,7 +142,6 @@ function PlottingInput(props) {
                               <Button variant="outlined" color="primary" onClick={plotHandler}>Plot</Button>
                             </Grid>
 
-                        </Box>
                     </Grid>
                 </ColoredPaper>
             </Grid>

@@ -16,8 +16,8 @@ const tables = ["fridge", "facility", "peltier", "compressor"];
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 250,
-    maxWidth: 250,
+    minWidth: 350,
+    maxWidth: 350,
   },
   noLabel: {
     marginTop: theme.spacing(3),
