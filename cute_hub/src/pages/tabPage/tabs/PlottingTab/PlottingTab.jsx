@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import ColoredPaper from "../../../../components/ColoredPaper/ColoredPaper";
 import {Divider, Grid, useTheme} from "@material-ui/core";
-import PlottingInput from "../../../../components/PlottingInput/PlottingInput";
-import download, {buildSensorBoolString, makeDateTimeString, makeQuery} from "./downloadDataSource";
-import fetchData from "./plottingDataSource";
-import {convertToChartData} from "./sensorDataUtils";
+//TODO: eventually move the Revised Plotting Input to PlottingInput
+import PlottingInput from "../../../../components/PlottingInput/RevisedPlottingInput";
+//TODO: only include the correct API call
+import fetchPlotData from "./plotDataSource";
+import {parseChartData} from "./parseData";
 import Chart from '../../../../components/Chart/Chart'
 
 
@@ -14,11 +15,14 @@ function PlottingTab(props) {
     /** @type {[ChartData[], Function]} */
     const [chartsData, setChartsData] = useState([]);
 
-    const plot = (startDateTime, endDateTime, checkedThermo, checkedPressure) => {
-        fetchData(startDateTime, endDateTime, checkedThermo, checkedPressure)
+    //function to get the data for the plotting
+    const plot = (data) => {
+        fetchPlotData(data)
             .then(objs => {
-                const {thermosChartData, pressChartData} = convertToChartData(objs, 300);
-                setChartsData([thermosChartData, pressChartData])
+                //console.log(objs);
+                const chrtData = parseChartData(objs);
+                console.log("ChartsData length:", chrtData.length);
+                setChartsData(chrtData);
             });
 
     }
@@ -29,7 +33,6 @@ function PlottingTab(props) {
             <Grid item container xs={12} sm={12} md={4} lg={3} xl={2} zeroMinWidth>
                 <PlottingInput
                     plot={plot}
-                    download={download}
                 />
             </Grid>
 
