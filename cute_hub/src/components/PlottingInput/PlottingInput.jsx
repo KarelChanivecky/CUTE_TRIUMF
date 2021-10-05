@@ -109,7 +109,7 @@ function PlottingInput(props) {
     };
 
     const onHelp = () => {
-        window.open("https://karelchanivecky.github.io/CUTE_docs/cryostat");
+        window.open("http://192.168.44.30/CUTE_docs/data");
     };
     return (
 
