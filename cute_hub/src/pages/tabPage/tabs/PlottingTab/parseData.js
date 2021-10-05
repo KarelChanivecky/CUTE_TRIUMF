@@ -59,7 +59,7 @@ const tableMap = {
 const chartInfoMap = {
     "thermometers" : {
         "title":"Thermometers",
-        "unit":"Temperature (mK)",
+        "unit":"Temperature (K)",
         "keys":["RuO2_MC", "Cernox_MC", "RuO2_CP", "Cernox_Still", "4K", "60K"],
     },
     "gauges" : {
@@ -74,7 +74,7 @@ const chartInfoMap = {
     },
     "lab_pressure" : {
         "title":"Lab Air Temperature",
-        "unit":"Temperature (C)",
+        "unit":"Temperature (\u00b0C)",
         "keys":["PT100"],
     },
     "air_pressure" : {
@@ -118,7 +118,38 @@ function makeAMDataSeries(data){
 
 }
 
-function makeChartSeries(seriesDict){
+/**
+ * Select a number of DataPoints based on their timeStamp.
+ *
+ * The sampled DataPoints will represent an equal distribution across the timeline represented by the data.
+ *
+ * @param {DataPointSet[]} dataPoints
+ * @param {Number} count The number of points to select.
+ */
+function takeSamples(dataPoints, count) {
+    if (dataPoints.length <= count) {
+        return dataPoints;
+    }
+    const spread = Math.floor(dataPoints.length / count);
+    let spreadRemainder = dataPoints.length % count;
+    const samples = [];
+    let i = 0;
+    while (i < dataPoints.length) {
+
+        samples.push(dataPoints[i]);
+        i += spread;
+        if (0 < spreadRemainder) {
+            // if the count cannot be spread evenly across the number of datapoints, we will take the remainder
+            // and spread it as we go. By definition, the remainder will be less than the count, hence it will
+            // result in a more even spread
+            spreadRemainder--;
+            i++;
+        }
+    }
+    return samples;
+}
+
+function makeChartSeries(seriesDict, nPoints=500){
     var chartLs = []; //list of chart data that will be used for plotting
 
     //loop over the different charts we can make
@@ -129,7 +160,8 @@ function makeChartSeries(seriesDict){
         for (var key of Object.keys(seriesDict)){
             //if one of the keys is in the chart data add the series to our series list
             if (obj.keys.includes(key)){
-                series_ls.push(seriesDict[key]); //push the series into our series list
+                var sampled_ls = takeSamples(seriesDict[key], nPoints)
+                series_ls.push(sampled_ls); //push the series into our series list
             }
         }
         //if the series_ls dictionary isn't empty
@@ -142,10 +174,10 @@ function makeChartSeries(seriesDict){
 
 }
 
-export function parseChartData(data){
+export function parseChartData(data, nPoints=500){
 //function that parses the JSON data from the API call and formats it so that it can be used to make the charts
     var seriesDict=makeAMDataSeries(data);
-    var chartLs= makeChartSeries(seriesDict);
+    var chartLs= makeChartSeries(seriesDict, nPoints);
     return chartLs;
 }
 
