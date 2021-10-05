@@ -14,125 +14,86 @@ import {
 } from "@material-ui/core";
 import ColoredPaper from "../ColoredPaper/ColoredPaper";
 import ToggleHeader from "../ToggleHeader/ToggleHeader";
+import MultipleSelect from "./components/MultiSelect/MultiSelect";
+
+//dictionaries where the key is what we will be the value passed to the PHP script and the value is the label
+const thermo_dict = {"MC1":"Mixing Chamber (Cernox)","MC2":"Mixing Chamber (RuOx)", "CP":"Cold Plate", "ST":"Still", "4K":"4K", "60K":"60K"};
+const gauge_dict = {"P1":"P1","P2":"P2","P3":"P3","K3":"K3","K4":"K4","K5":"K5", "K6":"K6", "K8":"K8"};
+const susp_dict = { "dampA":"Damper A",
+                    "dampB":"Damper B",
+                    "dampC":"Damper C",
+                    "stageA":"Labjack A",
+                    "stageB":"Labjack B",
+                    "stageC":"Labjack C",
+                    "motA" :"Motor A Speed",
+                    "motB" :"Motor B Speed",
+                    "motC" : "Motor C Speed"};
+
+const facility_dict = { "labT":"Lab Temperature",
+                        "labP":"Lab Air Pressure",
+                        "pelT":"Peltier Temperature",
+                        "pelOut":"Peltier Output (%)",
+                        "LNW":"Liquid Nitrogen Weight",
+                        "WTL":"Tank Water Level"};
+
+const comp_dict = { "coolantIn":"Coolant In Temperature",
+                    "coolantOut":"Coolant Out Temperature",
+                    "oilT":"Oil Temperature",
+                    "HeT":"Helium Temperature",
+                    "compLowP":"Compressor Low Pressure",
+                    "compHighP":"Compressor High Pressure",
+                    "compDeltaP":"Average Pressure Difference"};
 
 
-function todaysDate() {
-    const date = new Date();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const monthStr = month < 10 ? `0${month}` : month.toString();
-    const dayStr = day < 10 ? `0${day}` : day.toString();
-    return `${date.getFullYear()}-${monthStr}-${dayStr}`;
-}
-
-const getHandleToggle = (checked, setChecked) => (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-        newChecked.push(value);
-    } else {
-        newChecked.splice(currentIndex, 1);
-    }
-    setChecked(newChecked);
-};
-
+const today = new Date().toISOString().slice(0,10);
 
 function PlottingInput(props) {
+
     const theme = useTheme();
 
     const useStyles = makeStyles(theme => ({
         root: {
             height: "2rem"
         }
-    }))
-
+    }));
     const classes = useStyles();
 
-    const {notifyCheckedThermoState, notifyCheckedPressureState, ...other} = props
+    const [queries, setQueries] = useState({});
+    const [startDate, setStartDate] = useState({"date":today, "time":"00:00"});
+    const [endDate, setEndDate] = useState({"date":today, "time":"23:59"});
 
-
-    const thermoIds = [
-        "MC - RuO2",
-        "MC - Cernox",
-        "CP - RuO2",
-        "ST - Cernox",
-        "4K",
-        "60K"
-    ];
-
-    const pressureIds = [
-        "P1",
-        "P2",
-        "P3",
-        "K3",
-        "K4",
-        "Flow",
-        "K5",
-        "K6",
-        "K8"
-    ];
-
-
-    const defaultDate = todaysDate();
-    const defaultTime = "00:00:00";
-
-    const [checkedThermo, setCheckedThermo] = useState([]);
-    const checkedThermoHandler = getHandleToggle(checkedThermo, setCheckedThermo);
-
-    const [checkedPressure, setCheckedPressure] = useState([]);
-    const checkedPressureHandler = getHandleToggle(checkedPressure, setCheckedPressure);
-
-    const [startDateTime, setStartDateTime] = useState({
-        date: defaultDate,
-        time: defaultTime
-    });
-
-    const [endDateTime, setEndDateTime] = useState({
-        date: defaultDate,
-        time: defaultTime
-    });
-
-    const handleDateChange = (prevState, stateSetter) => event => {
-        let newValue = event.target.value;
-        if (newValue === null || newValue === "") {
-            newValue = defaultDate;
-        }
-        stateSetter({...prevState, date: newValue});
-    };
+    function addToQuery(key,val){
+        setQueries((prevState) => ({
+            ...prevState,
+            [key]:val,
+        }));
+    }
 
     const handleTimeChange = (prevState, stateSetter) => event => {
         let newValue = event.target.value;
-        if (newValue === null || newValue === "") {
-            newValue = defaultTime;
-        }
-        const newState = {...prevState, time: newValue,};
-        stateSetter(newState);
+        stateSetter({...prevState, time:newValue});
     };
-
-    const makeListItem = (key, id, checkedStates, handleToggle) => (
-        <ListItem key={key} button onClick={handleToggle(id)} className={classes.root}>
-            <ListItemIcon>
-                <Checkbox
-                    edge="start"
-                    checked={checkedStates.indexOf(id) !== -1}
-                    tabIndex={-1}/>
-            </ListItemIcon>
-            <ListItemText
-                primary={<Typography variant={"body1"}>{id}</Typography>}
-                id={"checkedText_" + id.split(" ").join()}/>
-        </ListItem>
-    );
+    const handleDateChange = (prevState, stateSetter) => event => {
+        let newValue = event.target.value;
+        stateSetter({...prevState, date:newValue});
+    };
 
     const plotHandler = () => {
-        other.plot(startDateTime, endDateTime, checkedThermo, checkedPressure);
+        //reformat the json object to an array of the arrays (no keys)
+        var arrs = Object.entries(queries).map(x=>x[1]);
+        //flatten the array of arrays into one array
+        var flat = arrs.concat.apply([], arrs);
+        var data = {
+            "keys" : flat,
+            "start":startDate,
+            "end":endDate,
+        };
+        //handler for plotting the data
+        props.plot(data);
+
     };
 
-    const downloadHandler = () => {
-        other.download(startDateTime, endDateTime, checkedThermo, checkedPressure);
-    };
 
-    const withSeconds = {step: 1};
 
     const onHelp = () => {
         window.open("https://karelchanivecky.github.io/CUTE_docs/cryostat");
@@ -145,54 +106,43 @@ function PlottingInput(props) {
                     <ToggleHeader
                     onHelp={onHelp}
                     helpable/>
-                    <Grid container justify="center">
+                    <Grid container justify="center" spacing={2}>
                         <Box width={0.95}>
-                            <Grid item container direction="column">
-                                <Typography variant="h2" align={"left"}>Thermometers</Typography>
-                                <List dense>
-                                    {thermoIds.map((id, i) => makeListItem(i, id, checkedThermo, checkedThermoHandler))}
-                                </List>
 
-                                <Typography variant="h2" align={"left"}>Pressure Gauges</Typography>
-                                <List dense>
-                                    {pressureIds.map((id, i) => makeListItem(i, id, checkedPressure, checkedPressureHandler))}
-                                </List>
-                                <Typography variant="h2" align={"left"}>Timeframe</Typography>
+                             <Grid item>
+                              <MultipleSelect oncheck={addToQuery} label="Thermometers" list={thermo_dict}/>
+                             </Grid>
 
+                             <Grid item>
+                              <MultipleSelect oncheck={addToQuery} label="Pressure Gauges" list={gauge_dict}/>
+                             </Grid>
 
-                                    <Grid container item direction="column" spacing={2} zeroMinWidth xs={12} md={12} lg={11} xl={11} >
+                             <Grid item>
+                              <MultipleSelect oncheck={addToQuery} label="Facility" list={facility_dict}/>
+                             </Grid>
 
-                                        <Grid  item container direction="row" justify="space-between"  >
+                             <Grid item>
+                              <MultipleSelect oncheck={addToQuery} label="Suspension System" list={susp_dict}/>
+                             </Grid>
 
-                                            <TextField label="start date" type="date"
-                                                       value={startDateTime.date}
-                                                       onChange={handleDateChange(startDateTime, setStartDateTime)}
-                                            />
-                                            <TextField label="start time" type="time"
-                                                       value={startDateTime.time}
-                                                       onChange={handleTimeChange(startDateTime, setStartDateTime)}
-                                                       inputProps={withSeconds}/>
-                                        </Grid>
+                             <Grid item>
+                              <MultipleSelect oncheck={addToQuery} label="Cryocompressor" list={comp_dict}/>
+                             </Grid>
 
-                                        <Grid  item container direction="row" justify="space-between" >
-                                            <TextField label="end date" type="date"
-                                                       value={endDateTime.date}
-                                                       onChange={handleDateChange(endDateTime, setEndDateTime)}/>
-                                            <TextField label="end time" type="time"
-                                                       value={endDateTime.time}
-                                                       onChange={handleTimeChange(endDateTime, setEndDateTime)}
-                                                       inputProps={withSeconds}/>
-                                        </Grid>
+                             <Grid item container direction="row" justify="center">
+                                <TextField value={startDate.date} onChange={handleDateChange(startDate, setStartDate)} label="Start Date" type="date"/>
+                                <TextField value={startDate.time} onChange={handleTimeChange(startDate, setStartDate)} label="Start Time" type="time"/>
+                             </Grid>
 
-                                    </Grid>
+                             <Grid item container direction="row" justify="center">
+                                <TextField value={endDate.date} onChange={handleDateChange(endDate, setEndDate)} label="End Date" type="date"/>
+                                <TextField value={endDate.time} onChange={handleTimeChange(endDate, setEndDate)} label="End Time" type="time"/>
+                             </Grid>
 
-                                <Box py={2}>
-                                    <Grid container direction="row" justify="space-between" >
-                                        <Button color="primary" variant="outlined" m={4} onClick={downloadHandler}>Download</Button>
-                                        <Button color="primary" variant="outlined" onClick={plotHandler} >Plot</Button>
-                                    </Grid>
-                                </Box>
+                            <Grid item>
+                              <Button variant="outlined" color="primary" onClick={plotHandler}>Plot</Button>
                             </Grid>
+
                         </Box>
                     </Grid>
                 </ColoredPaper>

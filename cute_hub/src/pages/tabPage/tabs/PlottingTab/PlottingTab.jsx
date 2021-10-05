@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import ColoredPaper from "../../../../components/ColoredPaper/ColoredPaper";
 import {Divider, Grid, useTheme} from "@material-ui/core";
-//TODO: eventually move the Revised Plotting Input to PlottingInput
-import PlottingInput from "../../../../components/PlottingInput/RevisedPlottingInput";
-//TODO: only include the correct API call
+import PlottingInput from "../../../../components/PlottingInput/PlottingInput";
 import fetchPlotData from "./plotDataSource";
 import {parseChartData} from "./parseData";
 import Chart from '../../../../components/Chart/Chart'
