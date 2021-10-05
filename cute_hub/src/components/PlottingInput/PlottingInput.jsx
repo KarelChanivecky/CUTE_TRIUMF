@@ -93,7 +93,20 @@ function PlottingInput(props) {
 
     };
 
+    const downloadHandler = () => {
+        //reformat the json object to an array of the arrays (no keys)
+        var arrs = Object.entries(queries).map(x=>x[1]);
+        //flatten the array of arrays into one array
+        var flat = arrs.concat.apply([], arrs);
+        var data = {
+            "keys" : flat,
+            "start":startDate,
+            "end":endDate,
+        };
+        //handler for plotting the data
+        props.download(data);
 
+    };
 
     const onHelp = () => {
         window.open("https://karelchanivecky.github.io/CUTE_docs/cryostat");
@@ -140,6 +153,9 @@ function PlottingInput(props) {
 
                             <Grid item>
                               <Button variant="outlined" color="primary" onClick={plotHandler}>Plot</Button>
+                            </Grid>
+                            <Grid item>
+                              <Button variant="outlined" color="primary" onClick={downloadHandler}>Download</Button>
                             </Grid>
 
                     </Grid>

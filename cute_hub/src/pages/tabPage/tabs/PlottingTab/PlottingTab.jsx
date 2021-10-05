@@ -3,6 +3,7 @@ import ColoredPaper from "../../../../components/ColoredPaper/ColoredPaper";
 import {Divider, Grid, useTheme} from "@material-ui/core";
 import PlottingInput from "../../../../components/PlottingInput/PlottingInput";
 import fetchPlotData from "./plotDataSource";
+import downloadData from "./downloadDataSource";
 import {parseChartData} from "./parseData";
 import Chart from '../../../../components/Chart/Chart'
 
@@ -19,10 +20,12 @@ function PlottingTab(props) {
             .then(objs => {
                 //console.log(objs);
                 const chrtData = parseChartData(objs);
-                console.log("ChartsData length:", chrtData.length);
                 setChartsData(chrtData);
             });
-
+    }
+    //function to download the data
+    const download = (data) => {
+        downloadData(data);
     }
 
     return (
@@ -31,6 +34,7 @@ function PlottingTab(props) {
             <Grid item container xs={12} sm={12} md={4} lg={3} xl={3} zeroMinWidth>
                 <PlottingInput
                     plot={plot}
+                    download={download}
                 />
             </Grid>
 
