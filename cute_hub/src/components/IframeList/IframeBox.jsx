@@ -6,16 +6,17 @@ import IframeTab from '../../components/IframeTab/IframeTab';
 
 //TODO: onclick isn't working properly
 export default function IframeBox(props) {
+    const onHelp = () => {
+        window.open(props.helpUrl);
+    };
     return (
         <Box>
-            <Paper>
                 <ToggleHeader
-                  onHelp={props.helpUrl}
+                  onHelp={onHelp}
                   name={props.name}
                   helpable={true}
                 />
             <IframeTab url={props.url} innerWidth={props.width} innerHeight={props.height}/>
-            </Paper>
         </Box>
 
     )
