@@ -117,6 +117,7 @@ function PlottingInput(props) {
             <Grid item xs={11} zeroMinWidth>
                 <ColoredPaper elevation={0}>
                     <ToggleHeader
+                    name={"Data"}
                     onHelp={onHelp}
                     helpable/>
                     <Grid container justify="center" spacing={1}>
