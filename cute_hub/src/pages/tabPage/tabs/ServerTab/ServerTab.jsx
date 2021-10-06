@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import LensIcon from '@material-ui/icons/Lens';
 import {green, red, orange} from "@material-ui/core/colors";
+import ToggleHeader from "../../../../components/ToggleHeader/ToggleHeader";
 
 //axios
 import axios from "axios";
@@ -23,6 +24,10 @@ function ServerTab() {
 
     //state hook for the icon color
     const [iconColor, setIconColor] = useState({"all":offStyle, "avr":offStyle, "peltier":offStyle, "comp":offStyle});
+
+    const onHelp = () => {
+        window.open("http://192.168.44.30/CUTE_docs/server-control");
+    };
 
     //functions that start/stop the servers
     //TODO: set up the axios calls
@@ -168,10 +173,14 @@ function ServerTab() {
 
   return (
       <Container maxWidth="sm">
-        <Typography variant="h3" align="left" gutterBottom>
-            Server Control
-        </Typography>
-        <Grid container spacing={3} direction="column">
+        <Grid container spacing={3} direction="column" justifyContent="center" alignItems="flex-start">
+            <Grid item>
+                <ToggleHeader
+                  onHelp={onHelp}
+                  name={"Server Control"}
+                  helpable={true}
+                />
+            </Grid>
             <Grid item>
                 <Typography variant="h4" align="left" gutterBottom>
                     All Servers
