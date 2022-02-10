@@ -26,7 +26,7 @@ function ChartData(title, unit, series) {
 }
 
 
-const dbTables = ["fridge_output", "compressor_output", "peltier_output","atmPressure", "tankWaterLevel", "damperPosition_A", "damperPosition_B","damperPosition_C","stagePosition_A", "stagePosition_B","stagePosition_C"];
+const dbTables = ["fridge_output", "compressor_output", "peltier_output","atmPressure", "tankWaterLevel", "damperPosition_A", "damperPosition_B","damperPosition_C","stagePosition_A", "stagePosition_B","stagePosition_C","scale_output"];
 
 //map the database names to what we want the legend to display
 const tableMap = {
@@ -53,6 +53,7 @@ const tableMap = {
     "4K": "4K",
     "60K": "60K",
     "PT100":"Lab Temperature",
+    "scale_output":"LN2 Weight",
 };
 
 //define the different charts that we want to make and which data series go into it
