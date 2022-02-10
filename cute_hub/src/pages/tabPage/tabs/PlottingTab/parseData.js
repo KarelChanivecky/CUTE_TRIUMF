@@ -82,6 +82,11 @@ const chartInfoMap = {
         "unit":"Pressure (hPa)",
         "keys":["atmPressure"],
     },
+    "scale" : {
+        "title":"Liquid Nitrogen Scale",
+        "unit":"Weight (kg)",
+        "keys":["scale_output"],
+    },
 }
 
 function makeAMDataSeries(data){

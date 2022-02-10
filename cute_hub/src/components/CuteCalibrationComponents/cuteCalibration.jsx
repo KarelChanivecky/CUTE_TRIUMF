@@ -31,7 +31,8 @@ function move_source(pos, ws) {
    var motor_pos = pos*100;
    //TODO: test this function, be very careful with what is happening here
    ws.send("avr1: m0 on 1"); //get the motor ready
-   var txt = "avr1: m0 step " + motor_pos.toString() + " 500"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
+   //var txt = "avr1: m0 step " + motor_pos.toString() + " 500"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
+   var txt = "avr1: m0 step " + motor_pos.toString() + " 50"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
    ws.send(txt); //send the command, TODO: uncomment
    console.log(txt);
 }
