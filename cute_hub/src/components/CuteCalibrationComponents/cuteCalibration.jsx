@@ -15,7 +15,7 @@ import { StyledMovementSlider, StyledSourceSlider } from './sliderStyles/sStyle.
 // The source postion slider looks at this value and adjusts according to it
 // position of source for the AVR board to use
 // real physical source position, in centimeters
-var source_position = 0.01*-1000;//TODO get this -1000 value from a file and then be able to update the file
+var source_position = -10;
 
 // never got a moving indicator working
 var moving = false;
@@ -28,7 +28,7 @@ function move_source(pos, ws) {
    }
    //pos should be slider value in centimeters
    //multiply by calibration factor (100) to go from cm to motor position
-   var motor_pos = pos*100;
+   var motor_pos = pos*100;//original
    //TODO: test this function, be very careful with what is happening here
    ws.send("avr1: m0 on 1"); //get the motor ready
    //var txt = "avr1: m0 step " + motor_pos.toString() + " 500"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
