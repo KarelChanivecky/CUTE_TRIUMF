@@ -32,12 +32,14 @@ const cryostatWebsocket = new WebSocket("ws://192.168.44.30:8080", "cute");
 cryostatWebsocket.onopen = (event)=>{console.log("TabPage.js: Cryostat Websocket Connected")};
 cryostatWebsocket.onclose = () => {console.log("Cryostat websocket connection closed")};
 ////////////////////////////////////////////////////////////////////////////////////////////// 
-const peltierWebsocket = new WebSocket("ws://192.168.44.30:8096", "cute");
+//const peltierWebsocket = new WebSocket("ws://192.168.44.30:8096", "cute");//original, worked in firefox
+const peltierWebsocket = new WebSocket("ws://192.168.44.30:8096");
 // const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
 peltierWebsocket.onopen = (event)=>{console.log("TabPage.js: Peltier Websocket Connected")};
 peltierWebsocket.onclose = () => {console.log("Peltier websocket connection closed")};
 
-const compressorWebsocket = new WebSocket("ws://192.168.44.30:8097", "cute");
+//const compressorWebsocket = new WebSocket("ws://192.168.44.30:8097", "cute");//original
+const compressorWebsocket = new WebSocket("ws://192.168.44.30:8097");
 // const cryostatWebsocket = new WebSocket('wss://echo.websocket.org');
 compressorWebsocket.onopen = (event)=>{console.log("TabPage.js: Compressor Websocket Connected")};
 compressorWebsocket.onclose = () => {console.log("Compressor websocket connection closed")};
