@@ -16,6 +16,8 @@ import { StyledMovementSlider, StyledSourceSlider } from './sliderStyles/sStyle.
 // position of source for the AVR board to use
 // real physical source position, in centimeters
 var source_position = -10;
+var kMotorFactor = 90;
+var kMotorFactorInv = 1/kMotorFactor;
 
 // never got a moving indicator working
 var moving = false;
@@ -28,11 +30,12 @@ function move_source(pos, ws) {
    }
    //pos should be slider value in centimeters
    //multiply by calibration factor (100) to go from cm to motor position
-   var motor_pos = pos*100;//original
+   //var motor_pos = pos*100;//original
+   var motor_pos = parseInt(pos*kMotorFactor);//updated with new calibration factor
    //TODO: test this function, be very careful with what is happening here
    ws.send("avr1: m0 on 1"); //get the motor ready
    //var txt = "avr1: m0 step " + motor_pos.toString() + " 500"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
-   var txt = "avr1: m0 step " + motor_pos.toString() + " 50"; //TODO change the hardcoded speed 500 (=5cm/s) to accept any speed
+   var txt = "avr1: m0 step " + motor_pos.toString() + " 50"; //TODO change the hardcoded speed 50 (=.5cm/s) to accept any speed
    ws.send(txt); //send the command, TODO: uncomment
    console.log(txt);
 }
@@ -126,7 +129,9 @@ function CalibrationSlider(props) {
                temp_msg = msg.substr(locate_pos); 
                var act_pos = temp_msg.substr(4);
                //act_pos = act_pos.substring(0,act_pos.indexOf("<")); //uncommented this after changing the server command
-               var real_pos = 0.01*act_pos; //real position of source in cm
+               //var real_pos = 0.01*act_pos; //real position of source in cm, original
+               //var real_pos = kMotorFactorInv*act_pos; //real position of source in cm, limit to 1 decimal
+               var real_pos = Number.parseFloat(kMotorFactorInv*act_pos).toFixed(1); //real position of source in cm, limit to 1 decimal
                console.log("gamma calibration source position:", real_pos);
                //TODO this part here I don't know if it's right, but it sometimes works
                // Note from Sean: The source_position variable is what the source 
