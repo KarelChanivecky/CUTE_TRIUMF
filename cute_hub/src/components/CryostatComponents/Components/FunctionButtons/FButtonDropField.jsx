@@ -11,21 +11,21 @@ export default function FButtonDropField(props){
     //event handler for drop down field
     function handleSelectChange(e){
         setMotor(e.target.value);
-        console.log(e.target.value);
+        //console.log(e.target.value);
     }
     //state variable for the desired direction
     const [dir, setDir] = useState("");
     //event handler for drop down field
     function handleDirectionChange(e){
         setDir(e.target.value);
-        console.log(e.target.value);
+        //console.log(e.target.value);
     }
     //state variable for the desired motor speed
     const [motorSpd, setMotorSpd] = useState("");
     //event handler for drop down field
     function handleFieldChange(e){
         var val = e.target.value;
-        console.log(e.target.value);
+        //console.log(e.target.value);
         //if the value is a number
         if (!isNaN(val)){
             setMotorSpd(val);
@@ -36,21 +36,15 @@ export default function FButtonDropField(props){
         if (motor<0){
             //if the all case for the motor was selected
             for (var i=0;i<=2;i++){
-                //console.log("/avr0 m"+ i+" dir "+dir);
-                //console.log("/avr0 m"+ i+" ramp "+motorSpd);
-                //TODO: test functionality
-                props.onclick("/avr0 m"+ i+" dir "+dir);
-                props.onclick("/avr0 m"+ i+" ramp "+motorSpd);
+                props.onclick("avr0:m"+ i+" dir "+dir);
+                props.onclick("avr0:m"+ i+" ramp "+motorSpd);
 
             }
 
         }
         else {
-            //console.log("/avr0 m"+ motor+" dir "+dir);
-            //console.log("/avr0 m"+ motor+" ramp "+motorSpd);
-            //TODO: test functionality
-            props.onclick("/avr0 m"+ motor+" dir "+dir);
-            props.onclick("/avr0 m"+ motor+" ramp "+motorSpd);
+            props.onclick("avr0:m"+ motor +" dir "+dir);
+            props.onclick("avr0:m"+ motor +" ramp "+motorSpd);
 
         }
     }
