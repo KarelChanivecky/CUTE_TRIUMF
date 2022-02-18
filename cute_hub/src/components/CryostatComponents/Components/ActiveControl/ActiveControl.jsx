@@ -22,12 +22,12 @@ export default function ActiveControl(props) {
       switch (c) {
          case 'D': 
             console.log("case D message:", msg); //also useful for debugging
-            if(msg.trim()=="1"){
-                //console.log("active control is on");
+            if (msg.trim()=="1"){
+                console.log("active control is on");
                 setActiveState(true);
             }
-            else {
-                //console.log("active control is off");
+            else if (msg.trim()=="0"){
+                console.log("active control is off");
                 setActiveState(false);
             }
          break;
@@ -48,10 +48,10 @@ export default function ActiveControl(props) {
         <Switch color='primary' checked={activeState} onClick={function (e) {
           //if(!e.target.checked){
           if(activeState){ //if the active control is on, we want to turn it off
-            props.onActive("/active:0"); //Sends this to the server through CryostatComp
+            props.onActive("active:off"); //Sends this to the server through CryostatComp
             setActiveState(false);
           } else{
-            props.onActive("/active:1");
+            props.onActive("active:on");
             setActiveState(true);
               //if the active control is on, turn it off
           }}}/>

@@ -73,7 +73,7 @@ const chartInfoMap = {
         "unit":"Position (mm)",
         "keys":["damperPosition_A", "damperPosition_B", "damperPosition_C", "stagePosition_A", "stagePosition_B", "stagePosition_C"],
     },
-    "lab_pressure" : {
+    "lab_temperature" : {
         "title":"Lab Air Temperature",
         "unit":"Temperature (\u00b0C)",
         "keys":["PT100"],
