@@ -17,7 +17,7 @@ export default function FButtonField(props){
         }
     }
     function sendValue(){
-        //console.log("updating control position to:", value);
+        console.log("updating control position to:", value);
         props.onclick(props.command+":"+value);
     }
 
