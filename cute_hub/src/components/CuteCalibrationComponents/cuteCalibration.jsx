@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './cuteCalibration.css';
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
-import { makeStyles, OutlinedInput} from '@material-ui/core';
+import { makeStyles, OutlinedInput, Chip} from '@material-ui/core';
 import { ModuleDisplayStates } from '../../constants/moduleDisplayStates';
 import { StyledMovementSlider, StyledSourceSlider } from './sliderStyles/sStyle.jsx'
 // console.log(userSliderStyles, srcPosSliderStyles);
@@ -155,6 +155,25 @@ function CalibrationSlider(props) {
                // position slider checks every second to update its value. This should work fine.
                source_position = real_pos;
             }
+            
+            //read the source copper connection
+
+            // reset temp_msg
+            temp_msg = "";
+            var locate_pin = msg.search("pb4");
+            if (locate_pin != -1) {
+               temp_msg = msg.substring(locate_pin);
+               var inhouse_connection = temp_msg.substring(7, 8);
+
+               if (inhouse_connection == "0") {
+                  setChipColor("danger");
+                  setChipLabel("In Use");
+               }
+               else if (inhouse_connection == "1") {
+                  setChipColor("success");
+                  setChipLabel("In House");
+               }
+            }
          break;
       }
    };
@@ -164,6 +183,16 @@ function CalibrationSlider(props) {
       props.ws.addEventListener('message', handleWSMessage, true);
       return () => { props.ws.removeEventListener('message', handleWSMessage, true); }
    });
+
+   const [chipColor, setChipColor] = React.useState("danger")
+   const [chipLabel, setChipLabel] = React.useState("In Use")
+
+   React.useEffect(()=>{
+      // update status of source in-house status
+      check_txt = "avr1: pb4"
+      props.ws.send(check_txt)
+
+   }, [values[0]]);
 
    const handleChange = (_event, newValue) => {
       let value = (verticalBool) ? -1 * newValue : newValue;
@@ -225,6 +254,11 @@ function CalibrationSlider(props) {
             
             <Grid item>
                <div className="inputDiv">
+                  <Chip 
+                     className="calib_source_inhouse"
+                     label={chipLabel}
+                     color={chipColor}
+                  />
                   <OutlinedInput
                      className="calibration_input"
                      id="calibration_input"
